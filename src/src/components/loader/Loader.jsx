@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Col } from 'reactstrap';
-import loading from '../loading.svg'
+import loading from '../../loading.svg'
 import './Loader.css';
 
 const Loader = ({isFetching, errorMessage, children}) => {
   if (errorMessage){
-    return <p>An error occured: {errorMessage}</p>
+    return (
+      <Col className={"text-center"}>
+        An error occured: {errorMessage}
+      </Col>
+    )
   }
   if (isFetching) {
     return (

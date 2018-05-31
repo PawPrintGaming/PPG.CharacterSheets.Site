@@ -1,0 +1,14 @@
+@import '../styles';
+
+.characterStats.Malifaux {
+  .statDataPair {
+    .name {
+      background: $block-name-background-colour;
+      color: $block-text-colour;
+    }
+    .value {
+      background: $block-value-background-colour;
+      border: $block-border-width $block-border-style $block-border-colour;
+    }
+  }
+}

@@ -1,0 +1,31 @@
+@import '../styles';
+
+$stat-block-border-radius: 1em;
+$modifier-border-radius: 2em;
+
+.characterStats.DnD {
+  background-color: $group-background-colour;
+  padding: $group-padding;
+  .statDataPair {
+    background: $block-value-background-colour;
+    border: $block-border-width $block-border-style $block-border-colour;
+    border-radius: $stat-block-border-radius;
+    margin: $group-padding;
+    .row {
+      justify-content: center
+    }
+    .name {
+      font-size: 0.6em
+    }
+    .value {
+      font-size: 1.4em;
+    }
+    .modifier {
+      padding: 0;
+      border: $block-border-width $block-border-style $block-border-colour;
+      border-radius: $modifier-border-radius;
+      max-width: 2em;
+      font-size: 0.8em;
+    }
+  }
+}
