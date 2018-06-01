@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
-import {graphql, QueryRenderer} from 'react-relay';
+import {QueryRenderer} from 'react-relay';
 import environment from '../../relay';
 import Loader from '../loader/Loader';
 import RuleSets, {displayValue, ruleSetNotSupported} from '../_systems/ruleSets';
 import MalifauxCharacterSheet from '../_systems/MalifauxTTB/CharacterSheet';
 import DungonesAndDragonsCharacterSheet from '../_systems/DungeonsAndDragons/CharacterSheet';
-
-const getCharacterQuery = graphql`query CharacterSheetDispatcherQuery($id: ID!) { character(id: $id) {id, characterName, ruleSet, experience, stats {key, value}, metaData {key, value}} }`
+import characterSelectQuery from '../../graphql/queries/characterSelectQuery';
 
 export class CharacterSheetDispatcher extends Component {
   render() {
@@ -14,7 +13,7 @@ export class CharacterSheetDispatcher extends Component {
     return (
       <QueryRenderer          
         environment={environment}
-        query={getCharacterQuery}
+        query={characterSelectQuery}
         variables={{id: characterId}}
         render={({error, props}) => {
           if (error) {

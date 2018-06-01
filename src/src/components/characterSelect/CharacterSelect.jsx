@@ -4,12 +4,11 @@ import {connect} from 'react-redux';
 import {Col, Row} from 'reactstrap';
 import './CharacterSelect.css';
 import environment from '../../relay';
-import {graphql, QueryRenderer} from 'react-relay';
+import {QueryRenderer} from 'react-relay';
 import Select from 'react-select';
 import {withRouter} from 'react-router';
 import {displayValue} from '../_systems/ruleSets';
-
-const characterSelectQuery = graphql`query CharacterSelectQuery { characters { id, characterName, ruleSet } }`
+import charactersQuery from '../../graphql/queries/charactersQuery';
 
 export class CharacterSelect extends Component {
   buildOptions (characterSummaries) {
@@ -26,7 +25,7 @@ export class CharacterSelect extends Component {
         <Row className={"mx-0"}>
           <QueryRenderer
             environment={environment}
-            query={characterSelectQuery}
+            query={charactersQuery}
             variables={{}}
             render={({error, props}) => {
               if (error) {

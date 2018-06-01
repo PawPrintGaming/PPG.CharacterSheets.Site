@@ -6,8 +6,10 @@ import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-select/dist/react-select.css';
+import startup from './startup/startup'
 
 const store = configureStore();
+startup(store.dispatch);
 
 ReactDOM.render(
   <Root store={store} />,

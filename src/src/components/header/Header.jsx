@@ -4,7 +4,9 @@ import {withRouter} from 'react-router';
 import {Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
 import {Col} from 'reactstrap';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import plusSquare from '@fortawesome/fontawesome-free-solid/faPlusSquare';
+import newCharacterIcon from '@fortawesome/fontawesome-free-solid/faPlusSquare';
+import manageRuleSetsIcon from '@fortawesome/fontawesome-free-solid/faListUl';
+import characterSelectIcon from '@fortawesome/fontawesome-free-solid/faUserFriends';
 
 export class Header extends Component {
   constructor(props) {
@@ -30,12 +32,16 @@ export class Header extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav navbar>
               <NavItem>
-                <NavLink href="/">Character Select</NavLink>
+                <NavLink href="/"><FontAwesomeIcon icon={characterSelectIcon} />{' '}Characters</NavLink>
               </NavItem>
             </Nav>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/create/character"><FontAwesomeIcon icon={plusSquare} />{' '}Create New Character</NavLink>
+                <NavLink href="/create/character"><FontAwesomeIcon icon={newCharacterIcon} />{' '}Create New Character</NavLink>
+              </NavItem>
+              
+              <NavItem>
+                <NavLink href="/create/ruleset"><FontAwesomeIcon icon={manageRuleSetsIcon} />{' '}Manage RuleSets</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

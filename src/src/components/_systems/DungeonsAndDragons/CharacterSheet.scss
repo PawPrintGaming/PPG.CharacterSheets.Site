@@ -1,8 +1,9 @@
 @import './styles';
+@import '../../styles';
 
 .characterSheet.DnD{
   flex-grow: 1;
   margin-top: 1em;
-  padding: 2em;
+  padding: $container-padding;
   background-color: $background-colour;
 }

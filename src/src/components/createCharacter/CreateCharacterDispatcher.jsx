@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './CreateCharacterDispatcher.css';
 import Loader from '../loader/Loader';
-import RuleSets, {ruleSetNotSupported} from '../_systems/ruleSets';
+import {ruleSetNotSupported} from '../_systems/ruleSets';
 
 export class CreateCharacterDispatcher extends Component {
   render() {
@@ -12,7 +12,6 @@ export class CreateCharacterDispatcher extends Component {
       default:
         return <Loader isFetching={false} errorMessage={ruleSetNotSupported(ruleSet)} />
     }
-    return <p>CreateCharacterDispatcher</p>
   }
 }
 
