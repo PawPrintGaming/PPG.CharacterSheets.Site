@@ -1,12 +1,20 @@
+$block-border-radius: 0.5em;
+
 $block-name-background-colour: rgb(255, 255, 255);
 $block-value-background-colour: rgb(255, 255, 255);
-$block-text-colour: rgb(0, 0, 0);
 
 $block-border-width: 0.05em;
 $block-border-style: solid;
 $block-border-colour: rgb(0, 0, 0);
 
 $group-background-colour: rgb(220, 221, 223);
-$group-padding: 0.2em;
+$group-padding: 0.75em;
+
+%backed-group {
+  background: $group-background-colour;
+  padding: $group-padding;
+  margin:$group-padding;
+  border-radius: $block-border-radius;
+}
 
 $background-colour: rgb(255, 255, 255);

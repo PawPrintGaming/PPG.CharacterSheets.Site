@@ -7,8 +7,8 @@ export class StatDataPair extends Component {
     const {name, value} = this.props;
     return (
       <Row className={"statDataPair"}>
-        <Col className={"name"}>{name}</Col>
-        <Col className={"value"}>{value}</Col>
+        <Col xs={8} className={"name"}>{name}</Col>
+        <Col xs={4} className={"value"}>{value}</Col>
       </Row>
     )
   }

@@ -1,8 +1,48 @@
 @import './styles';
 
+$line-on-space: 50%;
+
 .characterSheet.Malifaux {
   flex-grow: 1;
-  padding-top: 1em;
-  padding-bottom: 1em;
+  margin-top: 1em;
+  padding: 1em;
   background-color: $background-colour;
+
+  .blockHeader {
+    font-family: $block-name-font-family;
+    align-items: flex-end;
+    .standOut {
+      font-size: 2em;
+      align-self: flex-start;
+      justify-content: center;
+    }
+    .standOutFooter {
+      align-items: flex-start;
+      justify-content: center;
+      span {
+        display: inline-block;
+        position: relative;
+        width:100%;
+      }
+      span:before, span:after {
+        content: "";
+        position: absolute;
+        height: 0.5em;
+        border-bottom: 1px solid;
+        top: 0;
+        width: $line-on-space;
+      }
+      span:before {
+        right: $line-on-space;
+        margin-right: 15px;
+      }
+      span:after {
+        left: $line-on-space;
+        margin-left: 15px;
+      }
+    }
+    .subHeader{
+      padding-bottom: 0.5em;
+    }
+  }
 }

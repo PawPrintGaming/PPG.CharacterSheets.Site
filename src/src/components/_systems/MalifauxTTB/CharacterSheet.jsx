@@ -10,8 +10,7 @@ export class CharacterSheet extends Component {
   render() {
     const {character} = this.props
     return (
-      <div className={"characterSheet Malifaux"}>
-        <Container>
+        <Container className={"characterSheet Malifaux"}>
           <CharacterSummary
             fatedName={character.characterName}
             currentPursuit={getCurrentPursuit(character.metaData)}
@@ -23,7 +22,6 @@ export class CharacterSheet extends Component {
           />
           <CharacterStats stats={character.stats} />
         </Container>
-      </div>
     )
   }
 }

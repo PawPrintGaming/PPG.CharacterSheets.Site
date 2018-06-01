@@ -1,4 +1,5 @@
 @import '../styles';
+@import '../../../../_mediaQueries';
 
 .characterSummary.DnD {
   margin-bottom: 1em;
@@ -7,20 +8,34 @@
     margin-right: 0.5em;
     .name {
       background: $block-name-background-colour;
-      color: $block-text-colour;
-      font-size: 0.6em
+      font-size: 0.6em;
     }
     .value {
       background: $block-value-background-colour;
       border-bottom: $block-border-width $block-border-style $block-border-colour;
     }
   }
-  @media(min-width:576px){
+  .summaryDataPair.Character.Name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .value {
+      font-size: 1.5em;
+    }
+  }
+  @media(min-width: $mediaquery-small){
     .summaryDataPair.Class {
       margin-right: 0;
     }
     .summaryDataPair.Level {
       margin-left: 0
+    }
+  }
+  @media (max-width: $mediaquery-small) {
+    .summaryDataPair {
+      .name, .value {
+        justify-content: flex-end
+      }
     }
   }
 }

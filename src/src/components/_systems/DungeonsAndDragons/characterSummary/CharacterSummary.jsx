@@ -13,17 +13,17 @@ export class CharacterSummary extends Component {
     } = this.props;
     return (
       <Row className={"characterSummary DnD"}>
-        <SummaryDataPair name={"Character Name"} value={characterName} colSize={3} />
+        <SummaryDataPair name={"Character Name"} value={characterName} colSize={5} />
         <Col>
           <Row>
-            <SummaryDataPair name={"Class"} value={characterClass} colSize={2} />
+            <SummaryDataPair name={"Class"} value={characterClass} colSize={2} /> {/* TODO Support for multiclassing */}
             <SummaryDataPair name={"Level"} value={characterLevel} colSize={1} />
-            <SummaryDataPair name={"Background"} value={characterBackground} colSize={3} />
+            <SummaryDataPair name={"Background"} value={characterBackground} colSize={4} />
             <SummaryDataPair name={"PlayerName"} value={playerName} colSize={3} />
           </Row>
           <Row>
             <SummaryDataPair name={"Race"} value={characterRace} colSize={3} />
-            <SummaryDataPair name={"Alignment"} value={characterAlignment} colSize={3} />
+            <SummaryDataPair name={"Alignment"} value={characterAlignment} colSize={4} />
             <SummaryDataPair name={"Experience"} value={experience} colSize={3} />
           </Row>
         </Col>

@@ -1,17 +1,19 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './CharacterStats.css';
-import {Col} from 'reactstrap';
+import {Col, Row} from 'reactstrap';
 import StatDataPair from './StatDataPair';
 
 export class CharactersStats extends Component {
   render() {
     const {stats} = this.props
     return (
-      <Col sm="1" className={"characterStats DnD"}>
-        {stats.map(stat => {
-          return <StatDataPair key={stat.key} name={stat.key} value={stat.value} />
-        })}
+      <Col sm={2}>
+        <Row className={"characterStats DnD"}>
+          {stats.map(stat => {
+            return <StatDataPair key={stat.key} name={stat.key} value={stat.value} />
+          })}
+        </Row>
       </Col>
     )
   }

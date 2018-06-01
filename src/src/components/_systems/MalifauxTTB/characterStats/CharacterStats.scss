@@ -3,12 +3,11 @@
 .characterStats.Malifaux {
   .statDataPair {
     .name {
-      background: $block-name-background-colour;
-      color: $block-text-colour;
+      @extend %block-name;
+      text-align: left;
     }
     .value {
-      background: $block-value-background-colour;
-      border: $block-border-width $block-border-style $block-border-colour;
+      @extend %block-value;
     }
   }
 }

@@ -10,21 +10,19 @@ export class CharacterSheet extends Component {
   render() {
     const {character} = this.props
     return (
-      <div className={"characterSheet DnD"}>
-        <Container>
-          <CharacterSummary
-            characterName={character.characterName}
-            characterClass={getClass(character.metaData)}
-            characterLevel={getLevel(character.metaData)}
-            characterBackground={getBackground(character.metaData)}
-            playerName={"-"}
-            characterRace={getRace(character.metaData)}
-            characterAlignment={getAligment(character.metaData)}
-            experience={character.experience}
-          />
-          <CharacterStats stats={character.stats} />
-        </Container>
-      </div>
+      <Container className={"characterSheet DnD"}>
+        <CharacterSummary
+          characterName={character.characterName}
+          characterClass={getClass(character.metaData)}
+          characterLevel={getLevel(character.metaData)}
+          characterBackground={getBackground(character.metaData)}
+          playerName={"-"}
+          characterRace={getRace(character.metaData)}
+          characterAlignment={getAligment(character.metaData)}
+          experience={character.experience}
+        />
+        <CharacterStats stats={character.stats} />
+      </Container>
     )
   }
 }

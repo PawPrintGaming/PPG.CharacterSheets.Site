@@ -22,4 +22,5 @@ yarn-error.log*
 
 **/*.css
 
-__generated__/**
+**/__generated__/**
+**/*.graphql

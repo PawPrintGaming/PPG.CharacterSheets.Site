@@ -8,7 +8,7 @@ class SummaryDataPair extends Component {
     return (
       <Col sm={colSize} className={`summaryDataPair ${name}`}>
         <Row className={"value"}>{value}</Row>
-        <Row className={"name"}>{name}</Row>
+        <Row className={"name"}>{name.toUpperCase()}</Row>
       </Col>
     )
   }

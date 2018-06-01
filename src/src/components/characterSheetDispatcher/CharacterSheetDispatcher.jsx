@@ -2,13 +2,13 @@ import React, {Component} from 'react'
 import {graphql, QueryRenderer} from 'react-relay';
 import environment from '../../relay';
 import Loader from '../loader/Loader';
-import RuleSets, {displayValue} from '../_systems/ruleSets';
+import RuleSets, {displayValue, ruleSetNotSupported} from '../_systems/ruleSets';
 import MalifauxCharacterSheet from '../_systems/MalifauxTTB/CharacterSheet';
 import DungonesAndDragonsCharacterSheet from '../_systems/DungeonsAndDragons/CharacterSheet';
 
-const getCharacterQuery = graphql`query CharacterSystemDispatcherQuery($id: ID!) { character(id: $id) {id, characterName, ruleSet, experience, stats {key, value}, metaData {key, value}} }`
+const getCharacterQuery = graphql`query CharacterSheetDispatcherQuery($id: ID!) { character(id: $id) {id, characterName, ruleSet, experience, stats {key, value}, metaData {key, value}} }`
 
-export class CharacterSystemDispatcher extends Component {
+export class CharacterSheetDispatcher extends Component {
   render() {
     const characterId = this.props.match.params.id;
     return (
@@ -34,7 +34,7 @@ export class CharacterSystemDispatcher extends Component {
             case RuleSets.dnd.key:
               return <DungonesAndDragonsCharacterSheet character={character} />
             default:
-              return <Loader isFetching={false} errorMessage={`The Rule Set ${ruleSet} is not currently supported`} />
+              return <Loader isFetching={false} errorMessage={ruleSetNotSupported(ruleSet)} />
           }
         }}
       />
@@ -42,4 +42,4 @@ export class CharacterSystemDispatcher extends Component {
   }
 }
 
-export default CharacterSystemDispatcher
+export default CharacterSheetDispatcher
