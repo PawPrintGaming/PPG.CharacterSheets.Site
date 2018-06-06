@@ -17,7 +17,7 @@ const Root = ({store}) => (
       <Switch>
         <Route exact path='/' component={CharacterSelect} />
         <Route exact path='/character/:id' component={CharacterSheetDispatcher} />
-        <Route exact path='/create/ruleSet' component={ManageRuleSets} />
+        <Route exact path='/ruleSets' component={ManageRuleSets} />
         <Route exact path='/create/character/:ruleSet?' component={CreateCharacterDispatcher} />
       </Switch>
     </div>

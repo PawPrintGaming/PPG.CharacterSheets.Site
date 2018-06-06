@@ -1,19 +1,8 @@
-export const displayValue = (key) => {
-  for(const ruleSetProp in RuleSets) {
-    const ruleSet = RuleSets[ruleSetProp];
-    if(ruleSet.key === key) {
-      return ruleSet.displayValue;
-    }
-  }
+export const displayValue = (ruleSetInfos, ruleSet) => {
+  console.log(ruleSetInfos);
+  return ruleSetInfos.find(ruleSetInfo => ruleSetInfo.ruleSet === ruleSet).name;
 }
 
-export const ruleSetNotSupported = (ruleSet) => {
-  return `The Rule Set ${ruleSet} is not currently supported`;
+export const ruleSetNotSupported = (ruleSet, action) => {
+  return `The Rule Set ${ruleSet} is not currently supported for ${action}`;
 }
-
-export const RuleSets = {
-  malifaux: {key: "MALIFAUX_TTB", displayValue: "Malifaux: Through the Breach"},
-  dnd: {key: "DUNGEONSAND_DRAGONS", displayValue: "Dungeons & Dragons"}
-}
-
-export default RuleSets

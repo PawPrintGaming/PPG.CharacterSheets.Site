@@ -1,14 +1,13 @@
-@import './styles';
-@import '../../styles';
+@import '../styles';
+@import '../../../styles';
 
 $line-on-space: 50%;
 
 .characterSheet.Malifaux {
   flex-grow: 1;
-  margin-top: 1em;
+  margin-top: $standard-margin-top;
   padding: $container-padding;
   background-color: $background-colour;
-
   .blockHeader {
     font-family: $block-name-font-family;
     align-items: flex-end;

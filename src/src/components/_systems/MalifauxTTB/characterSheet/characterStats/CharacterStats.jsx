@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import StatDataPair from './StatDataPair';
 import {Col, Row} from 'reactstrap';
 import './CharacterStats.css';
-import {groupStats} from '../statUtils';
+import {groupStats} from '../../statUtils';
 import BlockHeader from '../blockHeader/BlockHeader';
 
 

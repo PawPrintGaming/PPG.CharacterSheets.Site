@@ -41,7 +41,7 @@ export class Header extends Component {
               </NavItem>
               
               <NavItem>
-                <NavLink href="/create/ruleset"><FontAwesomeIcon icon={manageRuleSetsIcon} />{' '}Manage RuleSets</NavLink>
+                <NavLink href="/rulesets"><FontAwesomeIcon icon={manageRuleSetsIcon} />{' '}Manage RuleSets</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

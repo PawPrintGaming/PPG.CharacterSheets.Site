@@ -1,14 +1,15 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {QueryRenderer} from 'react-relay';
 import environment from '../../relay';
 import Loader from '../loader/Loader';
-import RuleSets, {displayValue, ruleSetNotSupported} from '../_systems/ruleSets';
-import MalifauxCharacterSheet from '../_systems/MalifauxTTB/CharacterSheet';
-import DungonesAndDragonsCharacterSheet from '../_systems/DungeonsAndDragons/CharacterSheet';
+import {displayValue, ruleSetNotSupported} from '../_systems/ruleSets';
 import characterSelectQuery from '../../graphql/queries/characterSelectQuery';
 
 export class CharacterSheetDispatcher extends Component {
   render() {
+    const {ruleSetInfos} = this.props;
     const characterId = this.props.match.params.id;
     return (
       <QueryRenderer          
@@ -23,22 +24,37 @@ export class CharacterSheetDispatcher extends Component {
           if (!props) {
             return <Loader isFetching={true} />
           }
+          if (!props.character) {
+            return <Loader isFetching={false} errorMessage={"Character not found"} />
+          }
           const {character} = props;
           const {ruleSet} = character;
-          document.title=`${character.characterName} - ${displayValue(character.ruleSet)}`
-          switch(ruleSet) {
-            // TODO Can we extract these enum types from the schema?
-            case RuleSets.malifaux.key:
-              return <MalifauxCharacterSheet character={character} />
-            case RuleSets.dnd.key:
-              return <DungonesAndDragonsCharacterSheet character={character} />
-            default:
-              return <Loader isFetching={false} errorMessage={ruleSetNotSupported(ruleSet)} />
-          }
+          document.title=`${character.characterName} - ${displayValue(ruleSetInfos, character.ruleSet)}`
+          const ruleSetInfo = ruleSetInfos.find(ruleSetInfo => ruleSetInfo.ruleSet === ruleSet)
+          if(ruleSetInfo !== undefined && ruleSetInfo.createCharacterPath !== undefined) {
+            try {
+              const CreateCharacterComponent = require(`../${ruleSetInfo.viewCharacterPath}`);
+              return <CreateCharacterComponent.default character={character}/>
+            }
+            catch (err) {
+              return <Loader isFetching={false} errorMessage={`Cannot load Create Character for ${ruleSetInfo.name}. Cannot resolve path: ../${ruleSetInfo.createCharacterPath}`} />
+            }
+          }          
+          return <Loader isFetching={false} errorMessage={ruleSetNotSupported(ruleSet, 'creating a Character Sheet')} />
         }}
       />
     )
   }
 }
 
-export default CharacterSheetDispatcher
+CharacterSheetDispatcher.propTypes = {
+  ruleSetInfos: PropTypes.array.isRequired,
+}
+
+const mapStateToProps = (state) => {
+  return {
+    ruleSetInfos: state.ruleSetsStore.ruleSetInfos
+  }
+};
+
+export default connect(mapStateToProps)(CharacterSheetDispatcher)

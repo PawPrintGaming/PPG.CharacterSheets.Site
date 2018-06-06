@@ -1,9 +1,12 @@
 $container-padding: 2em;
 
+$standard-utility-background-color: rgb(177, 177, 177);
+
 $standard-border-size: 0.1em;
 $standard-border-style: solid;
 $standard-border-colour: rgb(0, 0, 0);
 $standard-border-radius: 0.4em;
+$standard-margin-top: 1em;
 
 @mixin translation($duration, $timingFunction) {
   -moz-transition:    all $duration $timingFunction;

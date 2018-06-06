@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Col, Row} from 'reactstrap';
-import {calculateModifierForStat} from '../statUtils'
+import {calculateModifierForStat} from '../../statUtils'
 
 export const StatDataPair =({name, value}) => (
   <Col className={"statDataPair"} xs={3} sm={12}>

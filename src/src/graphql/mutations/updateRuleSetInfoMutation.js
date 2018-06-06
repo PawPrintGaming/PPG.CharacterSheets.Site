@@ -1,8 +1,8 @@
 import {graphql} from 'react-relay';
 
 const mutation = graphql`
-  mutation createRuleSetInfoMutation($ruleSetInfo: CreateRuleSetInfo!) {
-    createRuleSetInfo(createRuleSetInfo: $ruleSetInfo) {
+  mutation updateRuleSetInfoMutation($ruleSetInfo: UpdateRuleSetInfo!) {
+    updateRuleSetInfo(updateRuleSetInfo: $ruleSetInfo) {
       id
       name
       ruleSet
