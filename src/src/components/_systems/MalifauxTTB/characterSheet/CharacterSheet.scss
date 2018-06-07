@@ -2,6 +2,10 @@
 @import '../../../styles';
 
 $line-on-space: 50%;
+$standard-padding-small: 0.25em;
+$standard-padding-large: 0.5em;
+
+$edit-width: 100%;
 
 .characterSheet.Malifaux {
   flex-grow: 1;
@@ -43,6 +47,46 @@ $line-on-space: 50%;
     }
     .subHeader{
       padding-bottom: 0.5em;
+    }
+  }
+  .characterSummary {
+    margin-bottom: 1em;
+    .row {
+      margin: 0;
+    }
+    .leftPanel {
+      padding-left: 0;
+      padding-right: $standard-padding-large;
+    }
+    .rightPanel {
+      padding-left: $standard-padding-large;
+      padding-right: 0;
+    }
+    .summaryDataPair {
+      @extend %block-pair;
+      padding: 0;
+      .row{
+        justify-content: center;
+      }
+      .name {
+        @extend %block-name;
+      }
+      .value {
+        @extend %block-value;
+        width: 100%;
+      }
+    }
+  }
+  .characterStats {
+    .statDataPair {
+      padding: $standard-padding-small;
+      .name {
+        @extend %block-name;
+        text-align: left;
+      }
+      .value {
+        @extend %block-value;
+      }
     }
   }
 }

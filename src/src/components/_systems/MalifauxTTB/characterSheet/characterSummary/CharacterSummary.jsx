@@ -1,32 +1,58 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Col, Row} from 'reactstrap';
-import SummaryDataPair from './SummaryDataPair';
-import './CharacterSummary.css';
+import InlineEdit from 'react-edit-inplace';
+import {getCurrentPursuit, getStation, getDestinyStepsFulfilled} from '../../metaDataUtils';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import editableIcon from '@fortawesome/fontawesome-free-solid/faEdit';
+import InlineEditor from '../../../../inlineEditors/InlineEditor';
 
 export class CharacterSummary extends Component {
+  buildSummaryDataPair = (character, title, value, colSize = 12) => (
+    <Col xs={colSize} className={"summaryDataPair"}>
+      <Row className={"name"}>{title}</Row>
+      <Row className={"value"}>{value || '-'}</Row>
+    </Col>
+  )
+  
+  buildSummaryDataPairWithInlineEdit = (character, title, value, param, colSize = 12) => (
+    <Col xs={colSize} className={"summaryDataPair"}>
+      <Row className={"name"}>{title}</Row>
+      <Row className={"value"}>
+        {console.log(param)}
+        <InlineEditor value={value} param={param} change={({text}) => alert(`${param}, ${text}`)} />
+        {/* <InlineEdit text={value || '-'} paramName={"text"} change={({text}) => alert(`${key}, ${text}`)} activeClassName={"editing"} className={key}/>
+        <FontAwesomeIcon icon={editableIcon} className={"editable"} onClick={() => document.getElementsByClassName(key)[0].click()}/> */}
+      </Row>
+    </Col>
+  )
+  
   render() {
-    const {fatedName, currentPursuit, station, playerName, guildScrip, destinyStepsFulfilled, experience} = this.props;
+    const {character} = this.props;
+    const {characterName, playerName, guildScrip, experience} = character;
+    const currentPursuit = getCurrentPursuit(character.metaData);
+    const station = getStation(character.metaData);
+    const destinyStepsFulfilled = getDestinyStepsFulfilled(character.metaData);
     return (
-      <Col className={"characterSummary Malifaux"}>
+      <Col className={"characterSummary"}>
         <Row>
-          <Col sm="6">
+          <Col sm="6" className={"leftPanel"}>
             <Row>
-              <SummaryDataPair name={"Fated Name"} value={fatedName} colSize={12} />
+              {this.buildSummaryDataPairWithInlineEdit(character, 'Fated Name', characterName, 'characterName')}
             </Row>
             <Row>
-              <SummaryDataPair name={"Current Pursuit"} value={currentPursuit} colSize={6} />
-              <SummaryDataPair name={"Station"} value={station} colSize={6} />
+              {this.buildSummaryDataPair(character, "Current Pursuit", currentPursuit, 6)}
+              {this.buildSummaryDataPair(character, "Station", station, 6)}
             </Row>
           </Col>
-          <Col sm="6">
+          <Col sm="6" className={"rightPanel"}>
             <Row>
-              <SummaryDataPair name={"Player Name"} value={playerName} colSize={6} />
-              <SummaryDataPair name={"GuildScrip"} value={`\u00A7${guildScrip}`} colSize={6} />
+              {this.buildSummaryDataPair(character, "Player Name", playerName, 6)}
+              {this.buildSummaryDataPair(character, "GuildScrip", `\u00A7${guildScrip || 0}`, 6)}
             </Row>
             <Row>
-              <SummaryDataPair name={"Destiny Steps Fulfilled"} value={destinyStepsFulfilled} colSize={6} />
-              <SummaryDataPair name={"Exp."} value={experience} colSize={6} />
+              {this.buildSummaryDataPair(character, "Destiny Steps Fulfilled", `${destinyStepsFulfilled}`, 6)}
+              {this.buildSummaryDataPair(character, "Exp.", experience, 6)}
             </Row>
           </Col>
         </Row>
@@ -36,13 +62,7 @@ export class CharacterSummary extends Component {
 }
 
 CharacterSummary.propTypes = {
-  fatedName: PropTypes.string.isRequired,
-  currentPursuit: PropTypes.string.isRequired,
-  station: PropTypes.string.isRequired,
-  playerName: PropTypes.string.isRequired,
-  guildScrip: PropTypes.number.isRequired,
-  destinyStepsFulfilled: PropTypes.string.isRequired,
-  experience: PropTypes.number.isRequired
+  character: PropTypes.object.isRequired
 }
 
 export default CharacterSummary

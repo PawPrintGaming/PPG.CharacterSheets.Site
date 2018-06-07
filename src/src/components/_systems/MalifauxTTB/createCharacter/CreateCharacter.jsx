@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {QueryRenderer} from 'react-relay';
 import environment from '../../../../relay';
-import createCharacterInfoQuery from '../../../../graphql/queries/createCharacterInfoQuery';
+import createCharacterInfoQuery from '../../../../graphql/queries/characterRuleSetInfoQuery';
 import {withRouter} from 'react-router';
 import './CreateCharacter.css';
 import {Button, Col, Container, Form, FormGroup, InputGroup, InputGroupAddon} from 'reactstrap';
@@ -80,9 +80,9 @@ class CreateCharacter extends Component {
           if (!props) {
             return <Loader isFetching={true} />
           }
-          const {statSets, dataLists} = props.createCharacterInfo;
-          const stations = dataLists.find(set => set.key === 'Stations').value;
-          const pursuits = dataLists.find(set => set.key === 'Pursuits').value;
+          const {statSets, dataLists} = props.characterRuleSetInfo;
+          const stations = dataLists.find(list => list.key === 'Stations').value;
+          const pursuits = dataLists.find(list => list.key === 'Pursuits').value;
           return (
             <Container className={"createCharacter Malifaux"}>
               <Form onSubmit={handleSubmit(onSubmit)}>

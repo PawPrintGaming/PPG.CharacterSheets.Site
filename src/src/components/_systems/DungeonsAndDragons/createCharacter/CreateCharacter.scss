@@ -1,0 +1,54 @@
+@import '../styles';
+@import '../../../styles';
+@import '../../../../mediaQueries';
+
+$group-padding: 0.1em;
+
+.createCharacter.DnD {
+  background-color: $background-colour;
+  margin-top: $standard-margin-top;
+  padding: $container-padding;
+  .input-group-text {
+    
+  }
+  .form-control {
+    
+  }
+  .createPair {
+    display: flex;
+    flex-direction: column;
+    padding: $group-padding;
+  }
+  .statPair {
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      .form-control {
+        width: 100%;
+      }
+    }
+    .name {
+      width: 100%;
+      font-size: 0.6em;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    .value {
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 0;
+      padding-right: 0;
+      width: 100%;
+      .col {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+    .value input {
+      text-align: center;
+    }
+  }
+  .submit {
+    justify-content: flex-end;
+  }
+}

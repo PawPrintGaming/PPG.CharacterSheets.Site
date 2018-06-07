@@ -23,7 +23,7 @@
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-inline-editing": "^1.0.10",
+    "react-edit-inplace": "^1.1.1",
     "react-redux": "^5.0.7",
     "react-relay": "^1.6.0",
     "react-router": "^4.2.0",

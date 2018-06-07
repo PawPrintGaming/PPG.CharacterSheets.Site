@@ -32,7 +32,8 @@ export class CharacterSheet extends Component {
 }
 
 CharacterSheet.propTypes = {
-  character: PropTypes.object.isRequired
+  character: PropTypes.object.isRequired,
+  characterRuleSetInfo: PropTypes.object.isRequired
 }
 
 export default CharacterSheet

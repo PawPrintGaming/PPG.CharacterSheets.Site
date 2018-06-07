@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import './CharacterStats.css';
 import {Col, Row} from 'reactstrap';
 import StatDataPair from './StatDataPair';
 

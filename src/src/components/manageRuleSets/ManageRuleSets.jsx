@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Button, Card, CardBody, CardImg, CardSubtitle, CardText, CardTitle, Col, Collapse, Container, Form, FormGroup, InputGroup, InputGroupAddon, Row} from 'reactstrap';
-import EditableLabel from 'react-inline-editing';
+import {Button, Card, CardBody, CardImg, CardSubtitle, CardTitle, Col, Collapse, Container, Form, FormGroup, InputGroup, InputGroupAddon, Row} from 'reactstrap';
+import InlineEdit from 'react-edit-inplace';
 import {Field, reduxForm} from 'redux-form'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import toggleCreateIcon from '@fortawesome/fontawesome-free-solid/faChevronCircleDown';
@@ -134,12 +134,12 @@ export class ManageRuleSets extends Component {
                   <CardTitle>{name}</CardTitle>
                   <CardSubtitle>{ruleSet}</CardSubtitle>
                   <CardSubtitle><FontAwesomeIcon icon={createCharacterSheetIcon} />{' '}
-                    <EditableLabel text={createCharacterPath} inputClassName={"editing"} onFocusOut={text => onEditRuleSetInfo(ruleSetInfo, 'createCharacterPath', text)} />
+                    <InlineEdit text={createCharacterPath} paramName={"text"} change={({text}) => onEditRuleSetInfo(ruleSetInfo, 'createCharacterPath', text)} activeClassName={"editing"} />
                   </CardSubtitle>
                   <CardSubtitle><FontAwesomeIcon icon={viewCharacterSheetIcon} />{' '}
-                    <EditableLabel text={viewCharacterPath} inputClassName={"editing"} onFocusOut={text => onEditRuleSetInfo(ruleSetInfo, 'viewCharacterPath', text)} />
+                    <InlineEdit text={viewCharacterPath} paramName={"text"} change={({text}) => onEditRuleSetInfo(ruleSetInfo, 'viewCharacterPath', text)} activeClassName={"editing"} />
                   </CardSubtitle>
-                  <EditableLabel text={description || 'No description provided'} inputClassName={"editing"} onFocusOut={text => onEditRuleSetInfo(ruleSetInfo, 'description', text)} />
+                    <InlineEdit text={description || 'No description provided'} paramName={"text"} change={({text}) => onEditRuleSetInfo(ruleSetInfo, 'description', text)} activeClassName={"editing"} />
                 </CardBody>
               </Card>
           )})}

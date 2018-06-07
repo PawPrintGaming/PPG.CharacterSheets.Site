@@ -1,9 +1,81 @@
 @import '../styles';
 @import '../../../styles';
+@import '../../../../mediaQueries';
 
-.characterSheet.DnD{
+$modifier-border-radius: 2em;
+
+.characterSheet.DnD {
   flex-grow: 1;
   margin-top: $standard-margin-top;
   padding: $container-padding;
   background-color: $background-colour;
+  .characterSummary {
+    margin-bottom: 1em;
+    .summaryDataPair {
+      margin-left: 0.5em;
+      margin-right: 0.5em;
+      .name {
+        background: $block-name-background-colour;
+        font-size: 0.6em;
+      }
+      .value {
+        background: $block-value-background-colour;
+        border-bottom: $block-border-width $block-border-style $block-border-colour;
+      }
+    }
+    .summaryDataPair.Character.Name {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .value {
+        font-size: 1.5em;
+      }
+    }
+    @media(min-width: $mediaquery-small){
+      .summaryDataPair.Class {
+        margin-right: 0;
+      }
+      .summaryDataPair.Level {
+        margin-left: 0
+      }
+    }
+    @media (max-width: $mediaquery-small) {
+      .summaryDataPair {
+        .name, .value {
+          justify-content: flex-end
+        }
+      }
+    }
+  }
+  .characterStats {
+    @extend %backed-group;
+    justify-content: space-around;
+    .statDataPair {
+      background: $block-value-background-colour;
+      border: $block-border-width $block-border-style $block-border-colour;
+      border-radius: $block-border-radius;
+      margin-bottom: $group-padding;
+      @media (max-width:$mediaquery-small) {
+        margin: $group-padding;
+      }
+      * {
+        justify-content: center;
+      }
+      .name {
+        font-size: 0.6em;
+        font-weight: bold;
+        padding-top: 0.6em;
+      }
+      .value {
+        font-size: 1.8em;
+      }
+      .modifier {
+        padding: 0;
+        border: $block-border-width $block-border-style $block-border-colour;
+        border-radius: $modifier-border-radius;
+        max-width: 2em;
+        font-size: 0.9em;
+      }
+    }
+  }
 }

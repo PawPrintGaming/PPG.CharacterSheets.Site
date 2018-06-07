@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Col, Row} from 'reactstrap';
 import SummaryDataPair from './SummaryDataPair';
-import './CharacterSummary.css';
-
 export class CharacterSummary extends Component {
   render() {
     const {

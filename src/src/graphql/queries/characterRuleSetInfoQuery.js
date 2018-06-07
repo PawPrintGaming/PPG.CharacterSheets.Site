@@ -1,8 +1,8 @@
 import {graphql} from 'react-relay'
 
 const query = graphql`
-  query createCharacterInfoQuery($ruleSet: RuleSet!) {
-    createCharacterInfo(ruleSet: $ruleSet) {
+  query characterRuleSetInfoQuery($ruleSet: RuleSet!) {
+    characterRuleSetInfo(ruleSet: $ruleSet) {
       ruleSet
       statSets {
         key

@@ -1,29 +1,29 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import StatDataPair from './StatDataPair';
 import {Col, Row} from 'reactstrap';
-import './CharacterStats.css';
 import {groupStats} from '../../statUtils';
 import BlockHeader from '../blockHeader/BlockHeader';
 
 
 export class CharacterStats extends Component {
+  buildStatDataPair = (key, name, value) => (
+    <Row key={key} className={"statDataPair"}>
+      <Col xs={6} className={"name"}>{name}</Col>
+      <Col xs={6} className={"value"}>{value}</Col>
+    </Row>
+  )
   render() {
-    const {stats} = this.props;
-    const {physical, mental} = groupStats(stats);
+    const {stats, statSets} = this.props;
+    const {physical, mental} = groupStats(stats, statSets);
     return (
-      <Col className={"characterStats Malifaux"} sm="6">
+      <Col className={"characterStats"} sm="6">
         <BlockHeader subHeaderLeft={"Physical"} header={"Aspects"} subHeaderRight={"Mental"}/>
         <Row>
           <Col>
-            {physical.map(stat => {
-              return <StatDataPair key={stat.key} name={stat.key} value={stat.value} />
-            })}
+            {physical.map(stat => this.buildStatDataPair(stat.key, stat.key, stat.value))}
           </Col>
           <Col>
-            {mental.map(stat => {
-              return <StatDataPair key={stat.key} name={stat.key} value={stat.value} />
-            })}
+            {mental.map(stat => this.buildStatDataPair(stat.key, stat.key, stat.value))}
           </Col>
         </Row>
       </Col>

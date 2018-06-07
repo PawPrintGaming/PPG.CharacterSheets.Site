@@ -1,5 +1,4 @@
 export const displayValue = (ruleSetInfos, ruleSet) => {
-  console.log(ruleSetInfos);
   return ruleSetInfos.find(ruleSetInfo => ruleSetInfo.ruleSet === ruleSet).name;
 }
 
