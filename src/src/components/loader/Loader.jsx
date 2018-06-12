@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { Col } from 'reactstrap';
 import loading from '../../loading.svg'
 import './Loader.css';
+import {Alert} from 'reactstrap'
 
 const Loader = ({isFetching, errorMessage, children}) => {
   if (errorMessage){
     return (
       <Col className={"text-center"}>
-        An error occured: {errorMessage}
+        <Alert color={"danger"} className={"alerter"}>An error occured: {errorMessage}</Alert>
       </Col>
     )
   }

@@ -1,0 +1,92 @@
+@import '../styles';
+@import '../../../styles';
+
+$line-on-space: 50%;
+$standard-padding-small: 0.25em;
+$standard-padding-large: 0.5em;
+
+$edit-width: 100%;
+
+.characterSheet.Malifaux {
+  flex-grow: 1;
+  margin-top: $standard-margin-top;
+  padding: $container-padding;
+  background-color: $background-colour;
+  .blockHeader {
+    font-family: $block-name-font-family;
+    align-items: flex-end;
+    .standOut {
+      font-size: 2em;
+      align-self: flex-start;
+      justify-content: center;
+    }
+    .standOutFooter {
+      align-items: flex-start;
+      justify-content: center;
+      span {
+        display: inline-block;
+        position: relative;
+        width:100%;
+      }
+      span:before, span:after {
+        content: "";
+        position: absolute;
+        height: 0.5em;
+        border-bottom: 1px solid;
+        top: 0;
+        width: $line-on-space;
+      }
+      span:before {
+        right: $line-on-space;
+        margin-right: 15px;
+      }
+      span:after {
+        left: $line-on-space;
+        margin-left: 15px;
+      }
+    }
+    .subHeader{
+      padding-bottom: 0.5em;
+    }
+  }
+  .characterSummary {
+    margin-bottom: 1em;
+    .row {
+      margin: 0;
+    }
+    .leftPanel {
+      padding-left: 0;
+      padding-right: $standard-padding-large;
+    }
+    .rightPanel {
+      padding-left: $standard-padding-large;
+      padding-right: 0;
+    }
+    .summaryDataPair {
+      @extend %block-pair;
+      padding: 0;
+      .row{
+        justify-content: center;
+      }
+      .name {
+        @extend %block-name;
+      }
+      .value {
+        @extend %block-value;
+        width: 100%;
+      }
+    }
+  }
+  .characterStats {
+    .statDataPair {
+      padding: $standard-padding-small;
+      .name {
+        @extend %block-name;
+        text-align: left;
+      }
+      .value {
+        @extend %block-value;
+      }
+    }
+  }
+}

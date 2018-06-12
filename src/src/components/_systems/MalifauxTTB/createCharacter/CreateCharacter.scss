@@ -1,0 +1,30 @@
+@import '../styles';
+@import '../../../styles';
+@import '../../../../mediaQueries';
+
+$group-padding: 0.1em;
+
+.createCharacter.Malifaux {
+  background-color: $background-colour;
+  margin-top: $standard-margin-top;
+  padding: $container-padding;
+  .input-group-text {
+    @extend %block-name;
+  }
+  .form-control {
+    @extend %block-value;
+  }
+  .createPair {
+    display: flex;
+    flex-direction: column;
+    padding: $group-padding;
+  }
+  .statPair {
+    .input-group-text {
+      min-width: 7.3em;
+    }
+  }
+  .submit {
+    justify-content: flex-end;
+  }
+}

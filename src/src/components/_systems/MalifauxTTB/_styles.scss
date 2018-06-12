@@ -1,10 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Vollkorn+SC');
+@import '../../_styles';
+
 $block-name-background-colour: rgb(0, 0, 0);
-$block-value-background-colour: rgb(236, 218, 180);
-$block-text-colour: rgb(241, 200, 103);
+$block-name-text-colour: rgb(241, 200, 103);
+$block-name-font-family: 'Vollkorn SC', Georgia, 'Times New Roman', Times, serif;
 
 $block-border-width: 0.05em;
 $block-border-style: solid;
 $block-border-colour: rgb(0, 0, 0);
 
+%block-name {
+  background: $block-name-background-colour;
+  border: $block-border-width $block-border-style $block-border-colour;
+  color: $block-name-text-colour;
+  font-family: $block-name-font-family;
+  flex-grow: 1;
+  align-items: center;
+}
+
+
+$block-value-background-colour: rgb(236, 218, 180);
+
+%block-value {
+  background: $block-value-background-colour;
+  border: $block-border-width $block-border-style $block-border-colour;
+}
+
+%block-pair {
+  border-radius: $standard-border-radius;
+}
 
 $background-colour: rgb(241, 200, 103);

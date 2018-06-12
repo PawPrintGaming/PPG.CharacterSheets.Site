@@ -1,5 +1,5 @@
-import {getKeyFromMetaData} from '../../../metaDataUtils';
 import * as keys from './metaDataKeys';
+import {getKeyFromMetaData} from '../../../metaDataUtils';
 
 export const getCurrentPursuit = (metaData) => {
   return getKeyFromMetaData(keys.CURRENTPURSUIT, metaData);
@@ -10,5 +10,5 @@ export const getStation = (metaData) => {
 }
 
 export const getDestinyStepsFulfilled = (metaData) => {
-  return getKeyFromMetaData(keys.DESTINYSTEPSFULFILLED, metaData)
+  return getKeyFromMetaData(keys.DESTINYSTEPSFULFILLED, metaData, 0)
 }

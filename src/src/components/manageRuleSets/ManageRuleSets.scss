@@ -1,0 +1,75 @@
+@import '../styles';
+
+$manage-rulesets-padding: 0.5em;
+$card-action-border-size: 0.025em;
+
+.manageRuleSets {
+  padding: $container-padding;
+  .allRuleSetsConfigured {
+    background-color: $standard-utility-background-color;
+    .allRuleSetsConfiguredInner {
+      padding: $manage-rulesets-padding;
+      .allRuleSetsConfiguredTitle {
+        justify-content: flex-start;
+      }
+    }
+  }
+  .createRuleSet {
+    background-color: $standard-utility-background-color;
+    border-radius: $standard-border-radius;
+    .createRuleSetToggle {
+      border-bottom: $standard-border-size $standard-border-style $standard-border-colour;
+      border-bottom-left-radius: $standard-border-radius;
+      border-bottom-right-radius: $standard-border-radius;
+      padding: $manage-rulesets-padding;
+    }
+    .createRuleSetToggleTitle {
+      justify-content: flex-start;
+    }
+    .createRuleSetToggleIcon {
+      justify-content: flex-end;
+      font-size: 1.5em;
+    }
+    .createRuleSetToggleIconSVG {
+      @include translation(.3s, ease)
+    }
+    .createRuleSetToggleIconSVG.up {
+      @include transformation(rotate(180deg))
+    }
+    form {
+      padding: $manage-rulesets-padding;
+      .submit {
+        padding: $manage-rulesets-padding;
+        justify-content: flex-end;
+      }
+    }
+  }
+  .configuredRuleSets {
+    background-color: $standard-utility-background-color;
+    margin-block-start: $container-padding;
+    padding: $container-padding;
+    .ruleSetCardActions {
+      padding-bottom: $manage-rulesets-padding;
+      justify-content: flex-end;
+      border-bottom: $card-action-border-size $standard-border-style $standard-border-colour;
+      padding-bottom: $manage-rulesets-padding;
+    }
+    .card-title {
+      padding-top: $manage-rulesets-padding;
+      border-top: $card-action-border-size $standard-border-style $standard-border-colour;
+    }
+    .card-subtitle {
+      padding: $manage-rulesets-padding;
+      div {
+        display: inline;
+      }
+    }
+    .description {
+      justify-content: flex-end;
+    }
+    .editing {
+      min-width: 75%;
+      text-align: center;
+    }
+  }
+}

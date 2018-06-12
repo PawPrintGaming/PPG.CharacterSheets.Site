@@ -1,3 +1,5 @@
 export const getKeyFromMetaData = (key, metaData, defaultValue = '-') => {
-  return metaData.find(d => d.key === key).value || defaultValue;
+  return metaData.some(d => d.key === key)
+      ? metaData.find(d => d.key === key).value || defaultValue
+      : defaultValue;
 }

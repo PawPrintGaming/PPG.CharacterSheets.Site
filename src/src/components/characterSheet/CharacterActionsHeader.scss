@@ -1,0 +1,30 @@
+@import '../styles';
+
+$panel-padding: 2em;
+
+.characterActionsHeader {
+  padding: $container-padding;
+  background-color: $standard-utility-background-color;
+  border-bottom-left-radius: $standard-border-radius;
+  border-bottom-right-radius: $standard-border-radius;
+  .characterActionsPanel {
+    justify-content: flex-end;
+    padding-left: $panel-padding;
+    padding-right: $panel-padding;
+    .characterActionIcon {
+      font-size: 2em;
+    }
+  }
+}
+  .modal-body {
+    .col {
+      padding-bottom: $container-padding;
+    }
+    .row {
+      justify-content: center;
+      text-align: center;
+    }
+    .characterName {
+      font-size: 1.4em
+    }
+  }

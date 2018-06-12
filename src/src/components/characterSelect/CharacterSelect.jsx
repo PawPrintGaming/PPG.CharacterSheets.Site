@@ -1,36 +1,35 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Loader from '../loader/Loader';
 import {connect} from 'react-redux';
 import {Col, Row} from 'reactstrap';
 import './CharacterSelect.css';
 import environment from '../../relay';
-import {graphql, QueryRenderer} from 'react-relay';
+import {QueryRenderer} from 'react-relay';
 import Select from 'react-select';
 import {withRouter} from 'react-router';
 import {displayValue} from '../_systems/ruleSets';
-
-const characterSelectQuery = graphql`query CharacterSelectQuery { characters { id, characterName, ruleSet } }`
+import charactersQuery from '../../graphql/queries/charactersQuery';
 
 export class CharacterSelect extends Component {
-  buildOptions (characterSummaries) {
+  buildOptions (characterSummaries, ruleSetInfos) {
     return characterSummaries.map(summary => {
-      return { value: summary.id, label: `${summary.characterName} - ${displayValue(summary.ruleSet)}`}
+      return { value: summary.id, label: `${summary.characterName} - ${displayValue(ruleSetInfos, summary.ruleSet)}`}
     })
   }
 
   render () {
-    const {history, onCharacterSelect} = this.props;
+    const {history, ruleSetInfos, onCharacterSelect} = this.props;
     document.title='Character Select'
     return (
       <div className={"characterSelect"}>
         <Row className={"mx-0"}>
           <QueryRenderer
             environment={environment}
-            query={characterSelectQuery}
+            query={charactersQuery}
             variables={{}}
             render={({error, props}) => {
               if (error) {
-                //Raise Failure here
                 return <Loader isFetching={false} errorMessage={`${error}`} />
               }
               if (!props) {
@@ -41,7 +40,7 @@ export class CharacterSelect extends Component {
                 <Select
                   name="characterSelect"
                   placeholder="Select Character"
-                  options={this.buildOptions(props.characters)}
+                  options={this.buildOptions(props.characters, ruleSetInfos)}
                   onChange={summary => onCharacterSelect(history, summary)}
                 />
                 </Col>
@@ -54,7 +53,18 @@ export class CharacterSelect extends Component {
   }
 };
 
+CharacterSelect.propTypes = {
+  ruleSetInfos: PropTypes.array.isRequired,
+  onCharacterSelect: PropTypes.func.isRequired
+}
+
 const mapStateToProps = (state) => {
+  return {
+    ruleSetInfos: state.ruleSetsStore.ruleSetInfos
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
   return {
     onCharacterSelect: (history, summary) => {
       history.push(`/character/${summary.value}`)
@@ -62,4 +72,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(CharacterSelect));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CharacterSelect));

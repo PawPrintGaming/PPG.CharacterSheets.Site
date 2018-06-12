@@ -1,4 +1,11 @@
+@import '../styles';
+
 .loading-svg {
   height: 10vh;
   vertical-align: middle;
+}
+
+.alert.alerter {
+  margin-top: $standard-margin-top;
+  border-radius: $standard-border-radius;
 }
