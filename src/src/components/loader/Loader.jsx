@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Col } from 'reactstrap';
-import loading from '../../loading.svg'
+import {Col, Row} from 'reactstrap';
 import './Loader.css';
 import {Alert} from 'reactstrap'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import loadingIcon from '@fortawesome/fontawesome-free-solid/faCog';
 
 const Loader = ({isFetching, errorMessage, children}) => {
   if (errorMessage){
@@ -15,8 +16,16 @@ const Loader = ({isFetching, errorMessage, children}) => {
   }
   if (isFetching) {
     return (
-      <Col className={"text-center"}>
-        <img src={loading} alt="loading" className={"loading-svg"}/>
+      <Col className={"loading"}>
+        <Row>
+          <Col className={"left"}>
+            <FontAwesomeIcon icon={loadingIcon} className={"fa-spin loading-svg enlarge"} />
+          </Col>
+          <Col className={"right"}>
+            <Row><FontAwesomeIcon icon={loadingIcon} className={"fa-spin loading-svg"} /></Row>
+            <Row><FontAwesomeIcon icon={loadingIcon} className={"fa-spin loading-svg"} /></Row>
+          </Col>
+        </Row>
       </Col>
     )
   }

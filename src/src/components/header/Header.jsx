@@ -7,7 +7,6 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import newCharacterIcon from '@fortawesome/fontawesome-free-solid/faPlusSquare';
 import manageRuleSetsIcon from '@fortawesome/fontawesome-free-solid/faListUl';
 import characterSelectIcon from '@fortawesome/fontawesome-free-solid/faUserFriends';
-
 export class Header extends Component {
   constructor(props) {
     super(props);

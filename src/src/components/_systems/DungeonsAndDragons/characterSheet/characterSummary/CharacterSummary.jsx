@@ -1,28 +1,49 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Col, Row} from 'reactstrap';
-import SummaryDataPair from './SummaryDataPair';
+import {getClass, getLevel, getBackground, getRace, getAligment} from '../../metaDataUtils';
+import InlineTextEditor from '../../../../inlineEditors/textEditors/InlineTextEditor';
+import {updateCharacterProperty} from '../../../../characterSheet/updateCharacterSheetInvocations';
+
 export class CharacterSummary extends Component {
+  buildSummaryDataPair = (title, value, sm = 12) => (
+    <Col sm={sm} className={`summaryDataPair ${title}`}>
+      <Row className={"value"}>{value || '-'}</Row>
+      <Row className={"name"}>{title.toUpperCase()}</Row>
+    </Col>
+  )
+
+  buildSummaryDataPairWithInlineEdit = (character, title, value, param, md = 12) => (
+    <Col md={md} className={`summaryDataPair ${title}`}>
+      <Row className={"value"}>
+        <InlineTextEditor text={value} param={param} change={({text}) => updateCharacterProperty(character.id, param, text)} />
+      </Row>
+      <Row className={"name"}>{title}</Row>
+    </Col>
+  )
+
   render() {
-    const {
-      characterName,
-      characterClass, characterLevel, characterBackground, playerName,
-      characterRace, characterAlignment, experience
-    } = this.props;
+    const {character} = this.props;
+    const {characterName, playerName, experience} = character;
+    const characterClass = getClass(character.metaData);
+    const characterLevel = getLevel(character.metaData);
+    const characterBackground = getBackground(character.metaData);
+    const characterRace = getRace(character.metaData);
+    const characterAlignment = getAligment(character.metaData);
     return (
       <Row className={"characterSummary DnD"}>
-        <SummaryDataPair name={"Character Name"} value={characterName} colSize={5} />
+        {this.buildSummaryDataPairWithInlineEdit(character, "Character Name", characterName, "CharacterName", 5)}
         <Col>
           <Row>
-            <SummaryDataPair name={"Class"} value={characterClass} colSize={2} /> {/* TODO Support for multiclassing */}
-            <SummaryDataPair name={"Level"} value={characterLevel} colSize={1} />
-            <SummaryDataPair name={"Background"} value={characterBackground} colSize={4} />
-            <SummaryDataPair name={"PlayerName"} value={playerName} colSize={3} />
+            {this.buildSummaryDataPair("Class", characterClass, 2)} {/* TODO Support for multiclassing */}
+            {this.buildSummaryDataPair("Level", characterLevel, 1)}
+            {this.buildSummaryDataPair("Background", characterBackground, 4)}
+            {this.buildSummaryDataPair("PlayerName", playerName, 3)}
           </Row>
           <Row>
-            <SummaryDataPair name={"Race"} value={characterRace} colSize={3} />
-            <SummaryDataPair name={"Alignment"} value={characterAlignment} colSize={4} />
-            <SummaryDataPair name={"Experience"} value={experience} colSize={3} />
+            {this.buildSummaryDataPair("Race", characterRace, 3)}
+            {this.buildSummaryDataPair("Alignment", characterAlignment, 4)}
+            {this.buildSummaryDataPair("Experience", experience, 3)}
           </Row>
         </Col>
       </Row>
@@ -31,14 +52,7 @@ export class CharacterSummary extends Component {
 }
 
 CharacterSummary.propTypes = {
-  characterName: PropTypes.string.isRequired,
-  characterClass: PropTypes.string.isRequired,
-  characterLevel: PropTypes.string.isRequired,
-  characterBackground: PropTypes.string.isRequired,
-  playerName: PropTypes.string.isRequired,
-  characterRace: PropTypes.string.isRequired,
-  characterAlignment: PropTypes.string.isRequired,
-  experience: PropTypes.number.isRequired
+  character: PropTypes.object.isRequired
 }
 
 export default CharacterSummary

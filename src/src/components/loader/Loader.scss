@@ -1,11 +1,32 @@
 @import '../styles';
 
-.loading-svg {
-  height: 10vh;
-  vertical-align: middle;
-}
+// .loading-svg {
+//   height: 10vh;
+//   vertical-align: middle;
+// }
 
-.alert.alerter {
-  margin-top: $standard-margin-top;
-  border-radius: $standard-border-radius;
+.loading {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .row {
+    margin: 0;
+  }
+  .col {
+    padding: 0;
+  }
+  .enlarge {
+    font-size: 200%;
+  }
+  .left {
+    text-align: right;
+  }
+  .right {
+    text-align: left;
+  }
+  .alert.alerter {
+    margin-top: $standard-margin-top;
+    border-radius: $standard-border-radius;
+  }
 }

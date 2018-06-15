@@ -26,7 +26,7 @@ export const createCharacter = (history) => (values, dispatch) => {
       stats: mapToStats(values.stats),
       metaData: buildMetaData(values)
     }
-  }
+  };
   commitMutation(environment, {mutation: createCharacterMutation, variables,
     onCompleted: (response, errors) => history.push(`/character/${response.createCharacter.id}`),
     onError: error => console.log(error)

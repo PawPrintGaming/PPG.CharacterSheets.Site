@@ -29,6 +29,10 @@ $modifier-border-radius: 2em;
       justify-content: center;
       .value {
         font-size: 1.5em;
+        .editableIcon {
+          font-size: 0.4em;
+          top: 45%;
+        }
       }
     }
     @media(min-width: $mediaquery-small){
@@ -56,6 +60,9 @@ $modifier-border-radius: 2em;
       border-radius: $block-border-radius;
       margin-bottom: $group-padding;
       @media (max-width:$mediaquery-small) {
+        margin: ($group-padding/4);
+      }
+      @media (min-width:$mediaquery-small) and (max-width:$mediaquery-medium) {
         margin: $group-padding;
       }
       * {

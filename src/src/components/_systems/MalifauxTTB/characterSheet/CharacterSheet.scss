@@ -1,5 +1,6 @@
 @import '../styles';
 @import '../../../styles';
+@import '../../../../mediaQueries';
 
 $line-on-space: 50%;
 $standard-padding-small: 0.25em;
@@ -47,33 +48,68 @@ $edit-width: 100%;
     }
     .subHeader{
       padding-bottom: 0.5em;
+      &.left {
+        clear: right;
+      }
+      &.right {
+        clear: left;
+      }
     }
   }
   .characterSummary {
+    padding: 0;
     margin-bottom: 1em;
     .row {
       margin: 0;
     }
-    .leftPanel {
-      padding-left: 0;
-      padding-right: $standard-padding-large;
+    @media (min-width:$mediaquery-medium) {
+      .leftPanel {
+        padding-left: 0;
+        padding-right: $standard-padding-large;
+      }
+      .rightPanel {
+        padding-left: $standard-padding-large;
+        padding-right: 0;
+      }
     }
-    .rightPanel {
-      padding-left: $standard-padding-large;
-      padding-right: 0;
+    .panel {
+      display: flex;
+      flex-direction: column;
+      @media (max-width:$mediaquery-medium) {
+        padding: 0;
+      }
+      > .row {
+          flex: 1;
+      }
     }
     .summaryDataPair {
       @extend %block-pair;
+      display: flex;
+      flex-direction: column;
       padding: 0;
       .row{
         justify-content: center;
       }
       .name {
         @extend %block-name;
+        height: 50%;
       }
       .value {
         @extend %block-value;
         width: 100%;
+      }
+    }
+    #destinyStepsFulfilledGraphicEditor {
+      display: inline-flex;
+    }
+    .destinyStepsFulfilledGraphic {
+      height: 1.5em;
+      width: 100%;
+      .step {
+        stroke: #000;
+        &.unfulfilled {
+          fill: none;
+        }
       }
     }
   }
@@ -86,6 +122,7 @@ $edit-width: 100%;
       }
       .value {
         @extend %block-value;
+        padding: 0;
       }
     }
   }

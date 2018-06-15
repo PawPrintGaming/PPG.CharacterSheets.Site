@@ -1,14 +1,46 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Col, Row} from 'reactstrap';
-import InlineEdit from 'react-edit-inplace';
 import {getCurrentPursuit, getStation, getDestinyStepsFulfilled} from '../../metaDataUtils';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import editableIcon from '@fortawesome/fontawesome-free-solid/faEdit';
-import InlineEditor from '../../../../inlineEditors/InlineEditor';
+import NumericalStepModalEditor from '../../../../inlineEditors/modalEditors/NumericalStepModalEditor';
+import InlineTextEditor from '../../../../inlineEditors/textEditors/InlineTextEditor';
+import {updateCharacterProperty, updateCharacterMetaData} from '../../../../characterSheet/updateCharacterSheetInvocations';
+import debounce from '../../../../../debounce';
+import * as d3 from 'd3';
 
 export class CharacterSummary extends Component {
-  buildSummaryDataPair = (character, title, value, colSize = 12) => (
+  renderDestinyStepsFulfilledGraphic = (characterId, stepsFulfilled, totalSteps = 5) => {
+    var graphic = d3.select('#destinyStepsFulfilledGraphic');
+
+    graphic.selectAll('.step').remove();
+
+    const height = parseInt(graphic.style('height'), 10);
+    const width = parseInt(graphic.style('width'), 10);
+
+    const markSpace = width/(totalSteps+1);
+
+    for(var mark = 1; mark < totalSteps+1; mark++) {
+      // console.log('width', width, 'totalSteps', totalSteps, 'mark', mark, 'markSpace', markSpace, 'cx', mark*markSpace)
+      graphic.append('circle')
+        .attr('cx', mark*markSpace)
+        .attr('cy', height/2)
+        .attr('r', (height*0.75)/2)
+        .attr('class', `step ${mark <= stepsFulfilled ? 'fulfilled' : 'unfulfilled'}`);
+    }
+  }
+
+  destinyStepsFulfilledPlaceholder = (characterId, destinyStepsFulfilled) => (
+    <NumericalStepModalEditor
+      id={"destinyStepsFulfilledGraphicEditor"}
+      text={<svg ref={node => this.node = node} id={"destinyStepsFulfilledGraphic"} className={"destinyStepsFulfilledGraphic"}></svg>}
+      title={"Destiny Steps Fulfilled"}
+      value={destinyStepsFulfilled}
+      change={value => updateCharacterMetaData(characterId, "DestinyStepsFulfilled", value)}
+      min={0} max={5}
+    />
+  )
+
+  buildSummaryDataPair = (title, value, colSize = 12) => (
     <Col xs={colSize} className={"summaryDataPair"}>
       <Row className={"name"}>{title}</Row>
       <Row className={"value"}>{value || '-'}</Row>
@@ -19,10 +51,7 @@ export class CharacterSummary extends Component {
     <Col xs={colSize} className={"summaryDataPair"}>
       <Row className={"name"}>{title}</Row>
       <Row className={"value"}>
-        {console.log(param)}
-        <InlineEditor value={value} param={param} change={({text}) => alert(`${param}, ${text}`)} />
-        {/* <InlineEdit text={value || '-'} paramName={"text"} change={({text}) => alert(`${key}, ${text}`)} activeClassName={"editing"} className={key}/>
-        <FontAwesomeIcon icon={editableIcon} className={"editable"} onClick={() => document.getElementsByClassName(key)[0].click()}/> */}
+        <InlineTextEditor text={value} change={({text}) => updateCharacterProperty(character.id, param, text)} />
       </Row>
     </Col>
   )
@@ -36,28 +65,41 @@ export class CharacterSummary extends Component {
     return (
       <Col className={"characterSummary"}>
         <Row>
-          <Col sm="6" className={"leftPanel"}>
+          <Col md={6} className={"panel leftPanel"}>
             <Row>
-              {this.buildSummaryDataPairWithInlineEdit(character, 'Fated Name', characterName, 'characterName')}
+              {this.buildSummaryDataPairWithInlineEdit(character, 'Fated Name', characterName, 'CharacterName')}
             </Row>
             <Row>
-              {this.buildSummaryDataPair(character, "Current Pursuit", currentPursuit, 6)}
-              {this.buildSummaryDataPair(character, "Station", station, 6)}
+              {this.buildSummaryDataPair("Current Pursuit", currentPursuit, 6)}
+              {this.buildSummaryDataPair("Station", station, 6)}
             </Row>
           </Col>
-          <Col sm="6" className={"rightPanel"}>
+          <Col md={6} className={"panel rightPanel"}>
             <Row>
-              {this.buildSummaryDataPair(character, "Player Name", playerName, 6)}
-              {this.buildSummaryDataPair(character, "GuildScrip", `\u00A7${guildScrip || 0}`, 6)}
+              {this.buildSummaryDataPair("Player Name", playerName, 6)}
+              {this.buildSummaryDataPair("GuildScrip", `\u00A7${guildScrip || 0}`, 6)}
             </Row>
             <Row>
-              {this.buildSummaryDataPair(character, "Destiny Steps Fulfilled", `${destinyStepsFulfilled}`, 6)}
-              {this.buildSummaryDataPair(character, "Exp.", experience, 6)}
+              {this.buildSummaryDataPair("Destiny Steps Fulfilled", this.destinyStepsFulfilledPlaceholder(character.id, destinyStepsFulfilled), 6)}
+              {this.buildSummaryDataPair("Exp.", experience, 6)}
             </Row>
           </Col>
         </Row>
       </Col>
     )
+  }
+
+  componentDidMount = () => {
+    const {character} = this.props
+    const destinyStepsFulfilled = getDestinyStepsFulfilled(character.metaData);
+    debounce(this.renderDestinyStepsFulfilledGraphic(character.id, destinyStepsFulfilled));
+    window.addEventListener('resize', () => debounce(this.renderDestinyStepsFulfilledGraphic(character.id, destinyStepsFulfilled)));
+  }
+
+  componentDidUpdate = () => {
+    const {character} = this.props
+    const destinyStepsFulfilled = getDestinyStepsFulfilled(character.metaData);
+    debounce(this.renderDestinyStepsFulfilledGraphic(character.id, destinyStepsFulfilled));
   }
 }
 
