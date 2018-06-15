@@ -2,21 +2,21 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Col, Row} from 'reactstrap';
 import {getClass, getLevel, getBackground, getRace, getAligment} from '../../metaDataUtils';
-import InlineEditor from '../../../../inlineEditors/InlineEditor';
+import InlineTextEditor from '../../../../inlineEditors/textEditors/InlineTextEditor';
 import {updateCharacterProperty} from '../../../../characterSheet/updateCharacterSheetInvocations';
 
 export class CharacterSummary extends Component {
-  buildSummaryDataPair = (title, value, colSize = 12) => (
-    <Col sm={colSize} className={`summaryDataPair ${title}`}>
+  buildSummaryDataPair = (title, value, sm = 12) => (
+    <Col sm={sm} className={`summaryDataPair ${title}`}>
       <Row className={"value"}>{value || '-'}</Row>
       <Row className={"name"}>{title.toUpperCase()}</Row>
     </Col>
   )
 
-  buildSummaryDataPairWithInlineEdit = (character, title, value, param, colSize = 12) => (
-    <Col xs={colSize} className={`summaryDataPair ${title}`}>
+  buildSummaryDataPairWithInlineEdit = (character, title, value, param, md = 12) => (
+    <Col md={md} className={`summaryDataPair ${title}`}>
       <Row className={"value"}>
-        <InlineEditor value={value} param={param} change={({text}) => updateCharacterProperty(character.id, param, text)} />
+        <InlineTextEditor text={value} param={param} change={({text}) => updateCharacterProperty(character.id, param, text)} />
       </Row>
       <Row className={"name"}>{title}</Row>
     </Col>
@@ -33,7 +33,6 @@ export class CharacterSummary extends Component {
     return (
       <Row className={"characterSummary DnD"}>
         {this.buildSummaryDataPairWithInlineEdit(character, "Character Name", characterName, "CharacterName", 5)}
-        {/* {this.buildSummaryDataPair("Character Name", characterName, 5)} */}
         <Col>
           <Row>
             {this.buildSummaryDataPair("Class", characterClass, 2)} {/* TODO Support for multiclassing */}

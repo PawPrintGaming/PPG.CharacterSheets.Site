@@ -4,12 +4,14 @@ import thunk from 'redux-thunk';
 import {reducer as form} from 'redux-form';
 
 import ruleSetsReducer from '../ducks/ruleSets'
+import userOptionsReducer from '../ducks/userOptions';
 
 const configureStore = () => {
   const middlewares = [thunk, createLogger()];
 
   const rootReducer = combineReducers({
     ruleSetsStore: ruleSetsReducer,
+    userOptions: userOptionsReducer,
     form
   });
 

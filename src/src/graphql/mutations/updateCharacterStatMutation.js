@@ -1,9 +1,8 @@
-import {graphql} from 'relay-runtime'
+import {graphql} from 'relay-runtime';
 
 const mutation = graphql`
-  mutation updateCharacterPropertyMutation($id: ID!, $update: InputMap!)
-  {
-    updateCharacterProperty(id: $id, update: $update) {
+  mutation updateCharacterStatMutation($id: ID!, $update: InputMap!) {
+    updateCharacterStat(id: $id, update: $update) {
       id
       characterName
       ruleSet

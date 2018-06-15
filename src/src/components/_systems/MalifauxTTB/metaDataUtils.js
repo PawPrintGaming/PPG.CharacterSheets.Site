@@ -10,5 +10,5 @@ export const getStation = (metaData) => {
 }
 
 export const getDestinyStepsFulfilled = (metaData) => {
-  return getKeyFromMetaData(keys.DESTINYSTEPSFULFILLED, metaData, 0)
+  return parseInt(getKeyFromMetaData(keys.DESTINYSTEPSFULFILLED, metaData, 0), 10);
 }

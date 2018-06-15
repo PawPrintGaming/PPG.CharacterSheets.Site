@@ -14,7 +14,7 @@ export class CharacterSheet extends Component {
         <CharacterActionsHeader character={character} />
         <Container className={"characterSheet DnD"}>
           <CharacterSummary character={character} />
-          <CharacterStats stats={character.stats} />
+          <CharacterStats character={character} />
         </Container>
       </div>
     )

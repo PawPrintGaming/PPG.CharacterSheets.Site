@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Button, Card, CardBody, CardImg, CardSubtitle, CardTitle, Col, Collapse, Container, Form, FormGroup, InputGroup, InputGroupAddon, Row} from 'reactstrap';
-import InlineEdit from 'react-edit-inplace';
+import InlineTextEditor from '../inlineEditors/textEditors/InlineTextEditor';
 import {Field, reduxForm} from 'redux-form'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import toggleCreateIcon from '@fortawesome/fontawesome-free-solid/faChevronCircleDown';
@@ -122,7 +122,6 @@ export class ManageRuleSets extends Component {
         <Row>Configured Rule Sets</Row>
         <div className={"configuredRuleSetSeries"}>
           {ruleSetInfos.map(ruleSetInfo => {
-            console.log(ruleSetInfo)
             const {id, name, ruleSet, imageUrl, description, createCharacterPath, viewCharacterPath} = ruleSetInfo;
             return (
               <Card key={ruleSet}>
@@ -134,12 +133,12 @@ export class ManageRuleSets extends Component {
                   <CardTitle>{name}</CardTitle>
                   <CardSubtitle>{ruleSet}</CardSubtitle>
                   <CardSubtitle><FontAwesomeIcon icon={createCharacterSheetIcon} />{' '}
-                    <InlineEdit text={createCharacterPath} paramName={"text"} change={({text}) => onEditRuleSetInfo(ruleSetInfo, 'createCharacterPath', text)} activeClassName={"editing"} />
+                    <InlineTextEditor text={createCharacterPath} param={"text"} change={({text}) => onEditRuleSetInfo(ruleSetInfo, 'createCharacterPath', text)} activeClassName={"editing"} />
                   </CardSubtitle>
                   <CardSubtitle><FontAwesomeIcon icon={viewCharacterSheetIcon} />{' '}
-                    <InlineEdit text={viewCharacterPath} paramName={"text"} change={({text}) => onEditRuleSetInfo(ruleSetInfo, 'viewCharacterPath', text)} activeClassName={"editing"} />
+                    <InlineTextEditor text={viewCharacterPath} param={"text"} change={({text}) => onEditRuleSetInfo(ruleSetInfo, 'viewCharacterPath', text)} activeClassName={"editing"} />
                   </CardSubtitle>
-                    <InlineEdit text={description || 'No description provided'} paramName={"text"} change={({text}) => onEditRuleSetInfo(ruleSetInfo, 'description', text)} activeClassName={"editing"} />
+                    <InlineTextEditor text={description || 'No description provided'} param={"text"} change={({text}) => onEditRuleSetInfo(ruleSetInfo, 'description', text)} activeClassName={"editing"} />
                 </CardBody>
               </Card>
           )})}

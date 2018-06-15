@@ -1,0 +1,83 @@
+$border-radius: 0.5em;
+
+%showEditable {
+  background-color: rgba(176, 224, 230, 0.3);
+  cursor: pointer;
+}
+.editable, .editing {
+  width: 100%;
+  text-align: center;
+}
+.editable:hover {
+  @extend %showEditable;
+
+}
+.editable.showEditable {
+  @extend %showEditable;
+}
+
+.editing {
+  input {
+    width: 100%;
+  }
+}
+
+.editable {
+  position: relative;
+  .editableIcon {
+    position: absolute;
+    right: 0.5em;
+    bottom: 0.5em;
+    align-self: flex-end;
+    font-size: 0.6em;
+  }
+  .popoverIcon {
+    font-size: 0.3em;
+    position: absolute;
+    bottom: 0.1em;
+    right: 0.1em;
+  }
+}
+
+.popoverEdit {
+  width: 100%;
+  span {
+    width: 100%;
+  }
+}
+
+.popover.popoverEditor {
+  border-radius: $border-radius;
+  .popover-header{
+    border-radius: $border-radius;
+  }
+  .editing {
+    font-size: 2em;
+  }
+}
+
+.numericalStepModalEditorBody {
+  justify-content: center;
+  font-size: 2em;
+  //Watch out for this
+  .editing[type=number] {
+    width: 100%;
+  }
+}
+
+.stepModalIcon {
+  &.down {
+    text-align: right;
+  }
+  &.up {
+    text-align: left;
+  }
+  .disabled {
+    opacity: 0.5;
+  }
+}
+
+//Watch out for this
+.editing[type=number] {
+  width: 4em;
+}
