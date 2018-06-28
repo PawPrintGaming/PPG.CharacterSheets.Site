@@ -51,7 +51,7 @@ export class CharacterSummary extends Component {
     <Col xs={colSize} className={"summaryDataPair"}>
       <Row className={"name"}>{title}</Row>
       <Row className={"value"}>
-        <InlineTextEditor text={value} change={({text}) => updateCharacterProperty(character.id, param, text)} />
+        <InlineTextEditor text={value} param={param} change={({text}) => updateCharacterProperty(character.id, param, text)} />
       </Row>
     </Col>
   )

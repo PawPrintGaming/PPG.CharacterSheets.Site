@@ -7,7 +7,10 @@ import ruleSetsReducer from '../ducks/ruleSets'
 import userOptionsReducer from '../ducks/userOptions';
 
 const configureStore = () => {
-  const middlewares = [thunk, createLogger()];
+  const middlewares = [
+    thunk,
+    createLogger()
+  ];
 
   const rootReducer = combineReducers({
     ruleSetsStore: ruleSetsReducer,

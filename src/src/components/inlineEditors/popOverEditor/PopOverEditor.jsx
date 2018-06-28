@@ -18,7 +18,6 @@ export class PopOverEdit extends Component {
 
   toggle = () => {
     this.setState({
-      ...this.state,
       popOverOpen: !this.state.popOverOpen
     })
   }

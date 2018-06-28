@@ -24,7 +24,113 @@ $group-padding: 0.1em;
       min-width: 7.3em;
     }
   }
+  .skillsBlock {
+    padding: 0;
+    .addSkillBar {
+      @extend %block-name;
+      padding: 0.25em 0.75em;
+      justify-content: space-between;
+      &.noText {
+        justify-content: flex-end;
+      }
+      .addNewSkillIcon {
+        font-size: 150%;
+        cursor: pointer;
+      }
+    }
+    .addSkillBlock>.col {
+      padding: 0
+    }
+    .addSkillSet {
+      width: 100%;
+      padding: 0.25em 0;
+      margin: 0;
+      .addSkillCol {
+        padding: $group-padding;
+        &.addSkillActionsCol {
+          height: 100%;
+          .addSkillActions {
+            padding: 0;
+            margin: 0;
+            background-color: $block-name-background-colour;
+            justify-content: center;
+            height: 2.25em;
+            width: 100%;
+            .skillActionIcon {
+              display: block;
+              margin: auto;
+              font-size: 150%;
+              color: $background-colour;
+              &.internal {
+                color: $block-name-background-colour;
+              }
+            }
+          }
+        }
+      }
+      .addTriggerSet {
+        margin-top: $group-padding;
+        .name {
+          padding-right: $group-padding;
+        }
+        .suit {
+          padding-left: $group-padding; 
+          padding-right: $group-padding; 
+        }
+        .description {
+          padding-right: 0;
+        }
+        .suitSelection {
+          @extend %block-value;
+          margin: 0;
+          padding: 0 $group-padding;
+          align-items: center;
+          flex-grow: 1;
+          justify-content: space-between;
+          * {
+            padding: 0;
+          }
+          .suitPair>label {
+            margin: 0;
+          }
+          .suitIcon {
+            font-size: 200%;
+          }
+        }
+        .name, .suit, .description {
+          margin-top: $group-padding
+        }
+      }
+      @media (max-width:$mediaquery-small) {
+        .addSkillCol {
+          padding-bottom: $group-padding;
+          padding-left: 0;
+          padding-right: 0;
+          .input-group-prepend {
+            width: 50%;
+          }
+          &.addSkillRankCol {
+            padding-right: $group-padding;
+          }
+          &.addSkillActionsCol {
+            padding-left: $group-padding;
+          }
+        }
+        .addTriggerSet {
+          margin-top: $group-padding;
+          .name, .suit, .description {
+            padding: 0;
+            margin-top: 0;
+          }
+          .input-group-prepend {
+            width: 35%;
+          }
+        }
+      }
+    }
+  }
   .submit {
+    margin-top: 1em;
     justify-content: flex-end;
   }
 }

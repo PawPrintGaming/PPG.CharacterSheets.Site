@@ -1,9 +1,10 @@
-$bar-height: 0.25em;
+$bar-height: 0.2em;
 $toggle-value: 0.6em;
 
 .switchContainer {
   width: 100%;
   display: inline-block;
+  position: relative;
   .switchBar {
     border: 1px solid #000;
     width: 100%;
@@ -11,7 +12,7 @@ $toggle-value: 0.6em;
     border-radius: 13px;
     cursor: pointer;
     position: relative;
-    top: 50%
+    top: 0.4em
   }
 
   .switchBar.on {
@@ -23,7 +24,6 @@ $toggle-value: 0.6em;
     box-shadow: 1px 1px 1px #ccc;
     width: $toggle-value;
     height: $toggle-value;
-    top: -(($toggle-value/2)+($bar-height/2));
     border-radius: 1em;
     background: white;
     position: relative;

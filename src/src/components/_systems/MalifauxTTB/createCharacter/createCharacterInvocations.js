@@ -18,13 +18,34 @@ const buildMetaData = (values) => {
   return metaData;
 }
 
+const buildSkillMetaData = (skill) => {
+  let metaData = [];
+  if (skill.triggers) {
+    let triggers = skill.triggers.map(trigger => ({key: trigger.name, value: [{key: "suit", value: trigger.suit}, {key: "description", value: trigger.description}]}));
+    metaData.push({key: "triggers", value: triggers})
+  }
+  return metaData;
+}
+
+const buildSkills = (skillsFromForm) => {
+  let skillsForMutation = [];
+  for(let index in skillsFromForm) {
+    const skill = skillsFromForm[index];
+    if(skill) {
+      skillsForMutation.push({name: skill.name, rank: skill.rank, metaData: buildSkillMetaData(skill)})
+    }
+  }
+  return skillsForMutation;
+}
+
 export const createCharacter = (history) => (values, dispatch) => {
   const variables = {
     character: {
       characterName: values.characterName,
       ruleSet: 'MALIFAUX_TTB',
       stats: mapToStats(values.stats),
-      metaData: buildMetaData(values)
+      metaData: buildMetaData(values),
+      skills: buildSkills(values.skills)
     }
   };
   commitMutation(environment, {mutation: createCharacterMutation, variables,

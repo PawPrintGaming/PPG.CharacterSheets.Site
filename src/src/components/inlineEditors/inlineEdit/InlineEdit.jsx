@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import guid from 'node-uuid'
 
 export class InlineEdit extends Component {
 constructor(props) {
@@ -7,7 +8,9 @@ constructor(props) {
 
   this.state = {
     editing: props.editing || false,
-    text: this.props.text
+    text: this.props.text,
+    previousKey: "",
+    guid: guid()
   }
 }
 
@@ -36,12 +39,33 @@ constructor(props) {
   }
 
   onKeyDown = (event) => {
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && this.state.previousKey !== 16) {
       this.finishEditing();
     }
     else if (event.keyCode === 27) {
       this.cancelEditing();
     }
+    this.setState({
+      previousKey: event.keyCode
+    });
+  }
+
+  onKeyUp = () => {
+    if(this.props.editingElement === 'textarea')
+    {
+      var textarea = document.getElementById(this.state.guid);
+      const {value, cols} = textarea;
+      
+      textarea.rows = this.getRowsForTextArea(value, cols);
+    }
+  }
+
+  getRowsForTextArea = (text, cols) => {
+    var linecount = 0;
+    text.split('\n').forEach(line => {
+      linecount += Math.ceil(line.length/cols)
+    });
+    return linecount;
   }
 
   textChanged = (event) => {
@@ -52,7 +76,7 @@ constructor(props) {
     if (this.props.isDisabled) {
       const Element = this.props.staticElement;
       return (
-        <Element className={this.props.className}>
+        <Element id={this.state.guid} className={this.props.className} name={this.props.name}>
           {this.state.text || this.props.placeholder}
         </Element>
       )
@@ -60,7 +84,7 @@ constructor(props) {
     else if (!this.state.editing) {
       const Element = this.props.staticElement;
       return (
-        <Element className={this.props.className} onClick={this.startEditing}>
+        <Element id={this.state.guid} className={this.props.className} onClick={this.startEditing} name={this.props.name}>
           {this.state.text || this.props.placeholder}
         </Element>
       )
@@ -69,7 +93,11 @@ constructor(props) {
       const Element = this.props.editingElement;
       return (
         <Element
+          id={this.state.guid}
           onKeyDown={this.onKeyDown}
+          onKeyUp={this.onKeyUp}
+          cols={60}
+          rows={this.props.editingElement === 'textarea' ? this.getRowsForTextArea(this.state.text, 60) : 0}
           onBlur={this.finishEditing}
           className={this.props.activeClassName}
           placeholder={this.props.placeholder}
@@ -77,6 +105,7 @@ constructor(props) {
           onChange={this.textChanged}
           ref={"input"}
           type={this.props.inputType}
+          name={this.props.name}
         />
       )
     }
@@ -94,7 +123,8 @@ InlineEdit.propTypes = {
   activeClassName: PropTypes.string,
   placeholder: PropTypes.string,
   inputType: PropTypes.string,
-  editing: PropTypes.bool
+  editing: PropTypes.bool,
+  name: PropTypes.string
 }
 
 InlineEdit.defaultProps = {

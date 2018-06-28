@@ -17,8 +17,15 @@ $border-radius: 0.5em;
 }
 
 .editing {
+  border: 0;
+  padding: 0;
   input {
     width: 100%;
+  }
+  &[type=number] {
+    width: 4em; // Watch out for this: for popover editors
+    min-width: 100%;
+    max-height: 100%;
   }
 }
 
@@ -48,21 +55,15 @@ $border-radius: 0.5em;
 
 .popover.popoverEditor {
   border-radius: $border-radius;
-  .popover-header{
-    border-radius: $border-radius;
-  }
-  .editing {
+  .popover-body {
     font-size: 2em;
+    text-align: center;
   }
 }
 
 .numericalStepModalEditorBody {
   justify-content: center;
   font-size: 2em;
-  //Watch out for this
-  .editing[type=number] {
-    width: 100%;
-  }
 }
 
 .stepModalIcon {
@@ -77,7 +78,7 @@ $border-radius: 0.5em;
   }
 }
 
-//Watch out for this
-.editing[type=number] {
-  width: 4em;
-}
+// //Watch out for this
+// .editing[type=number] {
+//   width: 4em;
+// }

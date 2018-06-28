@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
-import {Alert, Button, Col, Container, Modal, ModalHeader, ModalBody, ModalFooter, Row} from 'reactstrap';
+import {Col, Container, Row} from 'reactstrap';
 import Switch from '../switch/Switch';
 import './CharacterActionsHeader.css';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -14,6 +14,7 @@ import refreshCharacterIcon from '@fortawesome/fontawesome-free-solid/faSyncAlt'
 import deleteCharacterIcon from '@fortawesome/fontawesome-free-solid/faUserTimes';
 import {getCharacter, deleteCharacter} from './characterActionsHeaderInvocations';
 import {switchShowEditableAction} from '../../ducks/userOptions';
+import DeleteModal from '../deleteModal/DeleteModal';
 
 export class CharacterActionsHeader extends Component {
   constructor(props) {
@@ -28,7 +29,6 @@ export class CharacterActionsHeader extends Component {
 
   toggle(toggle) {
     this.setState({
-      ...this.state,
       [toggle]: !this.state[toggle]
     });
   }
@@ -52,7 +52,13 @@ export class CharacterActionsHeader extends Component {
             <Col xs={1} className={"characterAction fa-layers fa-fw"}>
               <FontAwesomeIcon icon={squareBackIcon} className={"characterActionIcon"} />
               <FontAwesomeIcon icon={deleteCharacterIcon} className={"characterActionIcon internal"} onClick={() => this.deleteCharacterToggle()} />
-              <Modal isOpen={this.state.deleteCharacterModal} toggle={() => this.deleteCharacterToggle()}>
+              <DeleteModal onDelete={onCharacterDelete(character.id, history)} onToggle={() => this.deleteCharacterToggle()} isOpen={this.state.deleteCharacterModal}>
+                <Col>
+                  <Row>Are you sure you wish to delete the character:</Row>
+                  <Row className={"modalStandout"}>{`${character.characterName}`}</Row>
+                </Col>
+              </DeleteModal>
+              {/* <Modal isOpen={this.state.deleteCharacterModal} toggle={() => this.deleteCharacterToggle()}>
                 <ModalHeader>Delete Character?</ModalHeader>
                 <ModalBody>
                   <Col>
@@ -65,7 +71,7 @@ export class CharacterActionsHeader extends Component {
                   <Button color={"danger"} onClick={() => {onCharacterDelete(character.id, history); this.deleteCharacterToggle()}}>Delete</Button>
                   <Button color={"secondary"} onClick={() => this.deleteCharacterToggle()}>Cancel</Button>
                 </ModalFooter>
-              </Modal>
+              </Modal> */}
             </Col>
           </Row>
         </Col>
@@ -96,14 +102,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     onCharacterRefresh: (spinnerId, characterId) => {
       const elem = document.getElementById(spinnerId);
-      console.log('send');
       elem.classList.add('fa-spin');
       getCharacter(characterId).then(() => {
-        console.log('receive')
         elem.classList.remove('fa-spin');
       });
     },
-    onCharacterDelete: (id, history) => {
+    onCharacterDelete: (id, history) => () => {
       deleteCharacter(id, history);
     },
   }
