@@ -20,7 +20,6 @@ export class CharacterSummary extends Component {
     const markSpace = width/(totalSteps+1);
 
     for(var mark = 1; mark < totalSteps+1; mark++) {
-      // console.log('width', width, 'totalSteps', totalSteps, 'mark', mark, 'markSpace', markSpace, 'cx', mark*markSpace)
       graphic.append('circle')
         .attr('cx', mark*markSpace)
         .attr('cy', height/2)

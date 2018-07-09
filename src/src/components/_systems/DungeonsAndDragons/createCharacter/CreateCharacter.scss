@@ -8,12 +8,6 @@ $group-padding: 0.1em;
   background-color: $background-colour;
   margin-top: $standard-margin-top;
   padding: $container-padding;
-  .input-group-text {
-    
-  }
-  .form-control {
-    
-  }
   .createPair {
     display: flex;
     flex-direction: column;
@@ -29,7 +23,7 @@ $group-padding: 0.1em;
     }
     .name {
       width: 100%;
-      font-size: 0.6em;
+      font-size: 60%;
       margin-left: 0;
       margin-right: 0;
     }
@@ -43,6 +37,9 @@ $group-padding: 0.1em;
         padding-left: 0;
         padding-right: 0;
       }
+      .modifier {
+        justify-content: center;
+      }
     }
     .value input {
       text-align: center;
@@ -50,5 +47,26 @@ $group-padding: 0.1em;
   }
   .submit {
     justify-content: flex-end;
+  }
+  .skillProficiencies {
+    .skillProficienyCol {
+      padding: 0;
+      .skillProficiencyLabel {
+        width: 100%;
+        @extend %input-form-block;
+        margin: 0;
+        .value {
+          width: 20%;
+          align-self: center;
+        }
+        .name {
+          width: 80%;
+          .input-group-text {
+            width: 100%;
+            font-size: 65%;
+          }
+        }
+      }
+    }
   }
 }

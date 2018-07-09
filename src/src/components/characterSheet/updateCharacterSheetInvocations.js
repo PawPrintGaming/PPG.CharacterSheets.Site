@@ -57,7 +57,6 @@ export const updateCharacterSkill = (characterId, updatedSkill) => {
     id: characterId,
     skill: updatedSkill
   };
-  console.log(variables)  
   commitMutation(environment, {mutation: upsertCharacterSkillMutation, variables,
     onError: error => console.log(error)
   });

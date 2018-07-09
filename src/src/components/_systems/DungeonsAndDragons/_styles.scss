@@ -7,14 +7,34 @@ $block-border-width: 0.05em;
 $block-border-style: solid;
 $block-border-colour: rgb(0, 0, 0);
 
+$secondary-block-border-width: 1px;
+$secondary-block-border-style: solid;
+$secondary-block-border-colour: rgb(206, 212, 218);
+
+$emphasised-block-border-width: 0.1rem;
+
 $group-background-colour: rgb(220, 221, 223);
 $group-padding: 0.75em;
+
+%input-form-block {
+  border: $secondary-block-border-width $secondary-block-border-style $secondary-block-border-colour;
+  border-radius: 0.25rem;
+}
 
 %backed-group {
   background: $group-background-colour;
   padding: $group-padding;
-  margin:$group-padding;
+  margin: $group-padding;
   border-radius: $block-border-radius;
+}
+
+%block {
+  border: $block-border-width $block-border-style $block-border-colour;
+  border-radius: 1rem;
+}
+%emphasised-block {
+  border: $emphasised-block-border-width $block-border-style $block-border-colour;
+  border-radius: 1rem;
 }
 
 $background-colour: rgb(255, 255, 255);

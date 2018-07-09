@@ -53,6 +53,7 @@
     "setup": "node ./setup"
   },
   "devDependencies": {
+    "@types/d3": "^5.0.0",
     "babel-plugin-relay": "^1.6.0"
   }
 }

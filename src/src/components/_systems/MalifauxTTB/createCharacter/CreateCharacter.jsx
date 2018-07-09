@@ -7,7 +7,7 @@ import createCharacterInfoQuery from '../../../../graphql/queries/characterRuleS
 import {withRouter} from 'react-router';
 import './CreateCharacter.css';
 import {Button, Col, Container, Form, FormGroup, InputGroup, InputGroupAddon, Row} from 'reactstrap';
-import {Field,reduxForm, formValueSelector} from 'redux-form';
+import {Field,reduxForm} from 'redux-form';
 import {createCharacter} from './createCharacterInvocations';
 import Loader from '../../../loader/Loader';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
@@ -298,12 +298,10 @@ class CreateCharacter extends Component {
 
 CreateCharacter.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  selector: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
   return {
-    selector: formValueSelector('createCharacterMalifaux')
   }
 }
 

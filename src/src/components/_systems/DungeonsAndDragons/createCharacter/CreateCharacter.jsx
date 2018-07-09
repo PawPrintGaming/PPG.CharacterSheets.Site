@@ -5,12 +5,14 @@ import {QueryRenderer} from 'react-relay';
 import environment from '../../../../relay';
 import createCharacterInfoQuery from '../../../../graphql/queries/characterRuleSetInfoQuery';
 import {withRouter} from 'react-router';
-import {Button, Col, Container, Form, FormGroup, InputGroup, InputGroupAddon, Row} from 'reactstrap';
-import {Field, reduxForm} from 'redux-form';
+import {Button, Col, Container, Form, FormGroup, InputGroup, InputGroupAddon, Label, Row} from 'reactstrap';
+import {Field, reduxForm, formValueSelector} from 'redux-form';
 import Loader from '../../../loader/Loader';
 import {createCharacter} from './createCharacterInvocations';
 import './CreateCharacter.css';
-import {calculateModifierForStat} from '../statUtils';
+import {formatModifier, calculateModifierForStat} from '../statUtils';
+import {statNameAbbreviation} from '../statUtils';
+import * as keys from '../metaDataKeys';
 
 export class CreateCharacter extends Component {
   buildSelectInputFieldGroup = (title, name, values, sm=6) => (
@@ -50,7 +52,7 @@ export class CreateCharacter extends Component {
       <Row className={"name input-group-text"}>{name.toUpperCase()}</Row>
       <Row className={"value"}>
         <Col col={6}><Field name={`stats[${name}]`} component={"input"} type={"number"} min={0} step={1} className={"form-control"} /></Col>
-        <Col col={6} className={"modifier form-control"}>{calculateModifierForStat(value || 10)}</Col>
+        <Col col={6} className={"modifier input-group-text"}>{formatModifier(calculateModifierForStat(value || 10))}</Col>
       </Row>
     </Col>
   )
@@ -59,6 +61,64 @@ export class CreateCharacter extends Component {
     <FormGroup row>
       {statSets.map(set => set.value.map(stat => this.buildStatInput(stat, formStats[stat])))}
     </FormGroup>
+  )
+
+  skillsBlock = (skillInfoSet) => ( // Move Set selection above and use static keys
+    <Col className={"px-0"}>
+      <Row>
+        <Col xs={12} sm={8} className={"input-group-text"}>Skill Proficiencies</Col>
+        <Col xs={12} sm={4} className={"px-0"}>
+          <InputGroup>
+            <InputGroupAddon addonType={"prepend"}>Proficiency Bonus</InputGroupAddon>
+            <Field component={"input"} type={"number"} name={"proficiencyBonus"} className={"form-control"}/>
+          </InputGroup>
+        </Col>
+      </Row>
+      <FormGroup row className={"skillProficiencies"}>
+        {
+          skillInfoSet
+            ? skillInfoSet.value.map(skillInfo =>
+              <Col xs={6} sm={2} key={skillInfo.name} className={"skillProficienyCol"}>
+                <Label className={"skillProficiencyLabel"}>
+                  <InputGroup>
+                    <Field component={"input"} type={"checkbox"} name={`skills[${skillInfo.name}].proficiency`} className={"form-control value"} />
+                    <InputGroupAddon addonType={"append"} className={"name"}>
+                      {`${skillInfo.name} (${statNameAbbreviation(skillInfo.statKeys[0] || ' - ')})`}
+                    </InputGroupAddon>
+                  </InputGroup>
+                </Label>
+              </Col>
+              )
+            : null
+        }
+      </FormGroup>
+    </Col>
+  )
+
+  savingThrowsBlock = (savingThrowSet) => (
+    <Col className={"px-0"}>
+      <Row>
+        <Col xs={12} className={"input-group-text"}>Saving Throw Proficiencies</Col>
+      </Row>
+      <FormGroup row className={"skillProficiencies"}>
+        {
+          savingThrowSet
+            ? savingThrowSet.value.map(savingThrowInfo =>
+              <Col xs={6} sm={2} key={savingThrowInfo.name} className={"skillProficienyCol"}>
+                <Label className={"skillProficiencyLabel"}>
+                  <InputGroup>
+                    <Field component={"input"} type={"checkbox"} name={`skills[${savingThrowInfo.name}].proficiency`} className={"form-control value"} />
+                    <InputGroupAddon addonType={"append"} className={"name"}>
+                      {savingThrowInfo.name}
+                    </InputGroupAddon>
+                  </InputGroup>
+                </Label>
+              </Col>
+              )
+            : null
+        }
+      </FormGroup>
+    </Col>
   )
 
   render() {
@@ -76,16 +136,20 @@ export class CreateCharacter extends Component {
           if (!props) {
             return <Loader isFetching={true} />
           }
-          const {statSets, dataLists} = props.characterRuleSetInfo;
+          const {statSets, dataLists, skillInfoSets} = props.characterRuleSetInfo;
           const alignments = dataLists.find(list => list.key === 'Alignments').value;
           const backgrounds = dataLists.find(list => list.key === 'Backgrounds').value;
           const classes = dataLists.find(list => list.key === 'Classes').value;
           const races = dataLists.find(list => list.key === 'Races').value;
+          const skillInfoSet = skillInfoSets.find(skillInfoSet => skillInfoSet.key === keys.skillSets.DEFAULT)
+          const savingThrowInfos = skillInfoSets.find(skillInfoSet => skillInfoSet.key === keys.skillSets.SAVINGTHROWS)
           return (
             <Container className={"createCharacter DnD"}>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 {this.characterDetailsBlock(alignments, backgrounds, classes, races)}
                 {this.statBlock(statSets, formStats)}
+                {this.skillsBlock(skillInfoSet)}
+                {this.savingThrowsBlock(savingThrowInfos)}
                 <FormGroup row className={"submit"}>
                   <Button type={"submit"} disabled={pristine || submitting} onSubmit={() => { return false }}>
                     Create
@@ -106,8 +170,9 @@ CreateCharacter.propTypes = {
 }
 
 const mapStateToProps = (state) => {
+  const selector = formValueSelector('createCharacterDnD')
   return {
-    formStats: (state.form.createCharacterDnD && state.form.createCharacterDnD.values && state.form.createCharacterDnD.values.stats) || []
+    formStats: selector(state, 'stats') || {}
   }
 }
 

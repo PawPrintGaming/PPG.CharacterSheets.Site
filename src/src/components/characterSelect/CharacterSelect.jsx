@@ -29,7 +29,6 @@ export class CharacterSelect extends Component {
             query={charactersQuery}
             variables={{}}
             render={({error, props}) => {
-              console.log(error, props)
               if (error) {
                 return <Loader isFetching={false} errorMessage={`${error}`} />
               }
