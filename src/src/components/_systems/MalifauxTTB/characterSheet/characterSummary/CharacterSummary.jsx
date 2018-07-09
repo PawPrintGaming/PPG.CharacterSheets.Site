@@ -9,13 +9,15 @@ import debounce from '../../../../../debounce';
 import * as d3 from 'd3';
 
 export class CharacterSummary extends Component {
-  renderDestinyStepsFulfilledGraphic = (characterId, stepsFulfilled, totalSteps = 5) => {
+  renderDestinyStepsFulfilledGraphic = (stepsFulfilled, totalSteps = 5) => {
     var graphic = d3.select('#destinyStepsFulfilledGraphic');
 
     graphic.selectAll('.step').remove();
 
     const height = parseInt(graphic.style('height'), 10);
     const width = parseInt(graphic.style('width'), 10);
+
+    console.log(height, width);
 
     const markSpace = width/(totalSteps+1);
 
@@ -91,8 +93,8 @@ export class CharacterSummary extends Component {
   componentDidMount = () => {
     const {character} = this.props
     const destinyStepsFulfilled = getDestinyStepsFulfilled(character.metaData);
-    debounce(this.renderDestinyStepsFulfilledGraphic(character.id, destinyStepsFulfilled));
-    window.addEventListener('resize', () => debounce(this.renderDestinyStepsFulfilledGraphic(character.id, destinyStepsFulfilled)));
+    debounce(this.renderDestinyStepsFulfilledGraphic(destinyStepsFulfilled));
+    window.addEventListener('resize', () => debounce(this.renderDestinyStepsFulfilledGraphic(destinyStepsFulfilled)));
   }
 
   componentDidUpdate = () => {

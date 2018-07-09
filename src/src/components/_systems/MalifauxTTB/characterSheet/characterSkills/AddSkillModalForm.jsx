@@ -38,7 +38,13 @@ export class AddSkillModalForm extends Component {
               <InputGroupAddon addonType={"prepend"}>Skill Category</InputGroupAddon>
               <Field name={"category"} component={"select"} className={"form-control"}>
                 <option />
-                {skillInfoSets.map(skillInfoSet => <option key={skillInfoSet.key} value={skillInfoSet.key} label={skillInfoSet.key} />)}
+                {
+                  skillInfoSets.map(skillInfoSet => 
+                    skillInfoSet.value.every(skillInfo => characterSkills.some(skill => skill.name === skillInfo.name))
+                      ? null
+                      : <option key={skillInfoSet.key} value={skillInfoSet.key} label={skillInfoSet.key} />
+                  )
+                }
               </Field>
             </InputGroup>
             <InputGroup>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Col, Row} from 'reactstrap';
 import {groupStats} from '../../statUtils';
 import BlockHeader from '../blockHeader/BlockHeader';
-import PopoverEditor from '../../../../inlineEditors/popOverEditor/PopOverEditor';
+import InlineTextEditor from '../../../../inlineEditors/textEditors/InlineTextEditor';
 import {updateCharacterStat} from '../../../../characterSheet/updateCharacterSheetInvocations';
 
 
@@ -11,7 +11,7 @@ export class CharacterStats extends Component {
   buildStatDataPair = (id, key, name, value) => (
     <Row key={key} className={"statDataPair"}>
       <Col xs={8} className={"name"}>{name}</Col>
-      <Col xs={4} className={"value"}><PopoverEditor id={name} placement={"left"} text={value} inputType={"number"} title={name} change={({text}) => updateCharacterStat(id, name, text)}/></Col>
+      <Col xs={4} className={"value"}><InlineTextEditor text={value} inputType={"number"} title={name} param={name} change={({text}) => updateCharacterStat(id, name, text)}/></Col>
     </Row>
   )
   render() {

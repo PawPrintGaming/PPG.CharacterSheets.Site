@@ -14,16 +14,17 @@ export class InlineTextEditor extends Component {
   }
   
   render() {
-    const {text, param, change, inputType, showEditable, editingElement, isDisabled} = this.props;
+    const {text, param, change, inputType, showEditable, editingElement, isDisabled, defaultValue} = this.props;
     return (
       <div className={"inline editable"}>
         <InlineEdit
-          text={text || '-'}
+          text={text || defaultValue}
           change={change}
           activeClassName={`${param} editing`}
           className={`${param}
           editable${showEditable ? ' showEditable' : ''}`}
-          staticElement={"div"} inputType={inputType}
+          staticElement={"div"}
+          inputType={inputType}
           editingElement={editingElement}
           isDisabled={isDisabled}
         />
@@ -40,7 +41,8 @@ InlineTextEditor.propTypes = {
   inputType: PropTypes.string,
   param: PropTypes.string.isRequired,
   editingElement: PropTypes.string,
-  isDisabled: PropTypes.bool.isRequired
+  isDisabled: PropTypes.bool.isRequired,
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 }
 
 InlineTextEditor.defaultProps = {
@@ -48,9 +50,10 @@ InlineTextEditor.defaultProps = {
   isDisabled: false
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   return {
-    showEditable: state.userOptions.showEditable
+    showEditable: state.userOptions.showEditable,
+    defaultValue: props.inputType === 'number' ? '0' : '-'
   }
 }
 
