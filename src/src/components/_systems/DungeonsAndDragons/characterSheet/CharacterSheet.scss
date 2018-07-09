@@ -83,8 +83,10 @@ $modifier-border-radius: 2em;
         font-size: 0.9em;
       }
     }
-    &:last-child {
-      padding-bottom: 0;
+    @media (min-width: $mediaquery-small) {
+      &:last-child {
+        padding-bottom: 0;
+      }
     }
   }
   .characterBonusesAndSkills {
@@ -167,9 +169,24 @@ $modifier-border-radius: 2em;
       }
     }
     @media (max-width: $mediaquery-small) {
-      .characterBonuses .row {
-        margin-right: -$group-padding;
-      }
+      .characterBonuses {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: space-evenly;
+        .row {
+          margin-right: -$group-padding;
+        }
+        .inspirationBlock {
+          height: 15%;
+        }  
+        .proficiencyBonusBlock {
+          height: 20%;
+        }
+        .savingThrowsBlock {
+          height: 45%;
+        }
+      } 
     }
   }
 }

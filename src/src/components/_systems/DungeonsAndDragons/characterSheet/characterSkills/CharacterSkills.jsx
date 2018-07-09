@@ -50,7 +50,7 @@ export class CharacterSkills extends Component {
   
   renderSavingThrow = (savingThrowInfo, savingThrow, stat, proficiencyBonus, onProficienyToggle) => (
     <Row key={savingThrowInfo.name} className={"mx-0"} id={this.skillModifierId(savingThrowInfo.name)}>
-      <Col xs={1} className={"px-0 proficiencyCol"}><svg ref={node => this.node = node} id={`${this.skillProficiencyId(savingThrowInfo.name)}`} className={'proficiencyGraphic'} onClick={() => onProficienyToggle(savingThrow)}/></Col>
+      <Col xs={1} className={"px-0 proficiencyCol editable"}><svg ref={node => this.node = node} id={`${this.skillProficiencyId(savingThrowInfo.name)}`} className={'proficiencyGraphic'} onClick={() => onProficienyToggle(savingThrow)}/></Col>
       <Col xs={1} className={"modifier"}>{formatModifier(totalSkillModifier(savingThrow, stat.value, proficiencyBonus))}</Col>
       <Tooltip placement={"bottom"} target={this.skillModifierId(savingThrowInfo.name)} delay={0} isOpen={this.state.tooltips[this.skillModifierId(savingThrowInfo.name)] || false} toggle={() => this.toggleToolTip(this.skillModifierId(savingThrowInfo.name))} className={"skillTooltip"}>
         <Row className={"mx-0"}>
@@ -68,9 +68,9 @@ export class CharacterSkills extends Component {
     </Row>
   )
 
-  renderSkill = (skillInfo, skill, stat, proficiencyBonus) => (
+  renderSkill = (skillInfo, skill, stat, proficiencyBonus, onProficienyToggle) => (
     <Row key={skillInfo.name} className={"mx-0"} id={this.skillModifierId(skillInfo.name)}>
-      <Col xs={1} className={"px-0 proficiencyCol"}><svg ref={node => this.node = node} id={`${this.skillProficiencyId(skillInfo.name)}`} className={'proficiencyGraphic'}/></Col>
+      <Col xs={1} className={"px-0 proficiencyCol editable"}><svg ref={node => this.node = node} id={`${this.skillProficiencyId(skillInfo.name)}`} className={'proficiencyGraphic'} onClick={() => onProficienyToggle(skill)}/></Col>
       <Col xs={1} className={"modifier"}>{formatModifier(totalSkillModifier(skill, stat.value, proficiencyBonus))}</Col>
       <Tooltip placement={"bottom"} target={this.skillModifierId(skillInfo.name)} delay={0} isOpen={this.state.tooltips[this.skillModifierId(skillInfo.name)] || false} toggle={() => this.toggleToolTip(this.skillModifierId(skillInfo.name))} className={"skillTooltip"}>
         <Row className={"mx-0"}>
@@ -127,7 +127,7 @@ export class CharacterSkills extends Component {
               skillInfos.map(skillInfo => {
                 const skill = skills.find(skill => skill.name === skillInfo.name);
                 const stat = stats.find(stat => skillInfo.statKeys.some(statKey => statKey === stat.key));
-                return this.renderSkill(skillInfo, skill, stat, proficiencyBonus);
+                return this.renderSkill(skillInfo, skill, stat, proficiencyBonus, onProficienyToggle);
               })
             }
           </Col>

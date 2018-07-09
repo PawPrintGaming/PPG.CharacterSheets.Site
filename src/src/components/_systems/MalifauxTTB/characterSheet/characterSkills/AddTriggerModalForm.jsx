@@ -64,7 +64,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onAddTrigger: (formVales) => updateCharacterSkill(props.characterId, addTriggerTransform(props.skill, formVales))
-    // onAddTrigger: (formVales) => addTriggerTransform(props.skill, formVales)
   }
 }
 

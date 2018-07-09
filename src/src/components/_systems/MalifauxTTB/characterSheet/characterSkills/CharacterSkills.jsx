@@ -103,7 +103,7 @@ export class CharacterSkills extends Component {
 
   renderSkillViewToggle = () => (
     <Row className={"skillsViewToggle"}>
-      <FontAwesomeIcon icon={showSkillsBySetIcon} /><Switch on={!this.state.showSkillsBySet} onClick={() => this.toggleShowSkills()}/><FontAwesomeIcon icon={showSkillsByOwnershipIcon} />
+      <FontAwesomeIcon icon={showSkillsBySetIcon} /><Switch on={this.state.showSkillsBySet} onClick={() => this.toggleShowSkills()}/><FontAwesomeIcon icon={showSkillsByOwnershipIcon} />
     </Row>
   )
 
@@ -214,23 +214,25 @@ export class CharacterSkills extends Component {
   );
 
   renderSkillGroupByCategory = (characterId, skillInfoSet, skills, stats, onUpdateTriggerDescription, onDeleteTrigger, onUpdateCharacterSkillRank) => (
-    <Row key={skillInfoSet.key}>
-      <Col className={"skillGroupWrapCol"}>
-        <Row className={"skillsHeader"} onClick={() => this.toggleCollapse(skillInfoSet.key)}>
-          <Col className={"skillsHeaderValue name"}>
-            {skillInfoSet.key}<FontAwesomeIcon icon={this.state.collapse[skillInfoSet.key] ? skillGroupOpenIcon : skillGroupCloseIcon} className={`skillsGroupToggleIcon ${this.state.collapse[skillInfoSet.key] ? 'up' : 'down'}`} />
+    skills.length > 0
+      ? <Row key={skillInfoSet.key}>
+          <Col className={"skillGroupWrapCol"}>
+            <Row className={"skillsHeader"} onClick={() => this.toggleCollapse(skillInfoSet.key)}>
+              <Col className={"skillsHeaderValue name"}>
+                {skillInfoSet.key}<FontAwesomeIcon icon={this.state.collapse[skillInfoSet.key] ? skillGroupOpenIcon : skillGroupCloseIcon} className={`skillsGroupToggleIcon ${this.state.collapse[skillInfoSet.key] ? 'up' : 'down'}`} />
+              </Col>
+            </Row>
+            <Collapse isOpen={this.state.collapse[skillInfoSet.key]}>
+              {this.renderSkillsHeader()}
+              {
+                skills.length > 0
+                ? skills.map(skill => this.renderSkill(characterId, skillInfoSet.value.find(skillInfo => skillInfo.name === skill.name), skill, stats, onUpdateTriggerDescription, onDeleteTrigger, onUpdateCharacterSkillRank))
+                : <Row className={"skill pl-3"}>No Skills in this Skill Category</Row>
+              }
+            </Collapse>
           </Col>
         </Row>
-        <Collapse isOpen={this.state.collapse[skillInfoSet.key]}>
-          {this.renderSkillsHeader()}
-          {
-            skills.length > 0
-            ? skills.map(skill => this.renderSkill(characterId, skillInfoSet.value.find(skillInfo => skillInfo.name === skill.name), skill, stats, onUpdateTriggerDescription, onDeleteTrigger, onUpdateCharacterSkillRank))
-            : <Row className={"skill pl-3"}>No Skills in this Skill Category</Row>
-          }
-        </Collapse>
-      </Col>
-    </Row>
+      : null
   )
 
   renderSkillsByCategory = (skillInfoSets, skills, stats, characterId, onUpdateTriggerDescription, onDeleteTrigger, onUpdateCharacterSkillRank) => (
