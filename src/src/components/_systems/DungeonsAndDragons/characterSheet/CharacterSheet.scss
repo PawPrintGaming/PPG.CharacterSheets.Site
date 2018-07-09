@@ -56,13 +56,12 @@ $modifier-border-radius: 2em;
     justify-content: space-around;
     .statDataPair {
       background: $block-value-background-colour;
-      border: $block-border-width $block-border-style $block-border-colour;
-      border-radius: $block-border-radius;
+      @extend %emphasised-block;
       margin-bottom: $group-padding;
-      @media (max-width:$mediaquery-small) {
+      @media (max-width: $mediaquery-small) {
         margin: ($group-padding/4);
       }
-      @media (min-width:$mediaquery-small) and (max-width:$mediaquery-medium) {
+      @media (min-width: $mediaquery-small) and (max-width:$mediaquery-medium) {
         margin: $group-padding;
       }
       * {
@@ -82,6 +81,94 @@ $modifier-border-radius: 2em;
         border-radius: $modifier-border-radius;
         max-width: 2em;
         font-size: 0.9em;
+      }
+    }
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+  .characterBonusesAndSkills {
+    margin: $group-padding 0;
+    >.row {
+      height: 100%;
+    }
+    .characterBonuses {
+      .proficiencyBonusBlock, .inspirationBlock {
+        height: 19%;
+        margin-bottom: 1%;
+        display: flex;
+        align-items: center;
+        .value {
+          height: 100%;
+          padding: 0;
+          @extend %emphasised-block;
+          border-radius: 25%;
+          .editable, .editing {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 25%;
+          }
+        }
+        .title {
+          @extend %emphasised-block;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          border-left: none;
+          font-size: 75%;
+          height: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+      .savingThrowsBlock {
+        height: 60%;
+      }
+    }
+    .characterSkills, .savingThrowsBlock {
+      @extend %emphasised-block;
+      font-size: 80%;
+      padding: $group-padding 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .proficiencyCol {
+        cursor: pointer;
+      }
+      .proficiencyGraphic {
+        height: 1rem;
+        width: 100%;
+        .proficiency {
+          stroke: #000;
+          &.unproficient
+          {
+            fill: none;
+          }
+        }
+      }
+      .modifier {
+        padding: 0;
+        text-align: right;
+        border-bottom: $block-border-width $block-border-style $block-border-colour;
+      }
+      .name {
+        text-align: left;
+      }
+    }
+    @media (min-width: $mediaquery-small) {
+      .characterBonuses {
+        height: 40%;
+      }
+      .characterSkills {
+        height: 59%;
+        margin-top: 1%;
+      }
+    }
+    @media (max-width: $mediaquery-small) {
+      .characterBonuses .row {
+        margin-right: -$group-padding;
       }
     }
   }

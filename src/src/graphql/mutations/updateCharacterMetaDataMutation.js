@@ -1,20 +1,15 @@
 import {graphql} from 'relay-runtime';
 
 const mutation = graphql`
-  mutation updateCharacterMetaDataMutation($id: ID!, $update: InputMap!) {
+  mutation updateCharacterMetaDataMutation($id: ID!, $update: StringInputMap!) {
     updateCharacterMetaData(id: $id, update: $update) {
       id
       characterName
       ruleSet
       experience
-      stats {
-        key
-        value
-      }
-      metaData {
-        key
-        value
-      }
+      stats {key, value}
+      metaData {key, value}
+      skills {name, rank, metaData {key, value {key, value {key, value}}}}
     }
   }
 `

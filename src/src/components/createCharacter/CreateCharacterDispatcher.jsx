@@ -22,6 +22,7 @@ export class CreateCharacterDispatcher extends Component {
           if(ruleSetInfo !== undefined && ruleSetInfo.createCharacterPath !== undefined) {
             try {
               const CreateCharacterComponent = require(`../${ruleSetInfo.createCharacterPath}`);
+              document.title = `Create Character = ${ruleSetInfo.name}`;
               return <CreateCharacterComponent.default/>
             }
             catch (err) {

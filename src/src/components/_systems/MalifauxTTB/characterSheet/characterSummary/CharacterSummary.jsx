@@ -20,7 +20,6 @@ export class CharacterSummary extends Component {
     const markSpace = width/(totalSteps+1);
 
     for(var mark = 1; mark < totalSteps+1; mark++) {
-      // console.log('width', width, 'totalSteps', totalSteps, 'mark', mark, 'markSpace', markSpace, 'cx', mark*markSpace)
       graphic.append('circle')
         .attr('cx', mark*markSpace)
         .attr('cy', height/2)
@@ -51,7 +50,7 @@ export class CharacterSummary extends Component {
     <Col xs={colSize} className={"summaryDataPair"}>
       <Row className={"name"}>{title}</Row>
       <Row className={"value"}>
-        <InlineTextEditor text={value} change={({text}) => updateCharacterProperty(character.id, param, text)} />
+        <InlineTextEditor text={value} param={param} change={({text}) => updateCharacterProperty(character.id, param, text)} />
       </Row>
     </Col>
   )

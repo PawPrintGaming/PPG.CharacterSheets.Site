@@ -18,9 +18,9 @@ export class CharacterStats extends Component {
     const {character, statSets} = this.props;
     const {physical, mental} = groupStats(character.stats, statSets);
     return (
-      <Col className={"characterStats"} sm={12} md={6}>
+      <Col className={"characterStats panel leftPanel"} sm={12} md={6}>
         <BlockHeader subHeaderLeft={"Physical"} header={"Aspects"} subHeaderRight={"Mental"}/>
-        <Row>
+        <Row className={"characterStatsTable"}>
           <Col>
             {physical.map(stat => this.buildStatDataPair(character.id, stat.key, stat.key, stat.value))}
           </Col>

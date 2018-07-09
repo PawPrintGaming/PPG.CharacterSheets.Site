@@ -50,11 +50,11 @@ export class CharacterSheetDispatcher extends Component {
                     return <Loader isFetching={false} errorMessage={`Character Rule Set Info not found for ${ruleSetInfo.ruleSet}`} />
                   }
                   try {
-                    const CreateCharacterComponent = require(`../${ruleSetInfo.viewCharacterPath}`);
-                    return <CreateCharacterComponent.default character={character} characterRuleSetInfo={props.characterRuleSetInfo} />
+                    const ViewCharacterComponent = require(`../${ruleSetInfo.viewCharacterPath}`);
+                    return <ViewCharacterComponent.default character={character} characterRuleSetInfo={props.characterRuleSetInfo} />
                   }
                   catch (err) {
-                    return <Loader isFetching={false} erroMessage={`Cannot load Create Character for ${ruleSetInfo.name}. Cannot resolve path: ../${ruleSetInfo.createCharacterPath}`} />
+                    return <Loader isFetching={false} errorMessage={`Cannot load Create Character for ${ruleSetInfo.name}. Cannot resolve path: ../${ruleSetInfo.createCharacterPath}`} />
                   }
                 }}
               />

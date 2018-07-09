@@ -25,7 +25,6 @@ export class ManageRuleSets extends Component {
 
   toggleCreateRuleSet() {
     this.setState({
-      ...this.state,
       createRuleSetIsOpen: !this.state.createRuleSetIsOpen
     });
   }

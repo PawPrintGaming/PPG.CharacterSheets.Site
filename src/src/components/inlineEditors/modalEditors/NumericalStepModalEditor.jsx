@@ -21,21 +21,18 @@ export class NumericalStepModalEditor extends Component {
   
   toggleModal = () => {
     this.setState({
-      ...this.state,
       modalOpen: !this.state.modalOpen
     })
   }
 
   enableError = (message) => {
     this.setState({
-      ...this.state,
       error: true,
       errorText: message
     })
   }
   disableError = () => {
     this.setState({
-      ...this.state,
       error: false,
       errorText: null
     })
@@ -74,7 +71,7 @@ export class NumericalStepModalEditor extends Component {
     return (
           <span id={id} onClick={this.toggleModal} className={`numericalStepModalEditor editable${showEditable ? ' showEditable' : ''}`}>
             {text}{this.renderEditableIcon(showEditable, id)}
-            <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal} onClosed={this.disableError}>
+            <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal} onClosed={this.disableError} className={"numericalStepModalEditor"}>
               <ModalHeader>Edit: {title}</ModalHeader>
               <ModalBody>
                 <Row className={"numericalStepModalEditorBody"}>

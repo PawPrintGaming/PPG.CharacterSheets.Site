@@ -1,8 +1,8 @@
 import {graphql} from 'relay-runtime';
 
-const query = graphql`
-  query characterSelectQuery($id: ID!) {
-    character(id: $id) {
+const mutation = graphql`
+  mutation upsertCharacterSkillMutation($id: ID!, $skill: SkillInput!) {
+    upsertCharacterSkill(id: $id, skill: $skill) {
       id
       characterName
       ruleSet
@@ -14,4 +14,4 @@ const query = graphql`
   }
 `
 
-export default query
+export default mutation

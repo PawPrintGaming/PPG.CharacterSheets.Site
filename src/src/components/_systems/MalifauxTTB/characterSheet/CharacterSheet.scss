@@ -13,9 +13,20 @@ $edit-width: 100%;
   margin-top: $standard-margin-top;
   padding: $container-padding;
   background-color: $background-colour;
+  @media (min-width:$mediaquery-medium) {
+    .leftPanel {
+      padding-left: 0;
+      padding-right: $standard-padding-large;
+    }
+    .rightPanel {
+      padding-left: $standard-padding-large;
+      padding-right: 0;
+    }
+  }
   .blockHeader {
     font-family: $block-name-font-family;
     align-items: flex-end;
+    margin: 0;
     .standOut {
       font-size: 2em;
       align-self: flex-start;
@@ -62,16 +73,6 @@ $edit-width: 100%;
     .row {
       margin: 0;
     }
-    @media (min-width:$mediaquery-medium) {
-      .leftPanel {
-        padding-left: 0;
-        padding-right: $standard-padding-large;
-      }
-      .rightPanel {
-        padding-left: $standard-padding-large;
-        padding-right: 0;
-      }
-    }
     .panel {
       display: flex;
       flex-direction: column;
@@ -114,6 +115,9 @@ $edit-width: 100%;
     }
   }
   .characterStats {
+    .characterStatsTable{
+      margin: 0
+    }
     .statDataPair {
       padding: $standard-padding-small;
       .name {
@@ -123,6 +127,163 @@ $edit-width: 100%;
       .value {
         @extend %block-value;
         padding: 0;
+      }
+    }
+  }
+  .characterSkills {
+    .skillsView {
+      padding-top: $standard-padding-small;
+      margin: 0;
+      .skillsViewHeader {
+        @extend %block-name;
+        align-content: center;
+        height: 2em;
+        .dropdown {
+          * {
+            width: 100%;
+            text-align: left;
+          }
+          button.dropdown-toggle {
+            @extend %block-name;
+          }
+          button.dropdown-toggle:after {
+            position: absolute;
+            top: 45%;
+            right: 1em;
+          }
+          .dropdown-menu {
+            @extend %block-value;
+          }
+        }
+        .toggleCollapse {
+          padding-top: 0.25em
+        }
+      }
+      .skillsViewTable {
+        padding: 0;
+      }
+      .skillsHeader {
+         @extend %block-name;
+         text-align: center;
+         width: 100%;
+         margin: 0;
+         .skillsGroupToggleIcon {
+          position: absolute;
+          top: 45%;
+          right: 1em;
+         }
+         .skillsHeaderValue {
+          padding: 0;
+          &.name {
+            text-align: left;
+            padding-left: 1em;
+          }
+         }
+      }
+      .skill, .skillValue {
+        @extend %block-value;
+        width: 100%;
+        padding: 0;
+        &.name {
+          text-align: left;
+          padding-left: 1em;
+        }
+        &.triggers {
+          >.row{
+            margin:0;
+          }
+          .addTrigger{
+            padding: 0;
+          }
+        }
+      }
+      .skill {
+        margin: 0;
+      }
+      .skillsViewFooter {
+        @extend %block-name;
+        text-align: right;
+        width: 100%;
+        margin:0
+      }
+      .skillsViewToggle {
+        @extend %block-name;
+        justify-content: flex-end;
+        padding: $standard-padding-small;
+        * {
+          margin: 0 $standard-padding-small;
+        }
+        .switchContainer {
+          width: 25%;
+          .switchBar.off {
+            background-color: $background-colour;
+          }
+        }
+      }
+    }
+  }
+}
+.addSkillModalMalifaux {
+  .input-group {
+    padding-top: $standard-padding-small;
+    .input-group-prepend {
+      width: 40%;
+      .input-group-text {
+        @extend %block-name;
+      }
+    }
+    .form-control {
+      @extend %block-value;
+    }
+  }
+}
+.popoverEditor {
+  .popover-header {
+    @extend %block-name;
+  }
+  .popover-body, input.editing {
+    @extend %block-value
+  }
+}
+.modal-dialog {
+  .modal-header {
+    @extend %block-name;
+    .suitIcon {
+      fill: $block-name-text-colour;
+      font-size: 150%;
+      vertical-align: -15%;
+      margin-right: 0.5em;
+    }
+  }
+  .modal-body, .modal-footer {
+    @extend %block-value;
+    text-align: justify;
+  }
+  .modal-body {
+    border-bottom: 0;
+  }
+  .modal-footer {
+    border-top: 0;
+  }
+}
+.modal-body {
+  .addTriggerSet {
+    margin-top: $standard-padding-small;
+    .suitSelection {
+      @extend %block-value;
+      margin: 0;
+      padding: 0 $standard-padding-small;
+      align-items: center;
+      flex-grow: 1;
+      justify-content: space-between;
+      * {
+        padding: 0;
+      }
+      .suitPair>label {
+        margin: 0;
+      }
+      .suitIcon {
+        font-size: 200%;
       }
     }
   }

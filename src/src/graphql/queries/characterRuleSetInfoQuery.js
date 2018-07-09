@@ -7,7 +7,14 @@ const query = graphql`
       statSets {
         key
         value
-      },
+      }
+      skillInfoSets {
+        key
+        value {
+          name
+          statKeys
+        }
+      }
       dataLists {
         key
         value
