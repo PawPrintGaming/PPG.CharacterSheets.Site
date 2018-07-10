@@ -11,3 +11,7 @@ export const totalSkillModifier = (skill, statValue, proficiencyBonus) => {
   const proficiencyModifier = skill ? isProficient(skill.metaData) ? proficiencyBonus : 0 : 0;
   return statModifier + proficiencyModifier;
 };
+
+export const characterInitiativeBonus = (stats) => {
+  return formatModifier(calculateModifierForStat(stats.find(stat => stat.key === 'Dexterity').value));
+}

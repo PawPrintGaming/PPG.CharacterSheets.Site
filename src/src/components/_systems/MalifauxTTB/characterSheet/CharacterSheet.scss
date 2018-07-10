@@ -97,21 +97,14 @@ $edit-width: 100%;
       }
       .value {
         @extend %block-value;
+        height: 50%;
         width: 100%;
       }
     }
-    #destinyStepsFulfilledGraphicEditor {
+    .destinyStepsFulfilled {
       display: inline-flex;
-    }
-    .destinyStepsFulfilledGraphic {
-      height: 1.5em;
-      width: 100%;
-      .step {
-        stroke: #000;
-        &.unfulfilled {
-          fill: none;
-        }
-      }
+      justify-content: space-between;
+      align-items: center;
     }
   }
   .characterStats {

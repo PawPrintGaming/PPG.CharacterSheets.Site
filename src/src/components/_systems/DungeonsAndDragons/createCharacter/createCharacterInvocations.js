@@ -17,7 +17,14 @@ const buildMetaData = (values) => {
   metaData.push({key: keys.ALIGNMENT, value: values.alignment});
   metaData.push({key: keys.BACKGROUND, value: values.background});
   metaData.push({key: keys.RACE, value: values.race});
+  metaData.push({key: keys.BASESPEED, value: values.baseSpeed});
   metaData.push({key: keys.PROFICIENCYBONUS, value: values.proficiencyBonus})
+  metaData.push({key: keys.hp.MAXHP, value: values.maxHP})
+  metaData.push({key: keys.hp.CURRENTHP, value: values.maxHP})
+  metaData.push({key: keys.hp.HITDICEVALUE, value: values.hitDiceValue})
+  metaData.push({key: keys.hp.NUMBEROFHITDICE, value: '1'})
+  metaData.push({key: keys.deathSaves.SUCCESSES, value: '0'})
+  metaData.push({key: keys.deathSaves.FAILURES, value: '0'})
   return metaData;
 }
 

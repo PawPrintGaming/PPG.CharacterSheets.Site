@@ -1,6 +1,27 @@
 import * as keys from '../metaDataKeys';
 
-export const toggleProficiencyTransform = (skill) => {
+export const toggleProficiencyTransform = (skill, skillName = '') => {
+  if(!skill) {
+    return {
+      name: skillName,
+      metaData: [
+        {
+          key: keys.metaData.PROPERTIES,
+          value: [
+            {
+              key: keys.metaData.PROFICIENCY,
+              value: [
+                {
+                  key: keys.metaData.ISPROFICIENT,
+                  value: 'true'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
   const propertiesIndex = skill.metaData.findIndex(data => data.key === keys.metaData.PROPERTIES);
   const proficienyIndex = skill.metaData.find(data => data.key === keys.metaData.PROPERTIES).value.findIndex(proficiency => proficiency.key === keys.metaData.PROFICIENCY);
   const isProficientIndex = skill.metaData.find(data => data.key === keys.metaData.PROPERTIES).value.find(proficiency => proficiency.key === keys.metaData.PROFICIENCY).value.findIndex(isProficient => isProficient.key === keys.metaData.ISPROFICIENT);

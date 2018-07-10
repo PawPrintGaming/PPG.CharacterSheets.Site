@@ -5,35 +5,27 @@ import {getCurrentPursuit, getStation, getDestinyStepsFulfilled} from '../../met
 import NumericalStepModalEditor from '../../../../inlineEditors/modalEditors/NumericalStepModalEditor';
 import InlineTextEditor from '../../../../inlineEditors/textEditors/InlineTextEditor';
 import {updateCharacterProperty, updateCharacterMetaData} from '../../../../characterSheet/updateCharacterSheetInvocations';
-import debounce from '../../../../../debounce';
-import * as d3 from 'd3';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import unfullfilledStepIcon from '@fortawesome/fontawesome-free-regular/faCircle';
+import fullfilledStepIcon from '@fortawesome/fontawesome-free-solid/faCircle';
 
 export class CharacterSummary extends Component {
-  renderDestinyStepsFulfilledGraphic = (stepsFulfilled, totalSteps = 5) => {
-    var graphic = d3.select('#destinyStepsFulfilledGraphic');
-
-    graphic.selectAll('.step').remove();
-
-    const height = parseInt(graphic.style('height'), 10);
-    const width = parseInt(graphic.style('width'), 10);
-
-    console.log(height, width);
-
-    const markSpace = width/(totalSteps+1);
-
+  renderDestinyStepsFulfilledMarks = (destinyStepsFulfilled, totalSteps = 5) => {
+    let marks = []
     for(var mark = 1; mark < totalSteps+1; mark++) {
-      graphic.append('circle')
-        .attr('cx', mark*markSpace)
-        .attr('cy', height/2)
-        .attr('r', (height*0.75)/2)
-        .attr('class', `step ${mark <= stepsFulfilled ? 'fulfilled' : 'unfulfilled'}`);
+      let icon = mark <= destinyStepsFulfilled
+        ? fullfilledStepIcon
+        : unfullfilledStepIcon
+        marks.push(<FontAwesomeIcon key={mark} icon={icon} />)
     }
+    return marks;
   }
 
   destinyStepsFulfilledPlaceholder = (characterId, destinyStepsFulfilled) => (
     <NumericalStepModalEditor
-      id={"destinyStepsFulfilledGraphicEditor"}
-      text={<svg ref={node => this.node = node} id={"destinyStepsFulfilledGraphic"} className={"destinyStepsFulfilledGraphic"}></svg>}
+      id={"destinyStepsFulfilled"}
+      className={"destinyStepsFulfilled col"}
+      text={this.renderDestinyStepsFulfilledMarks(destinyStepsFulfilled)}
       title={"Destiny Steps Fulfilled"}
       value={destinyStepsFulfilled}
       change={value => updateCharacterMetaData(characterId, "DestinyStepsFulfilled", value)}
@@ -88,19 +80,6 @@ export class CharacterSummary extends Component {
         </Row>
       </Col>
     )
-  }
-
-  componentDidMount = () => {
-    const {character} = this.props
-    const destinyStepsFulfilled = getDestinyStepsFulfilled(character.metaData);
-    debounce(this.renderDestinyStepsFulfilledGraphic(destinyStepsFulfilled));
-    window.addEventListener('resize', () => debounce(this.renderDestinyStepsFulfilledGraphic(destinyStepsFulfilled)));
-  }
-
-  componentDidUpdate = () => {
-    const {character} = this.props
-    const destinyStepsFulfilled = getDestinyStepsFulfilled(character.metaData);
-    debounce(this.renderDestinyStepsFulfilledGraphic(character.id, destinyStepsFulfilled));
   }
 }
 

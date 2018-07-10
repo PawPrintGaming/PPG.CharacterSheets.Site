@@ -4,12 +4,14 @@ import {connect} from 'react-redux';
 import {Col, Row, Tooltip} from 'reactstrap';
 import {formatModifier, statNameAbbreviation, totalSkillModifier, calculateModifierForStat} from "../../statUtils";
 import {despace} from '../../../../../metaDataUtils';
-import * as d3 from 'd3';
 import {isProficient, getProficiencyBonus} from '../../metaDataUtils';
 import * as keys from '../../metaDataKeys';
 import InlineTextEditor from '../../../../inlineEditors/textEditors/InlineTextEditor';
 import {updateCharacterMetaData, updateCharacterSkill} from '../../../../characterSheet/updateCharacterSheetInvocations';
-import { toggleProficiencyTransform } from '../updateCharacterTransforms';
+import {toggleProficiencyTransform} from '../updateCharacterTransforms';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import notProficientIcon from '@fortawesome/fontawesome-free-regular/faCircle';
+import proficientIcon from '@fortawesome/fontawesome-free-solid/faCircle';
 
 export class CharacterSkills extends Component {
   constructor(props) {
@@ -32,25 +34,12 @@ export class CharacterSkills extends Component {
   skillModifierId = (skillName) => `${despace(skillName)}-modifier`
 
   skillProficiencyId = (skillName) => `${despace(skillName)}-proficiency`;
-
-  renderSkillProficiency = (skill, skillInfo) => {
-    var graphic = d3.select(`#${this.skillProficiencyId(skillInfo.name)}`)
-
-    graphic.selectAll('.proficiency').remove();
-    
-    const height = parseInt(graphic.style('height'), 10);
-    const width = parseInt(graphic.style('width'), 10);
-
-    graphic.append('circle')
-      .attr('cx', width/2)
-      .attr('cy', height*0.65)
-      .attr('r',  height*0.2)
-      .attr('class', `proficiency ${(skill ? isProficient(skill.metaData) : false) ? 'proficient' : 'unproficient'}`)
-  }
   
   renderSavingThrow = (savingThrowInfo, savingThrow, stat, proficiencyBonus, onProficienyToggle) => (
-    <Row key={savingThrowInfo.name} className={"mx-0"} id={this.skillModifierId(savingThrowInfo.name)}>
-      <Col xs={1} className={"px-0 proficiencyCol editable"}><svg ref={node => this.node = node} id={`${this.skillProficiencyId(savingThrowInfo.name)}`} className={'proficiencyGraphic'} onClick={() => onProficienyToggle(savingThrow)}/></Col>
+    <Row key={savingThrowInfo.name} className={"mx-0 skill"} id={this.skillModifierId(savingThrowInfo.name)}>
+      <Col xs={1} className={"px-0 proficiencyCol editable"}>
+        <FontAwesomeIcon icon={isProficient(savingThrow ? savingThrow.metaData : undefined) ? proficientIcon : notProficientIcon} className={"proficiencyIcon"} onClick={() => onProficienyToggle(savingThrow, savingThrowInfo.name)}/>
+      </Col>
       <Col xs={1} className={"modifier"}>{formatModifier(totalSkillModifier(savingThrow, stat.value, proficiencyBonus))}</Col>
       <Tooltip placement={"bottom"} target={this.skillModifierId(savingThrowInfo.name)} delay={0} isOpen={this.state.tooltips[this.skillModifierId(savingThrowInfo.name)] || false} toggle={() => this.toggleToolTip(this.skillModifierId(savingThrowInfo.name))} className={"skillTooltip"}>
         <Row className={"mx-0"}>
@@ -69,15 +58,17 @@ export class CharacterSkills extends Component {
   )
 
   renderSkill = (skillInfo, skill, stat, proficiencyBonus, onProficienyToggle) => (
-    <Row key={skillInfo.name} className={"mx-0"} id={this.skillModifierId(skillInfo.name)}>
-      <Col xs={1} className={"px-0 proficiencyCol editable"}><svg ref={node => this.node = node} id={`${this.skillProficiencyId(skillInfo.name)}`} className={'proficiencyGraphic'} onClick={() => onProficienyToggle(skill)}/></Col>
+    <Row key={skillInfo.name} className={"mx-0 skill"} id={this.skillModifierId(skillInfo.name)}>
+      <Col xs={1} className={"px-0 proficiencyCol editable"}>
+        <FontAwesomeIcon icon={isProficient(skill ? skill.metaData : undefined) ? proficientIcon : notProficientIcon} className={"proficiencyIcon"} onClick={() => onProficienyToggle(skill, skillInfo.name)}/>
+      </Col>
       <Col xs={1} className={"modifier"}>{formatModifier(totalSkillModifier(skill, stat.value, proficiencyBonus))}</Col>
       <Tooltip placement={"bottom"} target={this.skillModifierId(skillInfo.name)} delay={0} isOpen={this.state.tooltips[this.skillModifierId(skillInfo.name)] || false} toggle={() => this.toggleToolTip(this.skillModifierId(skillInfo.name))} className={"skillTooltip"}>
         <Row className={"mx-0"}>
           {`${stat.key}: ${formatModifier(calculateModifierForStat(stat.value))}`}
         </Row>
         {
-          isProficient(skill.metaData)
+          isProficient(skill ? skill.metaData : undefined)
           ? <Row className={"mx-0"}>
               {`Proficiency Bonus: ${formatModifier(proficiencyBonus)}`}
             </Row>
@@ -135,30 +126,8 @@ export class CharacterSkills extends Component {
       </Col>
     )
   }
-
-  renderProficiencies = (props) => {
-    const {character, skillInfoSets} = props
-    const {skills} = character
-    const skillInfos = skillInfoSets.find(skillInfoSet => skillInfoSet.key === keys.skillSets.DEFAULT).value;
-    skillInfos.map(skillInfo => {
-      const skill = skills.find(skill => skill.name === skillInfo.name)
-      return this.renderSkillProficiency(skill, skillInfo);
-    })
-    const savingThrowInfos = skillInfoSets.find(skillInfoSet => skillInfoSet.key === keys.skillSets.SAVINGTHROWS).value;
-    savingThrowInfos.map(savingThrowInfo => {
-      const savingThrow = skills.find(skill => skill.name === savingThrowInfo.name)
-      return this.renderSkillProficiency(savingThrow, savingThrowInfo);
-    })
-  }
-
-  componentDidMount() {
-    this.renderProficiencies(this.props);
-  }
-
-  componentDidUpdate() {
-    this.renderProficiencies(this.props);
-  }
 }
+
 CharacterSkills.propTypes = {
   character: PropTypes.object.isRequired,
   skillInfoSets: PropTypes.array.isRequired,
@@ -169,7 +138,7 @@ const mapStateToProps = (state, props) => {
   const {character} = props
   return {
     onProficienyBonusUpdate: (value) => updateCharacterMetaData(character.id, keys.PROFICIENCYBONUS, value),
-    onProficienyToggle: (skill) => updateCharacterSkill(character.id, toggleProficiencyTransform(skill))
+    onProficienyToggle: (skill, skillName) => updateCharacterSkill(character.id, toggleProficiencyTransform(skill, skillName))
   }
 }
 
