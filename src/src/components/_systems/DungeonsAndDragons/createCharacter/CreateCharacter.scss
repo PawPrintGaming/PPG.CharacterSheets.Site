@@ -69,4 +69,12 @@ $group-padding: 0.1em;
       }
     }
   }
+  .personalCharacteristics {
+    .input-group-text {
+      width: 10em;
+    }
+    .textAreaWithScrollBar {
+      @extend %with-scroll-bar;
+    }
+  }
 }

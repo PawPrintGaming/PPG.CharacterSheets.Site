@@ -22,9 +22,13 @@ const buildMetaData = (values) => {
   metaData.push({key: keys.hp.MAXHP, value: values.maxHP})
   metaData.push({key: keys.hp.CURRENTHP, value: values.maxHP})
   metaData.push({key: keys.hp.HITDICEVALUE, value: values.hitDiceValue})
-  metaData.push({key: keys.hp.NUMBEROFHITDICE, value: '1'})
+  metaData.push({key: keys.hp.MAXNUMBEROFHITDICE, value: '1'})
   metaData.push({key: keys.deathSaves.SUCCESSES, value: '0'})
   metaData.push({key: keys.deathSaves.FAILURES, value: '0'})
+  metaData.push({key: keys.PERSONALITYTRAITS, value: values[keys.PERSONALITYTRAITS]})
+  metaData.push({key: keys.IDEALS, value: values[keys.IDEALS]})
+  metaData.push({key: keys.BONDS, value: values[keys.BONDS]})
+  metaData.push({key: keys.FLAWS, value: values[keys.FLAWS]})
   return metaData;
 }
 
