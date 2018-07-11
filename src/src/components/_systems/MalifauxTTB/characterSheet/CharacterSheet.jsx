@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import CharacterSummary from './characterSummary/CharacterSummary';
 import CharacterStats from './characterStats/CharacterStats';
 import CharacterSkills from './characterSkills/CharacterSkills';
-import {Container, Row} from 'reactstrap'
+import {Col, Container, Row} from 'reactstrap'
 import './CharacterSheet.css';
 import CharacterActionsHeader from '../../../characterSheet/CharacterActionsHeader';
+import CharacterDerivedStats from './characterDerivedStats/CharacterDerivedStats';
 
 export class CharacterSheet extends Component {
   render() {
@@ -16,8 +17,13 @@ export class CharacterSheet extends Component {
           <Container className={"characterSheet Malifaux"}>
             <Row><CharacterSummary character={character} /></Row>
             <Row>
-              <CharacterStats character={character} statSets={characterRuleSetInfo.statSets}/>
-              <CharacterSkills character={character} skillInfoSets={characterRuleSetInfo.skillInfoSets}/>
+              <Col sm={6}>
+                <CharacterStats character={character} statSets={characterRuleSetInfo.statSets}/>
+                <CharacterDerivedStats character={character} />
+              </Col>
+              <Col sm={6}>
+                <CharacterSkills character={character} skillInfoSets={characterRuleSetInfo.skillInfoSets}/>
+              </Col>
             </Row>
           </Container>
         </div>

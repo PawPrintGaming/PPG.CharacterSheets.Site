@@ -261,7 +261,7 @@ export class CharacterSkills extends Component {
     const {character, skillInfoSets, onUpdateTriggerDescription, onDeleteTrigger, onUpdateCharacterSkillRank} = this.props;
     const {skills, stats} = character;
     return (
-      <Col className={"characterSkills panel rightPanel"} sm={12} md={6}>
+      <Col className={"characterSkills panel rightPanel"} xs={12}>
         <BlockHeader header={"Skills"} />
         {
           this.state.showSkillsBySet

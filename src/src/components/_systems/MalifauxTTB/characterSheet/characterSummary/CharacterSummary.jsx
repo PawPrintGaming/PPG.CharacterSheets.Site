@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Col, Row} from 'reactstrap';
-import {getCurrentPursuit, getStation, getDestinyStepsFulfilled} from '../../metaDataUtils';
+import {getDestinyStepsFulfilled} from '../../metaDataUtils';
 import NumericalStepModalEditor from '../../../../inlineEditors/modalEditors/NumericalStepModalEditor';
 import InlineTextEditor from '../../../../inlineEditors/textEditors/InlineTextEditor';
 import {updateCharacterProperty, updateCharacterMetaData} from '../../../../characterSheet/updateCharacterSheetInvocations';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import unfullfilledStepIcon from '@fortawesome/fontawesome-free-regular/faCircle';
 import fullfilledStepIcon from '@fortawesome/fontawesome-free-solid/faCircle';
+import {getKeyFromMetaData} from '../../../../../metaDataUtils';
+import * as keys from '../../metaDataKeys';
 
 export class CharacterSummary extends Component {
   renderDestinyStepsFulfilledMarks = (destinyStepsFulfilled, totalSteps = 5) => {
@@ -21,7 +23,7 @@ export class CharacterSummary extends Component {
     return marks;
   }
 
-  destinyStepsFulfilledPlaceholder = (characterId, destinyStepsFulfilled) => (
+  destinyStepsFulfilled = (characterId, destinyStepsFulfilled) => (
     <NumericalStepModalEditor
       id={"destinyStepsFulfilled"}
       className={"destinyStepsFulfilled col"}
@@ -51,9 +53,9 @@ export class CharacterSummary extends Component {
   
   render() {
     const {character} = this.props;
-    const {characterName, playerName, guildScrip, experience} = character;
-    const currentPursuit = getCurrentPursuit(character.metaData);
-    const station = getStation(character.metaData);
+    const {characterName, playerName, guildScrip, experience, metaData} = character;
+    const currentPursuit = getKeyFromMetaData(keys.CURRENTPURSUIT, metaData);
+    const station = getKeyFromMetaData(keys.STATION, metaData);
     const destinyStepsFulfilled = getDestinyStepsFulfilled(character.metaData);
     return (
       <Col className={"characterSummary"}>
@@ -73,7 +75,7 @@ export class CharacterSummary extends Component {
               {this.buildSummaryDataPair("GuildScrip", `\u00A7${guildScrip || 0}`, 6)}
             </Row>
             <Row>
-              {this.buildSummaryDataPair("Destiny Steps Fulfilled", this.destinyStepsFulfilledPlaceholder(character.id, destinyStepsFulfilled), 6)}
+              {this.buildSummaryDataPair("Destiny Steps Fulfilled", this.destinyStepsFulfilled(character.id, destinyStepsFulfilled), 6)}
               {this.buildSummaryDataPair("Exp.", experience, 6)}
             </Row>
           </Col>

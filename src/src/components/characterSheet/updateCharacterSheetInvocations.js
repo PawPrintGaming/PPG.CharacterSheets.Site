@@ -39,7 +39,7 @@ export const updateCharacterMetaData = (characterId, key, value) => {
 export const addCharacterSkill = (formKey, dispatch, characterId) => (formValues) => {
   var variables = {
     id: characterId,
-    skill: {name: formValues.skillName, rank: parseInt(formValues.skillRank, 10)}
+    skill: {name: formValues.skillName, rank: parseInt(formValues.skillRank, 10), metaData: []}
   };
   commitMutation(environment, {mutation: upsertCharacterSkillMutation, variables,
     onError: error => console.log(error)
@@ -53,6 +53,7 @@ export const addCharacterSkill = (formKey, dispatch, characterId) => (formValues
 }
 
 export const updateCharacterSkill = (characterId, updatedSkill) => {
+  console.log(updatedSkill)
   var variables = {
     id: characterId,
     skill: updatedSkill

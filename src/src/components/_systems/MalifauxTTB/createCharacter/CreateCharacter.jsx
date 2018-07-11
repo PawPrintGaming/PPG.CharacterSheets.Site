@@ -40,7 +40,7 @@ class CreateCharacter extends Component {
             </Col>
           </FormGroup>
           <FormGroup row className={"multiCreateRow"}>
-            <Col sm={6} className={"createPair"}>
+            <Col sm={4} className={"createPair"}>
               <InputGroup>
                 <InputGroupAddon addonType={"prepend"}>Station</InputGroupAddon>
                 <Field name={"station"} component={"select"} className={"form-control"}>
@@ -49,13 +49,19 @@ class CreateCharacter extends Component {
                 </Field>
               </InputGroup>
             </Col>
-            <Col sm={6} className={"createPair"}>
+            <Col sm={4} className={"createPair"}>
               <InputGroup>
                 <InputGroupAddon addonType={"prepend"}>Starting Pursuit</InputGroupAddon>
                 <Field name={"startingPursuit"} component={"select"} className={"form-control"}>
                   <option />
                   {pursuits.map(pursuit => <option key={pursuit} value={pursuit} label={pursuit}/>)}
                 </Field>
+              </InputGroup>
+            </Col>
+            <Col sm={4} className={"createPair"}>
+              <InputGroup>
+                <InputGroupAddon addonType={"prepend"}>Height</InputGroupAddon>
+                <Field name={"height"} component={"input"} type={"number"} className={"form-control"} />
               </InputGroup>
             </Col>
           </FormGroup>

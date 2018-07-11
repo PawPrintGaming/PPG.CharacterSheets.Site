@@ -16,7 +16,7 @@ export class InlineTextEditor extends Component {
   render() {
     const {text, param, change, inputType, showEditable, editingElement, isDisabled, defaultValue} = this.props;
     return (
-      <div className={"inline editable inlineTextEditor"}>
+      <div className={`inline editable inlineTextEditor`}>
         <InlineEdit
           text={text || defaultValue}
           change={change}

@@ -18,7 +18,7 @@ export class CharacterStats extends Component {
     const {character, statSets} = this.props;
     const {physical, mental} = groupStats(character.stats, statSets);
     return (
-      <Col className={"characterStats panel leftPanel"} sm={12} md={6}>
+      <Col className={"characterStats panel leftPanel"} xs={12}>
         <BlockHeader subHeaderLeft={"Physical"} header={"Aspects"} subHeaderRight={"Mental"}/>
         <Row className={"characterStatsTable"}>
           <Col>

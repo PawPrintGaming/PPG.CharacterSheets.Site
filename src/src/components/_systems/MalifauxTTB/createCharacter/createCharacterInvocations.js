@@ -2,6 +2,7 @@ import {commitMutation} from 'react-relay';
 import environment from '../../../../relay';
 import createCharacterMutation from '../../../../graphql/mutations/createCharacterMutation';
 import {actionTypes} from 'redux-form';
+import * as keys from '../metaDataKeys';
 
 const mapToStats = (statsFromForm) => {
   let statsForMutation = [];
@@ -13,8 +14,9 @@ const mapToStats = (statsFromForm) => {
 
 const buildMetaData = (values) => {
   let metaData = [];
-  metaData.push({key: "CurrentPursuit", value: values.startingPursuit})
-  metaData.push({key: "Station", value: values.station})
+  metaData.push({key: keys.CURRENTPURSUIT, value: values.startingPursuit})
+  metaData.push({key: keys.STATION, value: values.station})
+  metaData.push({key: keys.HEIGHT, value: values.height})
   return metaData;
 }
 
