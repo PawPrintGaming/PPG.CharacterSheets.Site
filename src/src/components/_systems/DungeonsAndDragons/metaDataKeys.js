@@ -5,6 +5,10 @@ export const RACE = 'Race';
 export const ALIGNMENT = 'Alignment';
 export const PROFICIENCYBONUS = 'ProficiencyBonus';
 export const BASESPEED = 'BaseSpeed';
+export const PERSONALITYTRAITS = 'PersonalityTraits';
+export const IDEALS = 'Ideals';
+export const BONDS = 'Bonds';
+export const FLAWS = 'Flaws';
 
 export const hp = {
   MAXHP: 'MaximumHitPoints',
@@ -29,4 +33,12 @@ export const skillSets = {
 export const deathSaves = {
   SUCCESSES: 'DeathSaveSuccesses',
   FAILURES: 'DeathSaveFailures'
+}
+
+export const skillNames = {
+  PERCEPTION: 'Perception'
+}
+
+export const statNames = {
+  WISDOM: 'Wisdom'
 }

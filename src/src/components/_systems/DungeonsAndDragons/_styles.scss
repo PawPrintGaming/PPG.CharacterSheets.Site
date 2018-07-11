@@ -15,6 +15,7 @@ $emphasised-block-border-width: 0.1rem;
 
 $group-background-colour: rgb(220, 221, 223);
 $group-padding: 0.75em;
+$sub-padding: 0.25em;
 
 %input-form-block {
   border: $secondary-block-border-width $secondary-block-border-style $secondary-block-border-colour;
@@ -36,5 +37,56 @@ $group-padding: 0.75em;
   border: $emphasised-block-border-width $block-border-style $block-border-colour;
   border-radius: 1rem;
 }
+%derivedStat-block {
+  display: flex;
+  align-items: center;
+  height: 3em;
+  margin-bottom: 1%;
+  .value {
+    height: 100%;
+    padding: 0;
+    @extend %emphasised-block;
+    border-radius: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .editable, .editing {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 25%;
+    }
+  }
+  .title {
+    @extend %emphasised-block;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none;
+    font-size: 75%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+}
 
 $background-colour: rgb(255, 255, 255);
+
+%with-scroll-bar {
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 100%;
+    border: 1% $block-border-style $secondary-block-border-colour;
+  }
+  &::-webkit-scrollbar-track {
+    margin-top: 1%;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+  }
+  &::-webkit-resizer, & *::-webkit-resizer {
+    display: none;
+  }
+}

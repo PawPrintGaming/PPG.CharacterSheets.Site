@@ -141,6 +141,32 @@ export class CreateCharacter extends Component {
     </Col>
   )
 
+  personalCharacteristics = () => (
+    <Col className={"px-0"}>
+      <Row>
+        <Col xs={12} className={"input-group-text"}>Personal Characteristics</Col>
+      </Row>
+      <FormGroup row className={"personalCharacteristics"}>
+        <InputGroup>
+          <InputGroupAddon addonType={"prepend"}>Personality Traits</InputGroupAddon>
+          <Field name={keys.PERSONALITYTRAITS} component={"textarea"} className={"form-control textAreaWithScrollBar"} />
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType={"prepend"}>Ideals</InputGroupAddon>
+          <Field name={keys.IDEALS} component={"textarea"} className={"form-control textAreaWithScrollBar"} />
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType={"prepend"}>Bonds</InputGroupAddon>
+          <Field name={keys.BONDS} component={"textarea"} className={"form-control textAreaWithScrollBar"} />
+        </InputGroup>
+        <InputGroup>
+          <InputGroupAddon addonType={"prepend"}>Flaws</InputGroupAddon>
+          <Field name={keys.FLAWS} component={"textarea"} className={"form-control textAreaWithScrollBar"} />
+        </InputGroup>
+      </FormGroup>
+    </Col>
+  )
+
   render() {
     const {handleSubmit, onSubmit, pristine, submitting, formStats} = this.props;
     return (
@@ -170,6 +196,7 @@ export class CreateCharacter extends Component {
                 {this.statBlock(statSets, formStats)}
                 {this.skillsBlock(skillInfoSet)}
                 {this.savingThrowsBlock(savingThrowInfos)}
+                {this.personalCharacteristics()}
                 <FormGroup row className={"submit"}>
                   <Button type={"submit"} disabled={pristine || submitting} onSubmit={() => { return false }}>
                     Create

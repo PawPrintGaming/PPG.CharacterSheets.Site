@@ -7,6 +7,7 @@ import './CharacterSheet.css';
 import CharacterActionsHeader from '../../../characterSheet/CharacterActionsHeader';
 import CharacterSkills from './characterSkills/CharacterSkills';
 import CharacterDefences from './characterDefences/CharacterDefences';
+import CharacterPersonalCharacteristics from './characterPersonalCharacteristics/CharacterPersonalCharacteristics';
 
 export class CharacterSheet extends Component {
   render() {
@@ -20,6 +21,7 @@ export class CharacterSheet extends Component {
             <CharacterStats character={character} />
             <CharacterSkills character={character} skillInfoSets={characterRuleSetInfo.skillInfoSets}/>
             <CharacterDefences character={character} />
+            <CharacterPersonalCharacteristics character={character} />
           </Row>
         </Container>
       </div>
