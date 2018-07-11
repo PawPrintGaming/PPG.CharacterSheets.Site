@@ -43,6 +43,26 @@ export class CreateCharacter extends Component {
           {this.buildSelectInputFieldGroup("Alignment", "alignment", alignments, 4)}
           {this.buildSelectInputFieldGroup("Race", "race", races, 4)}
         </FormGroup>
+        <FormGroup row>
+          <Col className={"createPair"}>
+            <InputGroup>
+              <InputGroupAddon addonType={"prepend"}>Base Speed</InputGroupAddon>
+              <Field name={"baseSpeed"} component={"input"} type={"number"} min={0} step={5} className={"form-control"} />
+            </InputGroup>
+          </Col>
+          <Col className={"createPair"}>
+            <InputGroup>
+              <InputGroupAddon addonType={"prepend"}>Maximum Hit Points</InputGroupAddon>
+              <Field name={"maxHP"} component={"input"} type={"number"} min={0} className={"form-control"} />
+            </InputGroup>
+          </Col>
+          <Col className={"createPair"}>
+            <InputGroup>
+              <InputGroupAddon addonType={"prepend"}>Hit Dice Value</InputGroupAddon>
+              <Field name={"hitDiceValue"} component={"input"} type={"number"} min={0} className={"form-control"} />
+            </InputGroup>
+          </Col>
+        </FormGroup>
       </div>
    );
   }

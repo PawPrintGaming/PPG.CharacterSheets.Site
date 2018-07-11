@@ -1,39 +1,33 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Col, Row} from 'reactstrap';
-import {getCurrentPursuit, getStation, getDestinyStepsFulfilled} from '../../metaDataUtils';
+import {getDestinyStepsFulfilled} from '../../metaDataUtils';
 import NumericalStepModalEditor from '../../../../inlineEditors/modalEditors/NumericalStepModalEditor';
 import InlineTextEditor from '../../../../inlineEditors/textEditors/InlineTextEditor';
 import {updateCharacterProperty, updateCharacterMetaData} from '../../../../characterSheet/updateCharacterSheetInvocations';
-import debounce from '../../../../../debounce';
-import * as d3 from 'd3';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import unfullfilledStepIcon from '@fortawesome/fontawesome-free-regular/faCircle';
+import fullfilledStepIcon from '@fortawesome/fontawesome-free-solid/faCircle';
+import {getKeyFromMetaData} from '../../../../../metaDataUtils';
+import * as keys from '../../metaDataKeys';
 
 export class CharacterSummary extends Component {
-  renderDestinyStepsFulfilledGraphic = (stepsFulfilled, totalSteps = 5) => {
-    var graphic = d3.select('#destinyStepsFulfilledGraphic');
-
-    graphic.selectAll('.step').remove();
-
-    const height = parseInt(graphic.style('height'), 10);
-    const width = parseInt(graphic.style('width'), 10);
-
-    console.log(height, width);
-
-    const markSpace = width/(totalSteps+1);
-
+  renderDestinyStepsFulfilledMarks = (destinyStepsFulfilled, totalSteps = 5) => {
+    let marks = []
     for(var mark = 1; mark < totalSteps+1; mark++) {
-      graphic.append('circle')
-        .attr('cx', mark*markSpace)
-        .attr('cy', height/2)
-        .attr('r', (height*0.75)/2)
-        .attr('class', `step ${mark <= stepsFulfilled ? 'fulfilled' : 'unfulfilled'}`);
+      let icon = mark <= destinyStepsFulfilled
+        ? fullfilledStepIcon
+        : unfullfilledStepIcon
+        marks.push(<FontAwesomeIcon key={mark} icon={icon} />)
     }
+    return marks;
   }
 
-  destinyStepsFulfilledPlaceholder = (characterId, destinyStepsFulfilled) => (
+  destinyStepsFulfilled = (characterId, destinyStepsFulfilled) => (
     <NumericalStepModalEditor
-      id={"destinyStepsFulfilledGraphicEditor"}
-      text={<svg ref={node => this.node = node} id={"destinyStepsFulfilledGraphic"} className={"destinyStepsFulfilledGraphic"}></svg>}
+      id={"destinyStepsFulfilled"}
+      className={"destinyStepsFulfilled col"}
+      text={this.renderDestinyStepsFulfilledMarks(destinyStepsFulfilled)}
       title={"Destiny Steps Fulfilled"}
       value={destinyStepsFulfilled}
       change={value => updateCharacterMetaData(characterId, "DestinyStepsFulfilled", value)}
@@ -59,9 +53,9 @@ export class CharacterSummary extends Component {
   
   render() {
     const {character} = this.props;
-    const {characterName, playerName, guildScrip, experience} = character;
-    const currentPursuit = getCurrentPursuit(character.metaData);
-    const station = getStation(character.metaData);
+    const {characterName, playerName, guildScrip, experience, metaData} = character;
+    const currentPursuit = getKeyFromMetaData(keys.CURRENTPURSUIT, metaData);
+    const station = getKeyFromMetaData(keys.STATION, metaData);
     const destinyStepsFulfilled = getDestinyStepsFulfilled(character.metaData);
     return (
       <Col className={"characterSummary"}>
@@ -81,26 +75,13 @@ export class CharacterSummary extends Component {
               {this.buildSummaryDataPair("GuildScrip", `\u00A7${guildScrip || 0}`, 6)}
             </Row>
             <Row>
-              {this.buildSummaryDataPair("Destiny Steps Fulfilled", this.destinyStepsFulfilledPlaceholder(character.id, destinyStepsFulfilled), 6)}
+              {this.buildSummaryDataPair("Destiny Steps Fulfilled", this.destinyStepsFulfilled(character.id, destinyStepsFulfilled), 6)}
               {this.buildSummaryDataPair("Exp.", experience, 6)}
             </Row>
           </Col>
         </Row>
       </Col>
     )
-  }
-
-  componentDidMount = () => {
-    const {character} = this.props
-    const destinyStepsFulfilled = getDestinyStepsFulfilled(character.metaData);
-    debounce(this.renderDestinyStepsFulfilledGraphic(destinyStepsFulfilled));
-    window.addEventListener('resize', () => debounce(this.renderDestinyStepsFulfilledGraphic(destinyStepsFulfilled)));
-  }
-
-  componentDidUpdate = () => {
-    const {character} = this.props
-    const destinyStepsFulfilled = getDestinyStepsFulfilled(character.metaData);
-    debounce(this.renderDestinyStepsFulfilledGraphic(character.id, destinyStepsFulfilled));
   }
 }
 

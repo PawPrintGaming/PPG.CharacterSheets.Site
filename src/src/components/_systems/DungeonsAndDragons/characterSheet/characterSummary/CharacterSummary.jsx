@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Col, Row} from 'reactstrap';
-import {getClass, getLevel, getBackground, getRace, getAligment} from '../../metaDataUtils';
 import InlineTextEditor from '../../../../inlineEditors/textEditors/InlineTextEditor';
 import {updateCharacterProperty} from '../../../../characterSheet/updateCharacterSheetInvocations';
+import {getKeyFromMetaData} from '../../../../../metaDataUtils';
+import * as keys from '../../metaDataKeys'
 
 export class CharacterSummary extends Component {
   buildSummaryDataPair = (title, value, sm = 12) => (
@@ -25,11 +26,11 @@ export class CharacterSummary extends Component {
   render() {
     const {character} = this.props;
     const {characterName, playerName, experience} = character;
-    const characterClass = getClass(character.metaData);
-    const characterLevel = getLevel(character.metaData);
-    const characterBackground = getBackground(character.metaData);
-    const characterRace = getRace(character.metaData);
-    const characterAlignment = getAligment(character.metaData);
+    const characterClass = getKeyFromMetaData(keys.CLASS, character.metaData);
+    const characterLevel = getKeyFromMetaData(keys.LEVEL, character.metaData);
+    const characterBackground = getKeyFromMetaData(keys.BACKGROUND, character.metaData);
+    const characterRace = getKeyFromMetaData(keys.RACE, character.metaData);
+    const characterAlignment = getKeyFromMetaData(keys.ALIGNMENT, character.metaData);
     return (
       <Row className={"characterSummary DnD"}>
         {this.buildSummaryDataPairWithInlineEdit(character, "Character Name", characterName, "CharacterName", 5)}

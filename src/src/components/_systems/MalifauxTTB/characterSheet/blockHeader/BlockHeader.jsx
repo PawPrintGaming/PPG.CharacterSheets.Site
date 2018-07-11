@@ -9,14 +9,14 @@ export class BlockHeader extends Component {
     const {subHeaderLeft, header, subHeaderRight} = this.props;
     return (
       <Row className={"blockHeader"}>
-        <Col xs={4} className={"subHeader left"}>{subHeaderLeft}</Col>
-        <Col xs={4}>
+        <Col xs={2} className={"subHeader left"}>{subHeaderLeft}</Col>
+        <Col xs={8}>
           <Row className={"standOut"}>{header}</Row>
           <Row className={"standOutFooter"}>
             <span><FontAwesomeIcon icon={caretDown} /></span>
           </Row>
         </Col>
-        <Col xs={4} className={"subHeader right"}>{subHeaderRight}</Col>
+        <Col xs={2} className={"subHeader right"}>{subHeaderRight}</Col>
       </Row>
     )
   }

@@ -67,9 +67,9 @@ export class NumericalStepModalEditor extends Component {
   }
 
   render() {
-    const {showEditable, id, text, value, title, change, min, max} = this.props;
+    const {showEditable, id, text, value, title, change, min, max, className} = this.props;
     return (
-          <span id={id} onClick={this.toggleModal} className={`numericalStepModalEditor editable${showEditable ? ' showEditable' : ''}`}>
+          <div id={id} onClick={this.toggleModal} className={`numericalStepModalEditor editable${showEditable ? ' showEditable' : ''}${className ? ` ${className}` : ''}`}>
             {text}{this.renderEditableIcon(showEditable, id)}
             <Modal isOpen={this.state.modalOpen} toggle={this.toggleModal} onClosed={this.disableError} className={"numericalStepModalEditor"}>
               <ModalHeader>Edit: {title}</ModalHeader>
@@ -85,20 +85,21 @@ export class NumericalStepModalEditor extends Component {
                 <Button color={"primary"} onClick={this.toggleModal}>Done</Button>
               </ModalFooter>
             </Modal>
-          </span>
+          </div>
     )
   }
 }
 
 NumericalStepModalEditor.propTypes = {
   id: PropTypes.string.isRequired,
-  text: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object]).isRequired,
+  text: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.object, PropTypes.array]).isRequired,
   title: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   showEditable: PropTypes.bool.isRequired,
   change: PropTypes.func.isRequired,
   min: PropTypes.number,
   max: PropTypes.number,
+  className: PropTypes.string
 }
 
 NumericalStepModalEditor.defaultProps = {

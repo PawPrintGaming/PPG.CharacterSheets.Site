@@ -6,6 +6,7 @@ import {Container, Row} from 'reactstrap'
 import './CharacterSheet.css';
 import CharacterActionsHeader from '../../../characterSheet/CharacterActionsHeader';
 import CharacterSkills from './characterSkills/CharacterSkills';
+import CharacterDefences from './characterDefences/CharacterDefences';
 
 export class CharacterSheet extends Component {
   render() {
@@ -18,6 +19,7 @@ export class CharacterSheet extends Component {
           <Row>
             <CharacterStats character={character} />
             <CharacterSkills character={character} skillInfoSets={characterRuleSetInfo.skillInfoSets}/>
+            <CharacterDefences character={character} />
           </Row>
         </Container>
       </div>

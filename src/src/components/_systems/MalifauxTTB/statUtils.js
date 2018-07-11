@@ -10,3 +10,9 @@ export const groupStats = (stats, statSets) => {
     mental: stats.filter(stat => mentalKeys.includes(stat.key))
   }
 }
+
+export const potentialSkillRank = (skills, skillKey) => {
+  return skills.some(skill => skill.name === skillKey)
+      ? skills.find(skill => skill.name === skillKey).rank
+      : null;
+}
