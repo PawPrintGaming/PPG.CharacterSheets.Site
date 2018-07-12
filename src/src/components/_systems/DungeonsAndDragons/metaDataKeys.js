@@ -9,6 +9,8 @@ export const PERSONALITYTRAITS = 'PersonalityTraits';
 export const IDEALS = 'Ideals';
 export const BONDS = 'Bonds';
 export const FLAWS = 'Flaws';
+export const EXPERIENCE = 'Experience';
+export const CHARACTERNAME = 'CharacterName';
 
 export const hp = {
   MAXHP: 'MaximumHitPoints',

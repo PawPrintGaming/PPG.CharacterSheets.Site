@@ -4,6 +4,7 @@ export const DESTINYSTEPSFULFILLED = 'DestinyStepsFulfilled';
 export const CURRENTWOUNDS = 'CurrentWounds';
 export const HEIGHT = 'Height';
 export const CHARACTERNAME = 'CharacterName';
+export const EXPERIENCE = 'Experience';
 
 export const skillNames = {
   EVADE: 'Evade',

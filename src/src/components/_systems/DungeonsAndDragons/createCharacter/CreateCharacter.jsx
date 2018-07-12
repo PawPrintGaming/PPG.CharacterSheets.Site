@@ -59,7 +59,7 @@ export class CreateCharacter extends Component {
           <Col className={"createPair"}>
             <InputGroup>
               <InputGroupAddon addonType={"prepend"}>Hit Dice Value</InputGroupAddon>
-              <Field name={"hitDiceValue"} component={"input"} type={"number"} min={0} className={"form-control"} />
+              <Field name={"hitDiceValue"} component={"input"} type={"number"} min={0} step={2} className={"form-control"} />
             </InputGroup>
           </Col>
         </FormGroup>

@@ -5,7 +5,6 @@ import {Col, Row} from 'reactstrap';
 import {getDestinyStepsFulfilled} from '../../metaDataUtils';
 import NumericalStepModalEditor from '../../../../inlineEditors/modalEditors/NumericalStepModalEditor';
 import InlineTextEditor from '../../../../inlineEditors/textEditors/InlineTextEditor';
-import PopOverEditor from '../../../../inlineEditors/popOverEditor/PopOverEditor';
 import {updateCharacterProperty, updateCharacterMetaData, updateCharacterWallet} from '../../../../characterSheet/updateCharacterSheetInvocations';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import unfullfilledStepIcon from '@fortawesome/fontawesome-free-regular/faCircle';
@@ -25,14 +24,14 @@ export class CharacterSummary extends Component {
     return marks;
   }
 
-  destinyStepsFulfilled = (characterId, destinyStepsFulfilled) => (
+  destinyStepsFulfilled = (destinyStepsFulfilled, onUpdateMetaData) => (
     <NumericalStepModalEditor
       id={"destinyStepsFulfilled"}
       className={"destinyStepsFulfilled col"}
       text={this.renderDestinyStepsFulfilledMarks(destinyStepsFulfilled)}
       title={"Destiny Steps Fulfilled"}
       value={destinyStepsFulfilled}
-      change={value => updateCharacterMetaData(characterId, "DestinyStepsFulfilled", value)}
+      change={(value) => onUpdateMetaData(keys.DESTINYSTEPSFULFILLED, value)}
       min={0} max={5}
     />
   )
@@ -52,13 +51,9 @@ export class CharacterSummary extends Component {
     title, <InlineTextEditor text={value} param={key} change={({text}) => onUpdate(key, text)} inputType={inputType} prefix={prefix} formatter={formatter} />, colSize
   )
   
-  buildSummaryDataPairWithPopoverEdit = (title, value, key, onUpdate, colSize = 12, inputType = 'text') => this.buildSummaryDataPairWithChild(
-    title, <PopOverEditor id={key} placement={"bottom"} text={value} param={key} change={({text}) => onUpdate(key, text)} inputType={inputType} title={title} />, colSize
-  )
-  
   render() {
-    const {character, onUpdateProperty, onUpdateWallet} = this.props;
-    const {characterName, playerName, experience, metaData, wallets} = character;
+    const {character, onUpdateMetaData, onUpdateProperty, onUpdateWallet} = this.props;
+    const {characterName, playerName, metaData, wallets} = character;
     const destinyStepsFulfilled = getDestinyStepsFulfilled(character.metaData);
     return (
       <Col className={"characterSummary"}>
@@ -86,8 +81,8 @@ export class CharacterSummary extends Component {
               )}
             </Row>
             <Row>
-              {this.buildSummaryDataPair("Destiny Steps Fulfilled", this.destinyStepsFulfilled(character.id, destinyStepsFulfilled), 6)}
-              {this.buildSummaryDataPair("Exp.", experience, 6)}
+              {this.buildSummaryDataPair("Destiny Steps Fulfilled", this.destinyStepsFulfilled(destinyStepsFulfilled, onUpdateMetaData), 6)}
+              {this.buildSummaryDataPairWithInlineEdit("Exp.", getKeyFromMetaData(keys.EXPERIENCE, metaData, 0), keys.EXPERIENCE, onUpdateMetaData, 6, 'number')}
             </Row>
           </Col>
         </Row>
@@ -98,6 +93,7 @@ export class CharacterSummary extends Component {
 
 CharacterSummary.propTypes = {
   character: PropTypes.object.isRequired,
+  onUpdateMetaData: PropTypes.func.isRequired,
   onUpdateProperty: PropTypes.func.isRequired,
   onUpdateWallet: PropTypes.func.isRequired
 }
@@ -105,6 +101,7 @@ CharacterSummary.propTypes = {
 const mapStateToProps = (state, props) => {
   const {character} = props;
   return {
+    onUpdateMetaData: (key, value) => updateCharacterMetaData(character.id, key, value),
     onUpdateProperty: (key, value) => updateCharacterProperty(character.id, key, value),
     onUpdateWallet: (key, value) => updateCharacterWallet(character.id, key, value)
   }
