@@ -11,6 +11,7 @@ const mutation = graphql`
       stats {key, value}
       metaData {key, value}
       skills {name, rank, metaData {key, value {key, value {key, value}}}}
+      wallets {key, value}
     }
   }
 `

@@ -17,13 +17,11 @@ export class CharactersStats extends Component {
   render() {
     const {id, stats} = this.props.character
     return (
-      <Col sm={12} md={4} lg={2} className={"primaryColumn"}>
-        <Row className={"characterStats DnD"}>
+        <Row className={"characterStats"}>
           {stats.map(stat => {
             return this.buildStatDataPair(id, stat.key, stat.value, stat.key)
           })}
         </Row>
-      </Col>
     )
   }
 }

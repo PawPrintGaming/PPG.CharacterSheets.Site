@@ -50,7 +50,7 @@ $group-padding: 0.1em;
   }
   .skillProficiencies {
     .skillProficienyCol {
-      padding: 0;
+      padding: $group-padding;
       .skillProficiencyLabel {
         width: 100%;
         @extend %input-form-block;
@@ -75,6 +75,11 @@ $group-padding: 0.1em;
     }
     .textAreaWithScrollBar {
       @extend %with-scroll-bar;
+    }
+  }
+  .wealth {
+    .currencyCol {
+      padding: $group-padding;
     }
   }
 }

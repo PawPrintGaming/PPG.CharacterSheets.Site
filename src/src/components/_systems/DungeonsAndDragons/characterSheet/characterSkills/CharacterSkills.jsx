@@ -86,7 +86,6 @@ export class CharacterSkills extends Component {
     const savingThrowInfos = this.props.skillInfoSets.find(skillInfoSet => skillInfoSet.key === keys.skillSets.SAVINGTHROWS).value;
     const proficiencyBonus = getProficiencyBonus(metaData)
     return (
-      <Col sm={12} md={3} className={"characterBonusesAndSkills primaryColumn"}>
         <Row>
           <Col xs={5} sm={12} className={"characterBonuses"}>
             <Row className={"inspirationBlock"}>
@@ -123,7 +122,6 @@ export class CharacterSkills extends Component {
             }
           </Col>
         </Row>
-      </Col>
     )
   }
 }

@@ -42,3 +42,10 @@ export const skillNames = {
 export const statNames = {
   WISDOM: 'Wisdom'
 }
+
+export const wallet = {
+  PLATINUM: 'Platinum',
+  GOLD: 'Gold',
+  SILVER: 'Silver',
+  COPPER: 'Copper'
+}

@@ -3,6 +3,7 @@ export const STATION = 'Station';
 export const DESTINYSTEPSFULFILLED = 'DestinyStepsFulfilled';
 export const CURRENTWOUNDS = 'CurrentWounds';
 export const HEIGHT = 'Height';
+export const CHARACTERNAME = 'CharacterName';
 
 export const skillNames = {
   EVADE: 'Evade',
@@ -16,4 +17,8 @@ export const statNames = {
   TENACITY: 'Tenancity',
   RESILIENECE: 'Resilience',
   CUNNING: 'Cunning'
+};
+
+export const wallets = {
+  GUILDSCRIP: 'GuildScrip'  
 };

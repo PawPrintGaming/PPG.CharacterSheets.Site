@@ -4,6 +4,7 @@ import updateCharacterPropertyMutation from '../../graphql/mutations/updateChara
 import updateCharacterStatMutation from '../../graphql/mutations/updateCharacterStatMutation';
 import updateCharacterMetaDataMutation from '../../graphql/mutations/updateCharacterMetaDataMutation';
 import upsertCharacterSkillMutation from '../../graphql/mutations/upsertCharacterSkillMutation';
+import upsertCharacterWalletMutation from '../../graphql/mutations/upsertCharacterWalletMutation';
 import {actionTypes} from 'redux-form';
 
 export const updateCharacterProperty = (characterId, key, value) => {
@@ -53,12 +54,21 @@ export const addCharacterSkill = (formKey, dispatch, characterId) => (formValues
 }
 
 export const updateCharacterSkill = (characterId, updatedSkill) => {
-  console.log(updatedSkill)
   var variables = {
     id: characterId,
     skill: updatedSkill
   };
   commitMutation(environment, {mutation: upsertCharacterSkillMutation, variables,
+    onError: error => console.log(error)
+  });
+}
+
+export const updateCharacterWallet = (characterId, key, value) => {
+  var variables = {
+    id: characterId,
+    update: {key: key, value: value}
+  };
+  commitMutation(environment, {mutation: upsertCharacterWalletMutation, variables,
     onError: error => console.log(error)
   });
 }

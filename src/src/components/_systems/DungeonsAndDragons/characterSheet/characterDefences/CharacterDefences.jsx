@@ -108,7 +108,7 @@ export class CharacterDefences extends Component {
     const {stats, skills, metaData} = character;
     const proficiencyBonus = getProficiencyBonus(metaData)
     return (
-      <Col sm={3} className={"primaryColumn"}>
+      <div>
         <Row className={"mx-0"}>
           <Col className={"characterDefences"}>
             <Row className={"topRow"}>
@@ -189,7 +189,7 @@ export class CharacterDefences extends Component {
             {this.renderPassivePerception(stats, skills, proficiencyBonus)}
           </Col>
         </Row>
-      </Col>
+      </div>
     )
   }
 }

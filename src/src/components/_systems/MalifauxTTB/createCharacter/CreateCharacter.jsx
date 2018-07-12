@@ -16,6 +16,7 @@ import SquareBackIcon from '@fortawesome/fontawesome-free-solid/faSquare';
 import RemoveNewSkillIcon from '@fortawesome/fontawesome-free-solid/faTimes';
 import AddNewTriggerIcon from '@fortawesome/fontawesome-free-solid/faLevelDownAlt';
 import SuitNames, {iconForSuit} from '../_suits/suits';
+import * as keys from '../metaDataKeys';
 
 class CreateCharacter extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class CreateCharacter extends Component {
             </Col>
           </FormGroup>
           <FormGroup row className={"multiCreateRow"}>
-            <Col sm={4} className={"createPair"}>
+            <Col sm={3} className={"createPair"}>
               <InputGroup>
                 <InputGroupAddon addonType={"prepend"}>Station</InputGroupAddon>
                 <Field name={"station"} component={"select"} className={"form-control"}>
@@ -49,7 +50,7 @@ class CreateCharacter extends Component {
                 </Field>
               </InputGroup>
             </Col>
-            <Col sm={4} className={"createPair"}>
+            <Col sm={3} className={"createPair"}>
               <InputGroup>
                 <InputGroupAddon addonType={"prepend"}>Starting Pursuit</InputGroupAddon>
                 <Field name={"startingPursuit"} component={"select"} className={"form-control"}>
@@ -58,10 +59,16 @@ class CreateCharacter extends Component {
                 </Field>
               </InputGroup>
             </Col>
-            <Col sm={4} className={"createPair"}>
+            <Col sm={3} className={"createPair"}>
               <InputGroup>
                 <InputGroupAddon addonType={"prepend"}>Height</InputGroupAddon>
                 <Field name={"height"} component={"input"} type={"number"} className={"form-control"} />
+              </InputGroup>
+            </Col>
+            <Col sm={3} className={"createPair"}>
+              <InputGroup>
+                <InputGroupAddon addonType={"prepend"}>Guild Scrip</InputGroupAddon>
+                <Field name={`wallets[${keys.wallets.GUILDSCRIP}]`} component={"input"} type={"number"} className={"form-control"} />
               </InputGroup>
             </Col>
           </FormGroup>

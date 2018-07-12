@@ -77,7 +77,7 @@ constructor(props) {
       const Element = this.props.staticElement;
       return (
         <Element id={this.state.guid} className={this.props.className} name={this.props.name}>
-          {this.state.text || this.props.placeholder}
+          {this.props.prefix}{this.props.formatter ? this.props.formatter(this.state.text || this.props.placeholder) : this.state.text || this.props.placeholder}
         </Element>
       )
     }
@@ -85,7 +85,7 @@ constructor(props) {
       const Element = this.props.staticElement;
       return (
         <Element id={this.state.guid} className={this.props.className} onClick={this.startEditing} name={this.props.name}>
-          {this.state.text || this.props.placeholder}
+          {this.props.prefix}{this.props.formatter ? this.props.formatter(this.state.text || this.props.placeholder) : this.state.text || this.props.placeholder}
         </Element>
       )
     }
@@ -101,7 +101,7 @@ constructor(props) {
           onBlur={this.finishEditing}
           className={this.props.activeClassName}
           placeholder={this.props.placeholder}
-          defaultValue={this.state.text}
+          defaultValue={this.props.formatter ? this.props.formatter(this.state.text) : this.state.text}
           onChange={this.textChanged}
           ref={"input"}
           type={this.props.inputType}
@@ -114,8 +114,8 @@ constructor(props) {
 
 InlineEdit.propTypes = {
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  prefix: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   change: PropTypes.func.isRequired,
-
   isDisabled: PropTypes.bool,
   staticElement: PropTypes.string,
   editingElement: PropTypes.string,
@@ -124,14 +124,17 @@ InlineEdit.propTypes = {
   placeholder: PropTypes.string,
   inputType: PropTypes.string,
   editing: PropTypes.bool,
-  name: PropTypes.string
+  name: PropTypes.string,
+  formatter: PropTypes.func
 }
 
 InlineEdit.defaultProps = {
   isDisabled: false,
   staticElement: "div",
   editingElement: "input",
-  inputType: "text"
+  inputType: "text",
+  prefix: '',
+  formatter: (value) => value
 }
 
 export default InlineEdit

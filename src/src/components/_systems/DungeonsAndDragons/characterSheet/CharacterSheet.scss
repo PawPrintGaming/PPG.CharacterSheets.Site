@@ -11,6 +11,8 @@ $modifier-border-radius: 2em;
   background-color: $background-colour;
   .primaryColumn {
     padding: 0 $sub-padding;
+    display: flex;
+    flex-direction: column;
   }
   .characterSummary {
     margin-bottom: 1em;
@@ -56,11 +58,12 @@ $modifier-border-radius: 2em;
   }
   .characterStats {
     @extend %backed-group;
+    flex-grow: 1;
     justify-content: space-around;
     .statDataPair {
+      height: fit-content;
       background: $block-value-background-colour;
       @extend %emphasised-block;
-      margin-bottom: $group-padding;
       @media (max-width: $mediaquery-small) {
         margin: ($group-padding/4);
       }
@@ -334,6 +337,15 @@ $modifier-border-radius: 2em;
         border-bottom-left-radius: $block-border-radius;
         border-bottom-right-radius: $block-border-radius;
         margin-bottom: 0;
+      }
+    }
+  }
+  .characterWallets {
+    @extend %backed-group;
+    .wallet {
+      @extend %derivedStat-block;
+      .title, .value {
+        background-color: $block-value-background-colour;
       }
     }
   }
