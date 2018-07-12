@@ -30,6 +30,7 @@ const buildMetaData = (values) => {
   metaData.push({key: keys.IDEALS, value: values[keys.IDEALS]})
   metaData.push({key: keys.BONDS, value: values[keys.BONDS]})
   metaData.push({key: keys.FLAWS, value: values[keys.FLAWS]})
+  metaData.push({key: keys.EXPERIENCE, value: '0'})
   return metaData;
 }
 

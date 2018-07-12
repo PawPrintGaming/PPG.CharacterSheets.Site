@@ -27,17 +27,20 @@ $modifier-border-radius: 2em;
         background: $block-value-background-colour;
         border-bottom: $block-border-width $block-border-style $block-border-colour;
       }
-    }
-    .summaryDataPair.Character.Name {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      .value {
-        font-size: 1.5em;
-        .editableIcon {
-          font-size: 0.4em;
-          top: 45%;
+      &.Character.Name {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .value {
+          font-size: 1.5em;
+          .editableIcon {
+            font-size: 0.4em;
+            top: 45%;
+          }
         }
+      }
+      & .Experience {
+        text-align: left;
       }
     }
     @media(min-width: $mediaquery-small){

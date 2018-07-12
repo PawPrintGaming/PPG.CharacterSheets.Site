@@ -106,6 +106,7 @@ constructor(props) {
           ref={"input"}
           type={this.props.inputType}
           name={this.props.name}
+          step={this.props.step}
         />
       )
     }
@@ -125,7 +126,8 @@ InlineEdit.propTypes = {
   inputType: PropTypes.string,
   editing: PropTypes.bool,
   name: PropTypes.string,
-  formatter: PropTypes.func
+  formatter: PropTypes.func,
+  step: PropTypes.number
 }
 
 InlineEdit.defaultProps = {
@@ -134,7 +136,8 @@ InlineEdit.defaultProps = {
   editingElement: "input",
   inputType: "text",
   prefix: '',
-  formatter: (value) => value
+  formatter: (value) => value,
+  step: 1
 }
 
 export default InlineEdit

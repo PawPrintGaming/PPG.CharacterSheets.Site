@@ -14,7 +14,7 @@ export class InlineTextEditor extends Component {
   }
   
   render() {
-    const {text, param, change, inputType, showEditable, editingElement, isDisabled, defaultValue, prefix, formatter} = this.props;
+    const {text, param, change, inputType, showEditable, editingElement, isDisabled, defaultValue, prefix, formatter, step} = this.props;
     return (
       <div className={`inline editable inlineTextEditor`}>
         <InlineEdit
@@ -28,6 +28,7 @@ export class InlineTextEditor extends Component {
           isDisabled={isDisabled}
           prefix={prefix}
           formatter={formatter}
+          step={step}
         />
         {this.renderEditableIcon(showEditable, param)}
       </div>
@@ -45,7 +46,8 @@ InlineTextEditor.propTypes = {
   editingElement: PropTypes.string,
   isDisabled: PropTypes.bool.isRequired,
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  formatter: PropTypes.func
+  formatter: PropTypes.func,
+  step: PropTypes.number
 }
 
 InlineTextEditor.defaultProps = {

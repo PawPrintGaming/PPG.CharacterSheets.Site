@@ -6,7 +6,6 @@ const query = graphql`
       id
       characterName
       ruleSet
-      experience
       stats {key, value}
       metaData {key, value}
       skills {name, rank, metaData {key, value {key, value {key, value}}}}

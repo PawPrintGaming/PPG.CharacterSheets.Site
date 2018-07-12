@@ -17,6 +17,7 @@ const buildMetaData = (values) => {
   metaData.push({key: keys.CURRENTPURSUIT, value: values.startingPursuit})
   metaData.push({key: keys.STATION, value: values.station})
   metaData.push({key: keys.HEIGHT, value: values.height})
+  metaData.push({key: keys.EXPERIENCE, value: '0'})
   return metaData;
 }
 
