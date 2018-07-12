@@ -14,7 +14,7 @@ export class InlineTextEditor extends Component {
   }
   
   render() {
-    const {text, param, change, inputType, showEditable, editingElement, isDisabled, defaultValue} = this.props;
+    const {text, param, change, inputType, showEditable, editingElement, isDisabled, defaultValue, prefix, formatter} = this.props;
     return (
       <div className={`inline editable inlineTextEditor`}>
         <InlineEdit
@@ -26,6 +26,8 @@ export class InlineTextEditor extends Component {
           inputType={inputType}
           editingElement={editingElement}
           isDisabled={isDisabled}
+          prefix={prefix}
+          formatter={formatter}
         />
         {this.renderEditableIcon(showEditable, param)}
       </div>
@@ -35,18 +37,21 @@ export class InlineTextEditor extends Component {
 
 InlineTextEditor.propTypes = {
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  prefix: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   change: PropTypes.func.isRequired,
   showEditable: PropTypes.bool.isRequired,
   inputType: PropTypes.string,
   param: PropTypes.string.isRequired,
   editingElement: PropTypes.string,
   isDisabled: PropTypes.bool.isRequired,
-  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  formatter: PropTypes.func
 }
 
 InlineTextEditor.defaultProps = {
   showEditable: true,
-  isDisabled: false
+  isDisabled: false,
+  prefix: ''
 }
 
 const mapStateToProps = (state, props) => {

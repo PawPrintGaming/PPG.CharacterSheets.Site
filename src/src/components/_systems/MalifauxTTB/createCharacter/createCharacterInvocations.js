@@ -40,6 +40,12 @@ const buildSkills = (skillsFromForm) => {
   return skillsForMutation;
 }
 
+const buildWallets = (wallets) => {
+  let walletsForMutation = [];
+  walletsForMutation.push({key: keys.wallets.GUILDSCRIP, value: wallets[keys.wallets.GUILDSCRIP]})
+  return walletsForMutation;
+}
+
 export const createCharacter = (history) => (values, dispatch) => {
   const variables = {
     character: {
@@ -47,7 +53,8 @@ export const createCharacter = (history) => (values, dispatch) => {
       ruleSet: 'MALIFAUX_TTB',
       stats: mapToStats(values.stats),
       metaData: buildMetaData(values),
-      skills: buildSkills(values.skills)
+      skills: buildSkills(values.skills),
+      wallets: buildWallets(values.wallets)
     }
   };
   commitMutation(environment, {mutation: createCharacterMutation, variables,

@@ -147,22 +147,50 @@ export class CreateCharacter extends Component {
         <Col xs={12} className={"input-group-text"}>Personal Characteristics</Col>
       </Row>
       <FormGroup row className={"personalCharacteristics"}>
-        <InputGroup>
-          <InputGroupAddon addonType={"prepend"}>Personality Traits</InputGroupAddon>
-          <Field name={keys.PERSONALITYTRAITS} component={"textarea"} className={"form-control textAreaWithScrollBar"} />
-        </InputGroup>
-        <InputGroup>
-          <InputGroupAddon addonType={"prepend"}>Ideals</InputGroupAddon>
-          <Field name={keys.IDEALS} component={"textarea"} className={"form-control textAreaWithScrollBar"} />
-        </InputGroup>
-        <InputGroup>
-          <InputGroupAddon addonType={"prepend"}>Bonds</InputGroupAddon>
-          <Field name={keys.BONDS} component={"textarea"} className={"form-control textAreaWithScrollBar"} />
-        </InputGroup>
-        <InputGroup>
-          <InputGroupAddon addonType={"prepend"}>Flaws</InputGroupAddon>
-          <Field name={keys.FLAWS} component={"textarea"} className={"form-control textAreaWithScrollBar"} />
-        </InputGroup>
+          <InputGroup>
+            <InputGroupAddon addonType={"prepend"}>Personality Traits</InputGroupAddon>
+            <Field name={keys.PERSONALITYTRAITS} component={"textarea"} className={"form-control textAreaWithScrollBar"} />
+          </InputGroup>
+          <InputGroup>
+            <InputGroupAddon addonType={"prepend"}>Ideals</InputGroupAddon>
+            <Field name={keys.IDEALS} component={"textarea"} className={"form-control textAreaWithScrollBar"} />
+          </InputGroup>
+          <InputGroup>
+            <InputGroupAddon addonType={"prepend"}>Bonds</InputGroupAddon>
+            <Field name={keys.BONDS} component={"textarea"} className={"form-control textAreaWithScrollBar"} />
+          </InputGroup>
+          <InputGroup>
+            <InputGroupAddon addonType={"prepend"}>Flaws</InputGroupAddon>
+            <Field name={keys.FLAWS} component={"textarea"} className={"form-control textAreaWithScrollBar"} />
+          </InputGroup>
+      </FormGroup>
+    </Col>
+  )
+
+  renderCurrencies = () => {
+    let currencies = [];
+    for(let key in keys.wallet) {
+      currencies.push(
+        <Col xs={6} sm={3} key={key} className={"currencyCol"}>
+          <InputGroup>
+            <InputGroupAddon addonType={"prepend"}>{keys.wallet[key]}</InputGroupAddon>
+            <Field name={`wallet[${key}]`} component={"input"} type={"number"} className={"form-control"} />
+          </InputGroup>
+        </Col>
+      )
+    }
+    return currencies;
+  }
+
+  wealth = () => (
+    <Col className={"px-0"}>
+      <Row>
+        <Col xs={12} className={"input-group-text"}>Wealth</Col>
+      </Row>
+      <FormGroup row className={"wealth"}>
+        {
+          this.renderCurrencies()
+        }
       </FormGroup>
     </Col>
   )
@@ -197,6 +225,7 @@ export class CreateCharacter extends Component {
                 {this.skillsBlock(skillInfoSet)}
                 {this.savingThrowsBlock(savingThrowInfos)}
                 {this.personalCharacteristics()}
+                {this.wealth()}
                 <FormGroup row className={"submit"}>
                   <Button type={"submit"} disabled={pristine || submitting} onSubmit={() => { return false }}>
                     Create

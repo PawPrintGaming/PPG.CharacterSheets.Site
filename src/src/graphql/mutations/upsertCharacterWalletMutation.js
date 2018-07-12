@@ -1,8 +1,8 @@
 import {graphql} from 'relay-runtime';
 
 const mutation = graphql`
-  mutation updateCharacterStatMutation($id: ID!, $update: IntInputMap!) {
-    updateCharacterStat(id: $id, update: $update) {
+  mutation upsertCharacterWalletMutation($id: ID!, $update: StringInputMap!) {
+    upsertCharacterWallet(id: $id, update: $update) {
       id
       characterName
       ruleSet

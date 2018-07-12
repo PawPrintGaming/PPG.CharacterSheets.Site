@@ -23,7 +23,6 @@ export class CharacterPersonalCharacteristics extends Component {
     const {character, onUpdateCharacteristic} = this.props;
     const {metaData} = character;
     return (
-      <Col sm ={4} className={"primaryColumn"}>
         <Row className={"mx-0"}>
           <Col className={"characterPersonalCharacteristics"}>
             {this.renderCharacteristicWithEditor(keys.PERSONALITYTRAITS, 'Personality Traits', metaData, onUpdateCharacteristic, 'first')}
@@ -32,7 +31,6 @@ export class CharacterPersonalCharacteristics extends Component {
             {this.renderCharacteristicWithEditor(keys.FLAWS, 'Flaws', metaData, onUpdateCharacteristic, 'last')}
           </Col>
         </Row>
-      </Col>
     )
   }
 }

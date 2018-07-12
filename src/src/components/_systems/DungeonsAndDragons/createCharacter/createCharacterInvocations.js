@@ -22,6 +22,7 @@ const buildMetaData = (values) => {
   metaData.push({key: keys.hp.MAXHP, value: values.maxHP})
   metaData.push({key: keys.hp.CURRENTHP, value: values.maxHP})
   metaData.push({key: keys.hp.HITDICEVALUE, value: values.hitDiceValue})
+  metaData.push({key: keys.hp.CURRENTNUMBEROFHITDICE, value: '1'})
   metaData.push({key: keys.hp.MAXNUMBEROFHITDICE, value: '1'})
   metaData.push({key: keys.deathSaves.SUCCESSES, value: '0'})
   metaData.push({key: keys.deathSaves.FAILURES, value: '0'})
@@ -49,6 +50,14 @@ const buildSkills = (skillsFromForm) => {
   return skillsForMutation;
 }
 
+const buildWallets = (walletValues) => {
+  let walletsForMutation = [];
+  for(let key in keys.wallet) {
+    walletsForMutation.push({key: keys.wallet[key], value: walletValues[key]})
+  }
+  return walletsForMutation;
+}
+
 export const createCharacter = (history) => (values, dispatch) => {
   const variables = {
     character: {
@@ -56,7 +65,8 @@ export const createCharacter = (history) => (values, dispatch) => {
       ruleSet: 'DUNGEONSAND_DRAGONS',
       stats: mapToStats(values.stats),
       metaData: buildMetaData(values),
-      skills: buildSkills(values.skills)
+      skills: buildSkills(values.skills),
+      wallets: buildWallets(values.wallet)
     }
   }
   commitMutation(environment, {mutation: createCharacterMutation, variables,
