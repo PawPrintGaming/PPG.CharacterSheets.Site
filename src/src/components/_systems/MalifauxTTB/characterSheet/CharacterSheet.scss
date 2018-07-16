@@ -228,6 +228,34 @@ $edit-width: 100%;
       }
     }
   }
+  .characterPursuitsAndTalents {
+    margin-top: 1em;
+    .pursuitsHeader {
+      @extend %block-name;
+      margin: 0;
+      padding: 0 1em;
+      font-size: 150%;
+    }
+    .pursuit {
+      margin-top: 0.5em;
+      .name {
+        @extend %block-name;
+        padding: 0 2em;
+      }
+      .pursuitHeader {
+        @extend %block-name;
+      }
+      .pursuitValue {
+        @extend %block-value;
+      }
+      .ventureTalent {
+        text-align: left;
+      }
+      .description {
+        text-align: justify;
+      }
+    }
+  }
 }
 .addSkillModalMalifaux {
   .input-group {
