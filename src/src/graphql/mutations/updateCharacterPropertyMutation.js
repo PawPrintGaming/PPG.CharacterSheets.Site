@@ -4,13 +4,7 @@ const mutation = graphql`
   mutation updateCharacterPropertyMutation($id: ID!, $update: StringInputMap!)
   {
     updateCharacterProperty(id: $id, update: $update) {
-      id
-      characterName
-      ruleSet
-      stats {key, value}
-      metaData {key, value}
-      skills {name, rank, metaData {key, value {key, value {key, value}}}}
-      wallets {key, value}
+      ...characterSummaryFragment @relay(mask: false)
     }
   }
 `

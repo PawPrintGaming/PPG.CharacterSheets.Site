@@ -41,6 +41,54 @@ const buildSkills = (skillsFromForm) => {
   return skillsForMutation;
 }
 
+const buildClasses = (pursuitsFromForm) => {
+  let pursuitsForMutation = [];
+  for(let index in pursuitsFromForm) {
+    const pursuit = pursuitsFromForm[index];
+    if(pursuit) {
+      pursuitsForMutation.push({name: pursuit.name, rank: pursuit.rank, metaData: []})
+    }
+  }
+  return pursuitsForMutation;
+}
+
+const buildPursuitAbilityMetaData = (pursuitName) => {
+  let metaData = []
+  metaData.push({key: keys.talents.RELATEDPURSUIT, value: pursuitName})
+  return metaData;
+}
+
+const withVentureMetaData = (metaData) => {
+  metaData.push({key: keys.talents.VENTURETALENT, value: `${true}`})
+  return metaData;
+}
+
+const buildPursuitAbilities = (pursuitsFromForm) => {
+  let pursuitTalents = [];
+  for(let pursuitIndex in pursuitsFromForm)
+  {
+    const pursuit = pursuitsFromForm[pursuitIndex];
+    if(pursuit) {
+      if (pursuit.ventureName) {
+        pursuitTalents.push({name: pursuit.ventureName, description: pursuit.ventureDescription, metaData: withVentureMetaData(buildPursuitAbilityMetaData(pursuit.name))})
+      }
+      for(let talentIndex in pursuit.talents) {
+        const talent = pursuit.talents[talentIndex];
+        if(talent){
+          pursuitTalents.push({name: talent.name, description: talent.description, metaData: buildPursuitAbilityMetaData(pursuit.name)});
+        }
+      }
+    }
+  }
+  return pursuitTalents;
+}
+
+const buildAbilities = (pursuitsFromForm) => {
+  return [
+    ...buildPursuitAbilities(pursuitsFromForm)
+  ]
+}
+
 const buildWallets = (wallets) => {
   let walletsForMutation = [];
   walletsForMutation.push({key: keys.wallets.GUILDSCRIP, value: wallets[keys.wallets.GUILDSCRIP]})
@@ -55,7 +103,9 @@ export const createCharacter = (history) => (values, dispatch) => {
       stats: mapToStats(values.stats),
       metaData: buildMetaData(values),
       skills: buildSkills(values.skills),
-      wallets: buildWallets(values.wallets)
+      wallets: buildWallets(values.wallets),
+      classes: buildClasses(values.pursuits),
+      abilities: buildAbilities(values.pursuits)
     }
   };
   commitMutation(environment, {mutation: createCharacterMutation, variables,

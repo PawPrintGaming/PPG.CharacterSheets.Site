@@ -67,7 +67,8 @@ export const createCharacter = (history) => (values, dispatch) => {
       stats: mapToStats(values.stats),
       metaData: buildMetaData(values),
       skills: buildSkills(values.skills),
-      wallets: buildWallets(values.wallet)
+      wallets: buildWallets(values.wallet),
+      classes: [] //TODO
     }
   }
   commitMutation(environment, {mutation: createCharacterMutation, variables,

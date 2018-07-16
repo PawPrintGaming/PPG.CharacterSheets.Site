@@ -23,3 +23,8 @@ export const statNames = {
 export const wallets = {
   GUILDSCRIP: 'GuildScrip'  
 };
+
+export const talents = {
+  VENTURETALENT: 'VentureTalent',
+  RELATEDPURSUIT: 'RelatedPursuit'
+}

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Col, Row} from 'reactstrap';
-import {groupStats} from '../../statUtils';
+import {groupStats} from '../../statAndSkillUtils';
 import BlockHeader from '../blockHeader/BlockHeader';
 import InlineTextEditor from '../../../../inlineEditors/textEditors/InlineTextEditor';
 import {updateCharacterStat} from '../../../../characterSheet/updateCharacterSheetInvocations';
